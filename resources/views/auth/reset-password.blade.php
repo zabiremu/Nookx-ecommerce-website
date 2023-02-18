@@ -61,7 +61,7 @@
 
 <body>
     <!-- wrapper -->
-    <div class="wrapper">
+    <div class="wrapper mt-5" style="margin-top: 100px">
         <div class="authentication-reset-password d-flex align-items-center justify-content-center">
             <div class="row">
                 <div class="col-12 col-lg-10 mx-auto">
