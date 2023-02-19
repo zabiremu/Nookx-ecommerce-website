@@ -14,7 +14,6 @@ Route::middleware('auth')->group(function () {
 });
 
 // backend controller start
-
 // dashboard controller
 Route::controller(DashboardController::class)->group(function () {
     Route::get('/dashboard', 'create')->name('dashboard');
@@ -33,17 +32,19 @@ Route::controller(AdminProfileController::class)->group(function () {
 
 })->middleware(['auth', 'verified']);
 // profile controller end
-
 // backend controller end
 
-// frontend controller start
+// google login end
+Route::get('/google/login',[ProfileController::class,'login'])->name('google.login');
+Route::get('/google/redriect',[ProfileController::class,'redriect'])->name('google.redriect');
+// google login end
 
+// frontend controller start
 // Home Page Controller Start
 Route::controller(HomePageController::class)->group(function () {
     Route::get('/', 'create')->name('home.create');
 });
 // Home Page Controller End
-
 // fortend controller end
 
 require __DIR__ . '/auth.php';

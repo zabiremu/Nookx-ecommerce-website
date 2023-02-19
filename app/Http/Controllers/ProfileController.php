@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
+use App\Models\User;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
+use Laravel\Socialite\Facades\Socialite;
+use App\Http\Requests\ProfileUpdateRequest;
 
 class ProfileController extends Controller
 {
@@ -57,4 +60,29 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    // google login start
+    public function login()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+    public function redriect()
+    {
+        $user = Socialite::driver('google')
+            ->stateless()
+            ->user();
+        $newUser = User::updateOrCreate(
+            [
+                'email' => $user->email,
+            ],
+            [
+                'name' => $user->name,
+                'email' => $user->email,
+                'password' => Hash::make(uniqid('')),
+            ],
+        );
+        Auth::login($newUser);
+        return redirect('dashboard');
+    }
+    // google login end
 }
