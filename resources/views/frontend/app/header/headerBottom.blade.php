@@ -113,16 +113,12 @@
                             <li>
                                 <a href="#">Pages <i class="fi-rs-angle-down"></i></a>
                                 <ul class="has-submenu">
-                                    <li><a href="{{ route('create.account') }}">My Account</a></li>
-                                    <li><a href="{{ route('profile.create') }}">Profile</a></li>
+                                    <li><a href="{{ route('create.account') }}">Become a seller </a></li>
+                                    <li><a href="{{ route('create.account') }}">My Profile</a></li>
                                     <li><a href="{{ route('odrer.create') }}">Orders</a></li>
-                                    <li><a href="{{ route('address.create') }}">Address Book </a></li>
-                                    <li><a href="{{ route('wisih.create') }}">Wishlist</a></li>
-                                    <li><a href="{{ route('vendor.create') }}">Vendor</a></li>
                                     <li><a href="{{ route('cart.create') }}">Cart</a></li>
-                                    <li><a href="{{ route('check.out.create') }}">Checkout</a></li>
-                                    <li><a href="{{ route('error.400.create') }}">Error404</a></li>
-                                    <li><a href="{{ route('error.500.create') }}">Error500</a></li>
+                                    <li><a href="{{ route('wisih.create') }}">Wishlist</a></li>
+                                    <li><a href="{{ route('check.out.create') }}" style="color: red">Logout</a></li>
                                 </ul>
                             </li>
                         </ul>
