@@ -16,51 +16,51 @@
                                 <a class="active" href="#">All Medicines <i
                                         class="fi-rs-angle-down"></i></a>
                                 <ul class="has-submenu">
-                                    <li><a href="view-product.html">COVID Medicines</a></li>
-                                    <li><a href="view-product.html">Ayrvedic Medicines</a></li>
-                                    <li><a href="view-product.html">Health Equipments</a></li>
-                                    <li><a href="view-product.html">Personal Care</a></li>
-                                    <li><a href="view-product.html">Fitness Suppliments</a></li>
-                                    <li><a href="view-product.html">Childcare</a></li>
+                                    <li><a href="{{ route('product.details.create') }}">COVID Medicines</a></li>
+                                    <li><a href="{{ route('product.details.create') }}">Ayrvedic Medicines</a></li>
+                                    <li><a href="{{ route('product.details.create') }}">Health Equipments</a></li>
+                                    <li><a href="{{ route('product.details.create') }}">Personal Care</a></li>
+                                    <li><a href="{{ route('product.details.create') }}">Fitness Suppliments</a></li>
+                                    <li><a href="{{ route('product.details.create') }}l">Childcare</a></li>
                                 </ul>
                             </li>
                             <li>
                                 <a href="#">COVID Medicines <i class="fi-rs-angle-down"></i></a>
                                 <ul class="has-submenu">
-                                    <li><a href="view-product.html">Stimulants</a></li>
-                                    <li><a href="view-product.html">Opoids</a></li>
-                                    <li><a href="view-product.html">Antibiotics</a></li>
+                                    <li><a href="{{ route('product.details.create') }}">Stimulants</a></li>
+                                    <li><a href="{{ route('product.details.create') }}">Opoids</a></li>
+                                    <li><a href="{{ route('product.details.create') }}">Antibiotics</a></li>
                                 </ul>
                             </li>
                             <li>
                                 <a href="#">Ayrvedic Medicines <i class="fi-rs-angle-down"></i></a>
                                 <ul class="has-submenu">
-                                    <li><a href="view-product.html">Calcitonin</a></li>
-                                    <li><a href="view-product.html">Echinocandins</a></li>
-                                    <li><a href="view-product.html">Handicraft</a></li>
-                                    <li><a href="view-product.html">Suppositories</a></li>
+                                    <li><a href="{{ route('product.details.create') }}">Calcitonin</a></li>
+                                    <li><a href="{{ route('product.details.create') }}">Echinocandins</a></li>
+                                    <li><a href="{{ route('product.details.create') }}">Handicraft</a></li>
+                                    <li><a href="{{ route('product.details.create') }}">Suppositories</a></li>
                                 </ul>
                             </li>
                             <li>
                                 <a href="#">Health Equipments <i class="fi-rs-angle-down"></i></a>
                                 <ul class="has-submenu">
-                                    <li><a href="view-product.html">Medical Supplies</a></li>
-                                    <li><a href="view-product.html">Pulse Oximeters</a></li>
-                                    <li><a href="view-product.html">Examination Gloves</a></li>
-                                    <li><a href="view-product.html">Baby Care</a></li>
-                                    <li><a href="view-product.html">Respiratory</a></li>
-                                    <li><a href="view-product.html">Medical Equipment</a></li>
+                                    <li><a href="{{ route('product.details.create') }}">Medical Supplies</a></li>
+                                    <li><a href="{{ route('product.details.create') }}">Pulse Oximeters</a></li>
+                                    <li><a href="{{ route('product.details.create') }}">Examination Gloves</a></li>
+                                    <li><a href="{{ route('product.details.create') }}">Baby Care</a></li>
+                                    <li><a href="{{ route('product.details.create') }}">Respiratory</a></li>
+                                    <li><a href="{{ route('product.details.create') }}">Medical Equipment</a></li>
                                 </ul>
                             </li>
                             <li>
                                 <a href="#">Personal Care <i class="fi-rs-angle-down"></i></a>
                                 <ul class="has-submenu">
-                                    <li><a href="view-product.html"> Digital Glucose Meter</a></li>
-                                    <li><a href="view-product.html">Digital Thermometer</a></li>
-                                    <li><a href="view-product.html">Cotton Mask</a></li>
-                                    <li><a href="view-product.html">Kids Thermometer</a></li>
-                                    <li><a href="view-product.html">Face Mask</a></li>
-                                    <li><a href="view-product.html">Digital Meter</a></li>
+                                    <li><a href="{{ route('product.details.create') }}"> Digital Glucose Meter</a></li>
+                                    <li><a href="{{ route('product.details.create') }}">Digital Thermometer</a></li>
+                                    <li><a href="{{ route('product.details.create') }}">Cotton Mask</a></li>
+                                    <li><a href="{{ route('product.details.create') }}">Kids Thermometer</a></li>
+                                    <li><a href="{{ route('product.details.create') }}">Face Mask</a></li>
+                                    <li><a href="{{ route('product.details.create') }}">Digital Meter</a></li>
                                 </ul>
                             </li>
                             <li class="position-static">
@@ -83,29 +83,29 @@
                                         </div>
                                     </li>
                                     <li class="sub-mega-menu sub-mega-menu-one">
-                                        <a class="menu-title" href="#">Shop Layouts</a>
+                                        <a class="menu-title">Shop Layouts</a>
                                         <ul class="dropdown">
-                                            <li><a href="shop-grid.html">Shop Grid</a></li>
-                                            <li><a href="shop-list.html">Shop List</a></li>
-                                            <li><a href="shop-grid-left.html">Shop Left Sidebar</a></li>
-                                            <li><a href="shop-grid-right.html">Shop Right Sidebar</a></li>
+                                            <li><a href="{{ route('shop.grid.create') }}">Shop Grid</a></li>
+                                            <li><a href="{{ route('shop.list.create') }}">Shop List</a></li>
+                                            <li><a href="{{ route('shop.left.list.create') }}">Shop Left Sidebar</a></li>
+                                            <li><a href="{{ route('shop.right.list.create') }}">Shop Right Sidebar</a></li>
                                         </ul>
                                     </li>
                                     <li class="sub-mega-menu sub-mega-menu-one">
                                         <a class="menu-title" href="#">Product Layouts</a>
                                         <ul>
-                                            <li><a href="view-product.html">View Product</a></li>
-                                            <li><a href="product-left-sidebar.html">Product Left Sidebar</a>
+                                            <li><a href="{{ route('product.details.create') }}">View Product</a></li>
+                                            <li><a href="{{ route('shop.left.details.create') }}">Product Left Sidebar</a>
                                             </li>
-                                            <li><a href="product-right-sidebar.html">Product Right Sidebar</a>
+                                            <li><a href="{{ route('shop.right.details.create') }}">Product Right Sidebar</a>
                                             </li>
                                         </ul>
                                     </li>
                                     <li class="sub-mega-menu sub-mega-menu-one">
                                         <a class="menu-title" href="#">Product Type</a>
                                         <ul>
-                                            <li><a href="store-listing.html">Store Listing</a></li>
-                                            <li><a href="store-single.html">Store Single</a></li>
+                                            <li><a href="{{ route('store.listing.create') }}">Store Listing</a></li>
+                                            <li><a href="{{ route('store.single.create') }}">Store Single</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -113,16 +113,16 @@
                             <li>
                                 <a href="#">Pages <i class="fi-rs-angle-down"></i></a>
                                 <ul class="has-submenu">
-                                    <li><a href="account.html">My Account</a></li>
-                                    <li><a href="profile.html">Profile</a></li>
-                                    <li><a href="orders.html">Orders</a></li>
-                                    <li><a href="address-book.html">Address Book </a></li>
-                                    <li><a href="wishlist.html">Wishlist</a></li>
-                                    <li><a href="vendor.html">Vendor</a></li>
-                                    <li><a href="cart.html">Cart</a></li>
-                                    <li><a href="checkout.html">Checkout</a></li>
-                                    <li><a href="error-404.html">Error404</a></li>
-                                    <li><a href="error-500.html">Error500</a></li>
+                                    <li><a href="{{ route('create.account') }}">My Account</a></li>
+                                    <li><a href="{{ route('profile.create') }}">Profile</a></li>
+                                    <li><a href="{{ route('odrer.create') }}">Orders</a></li>
+                                    <li><a href="{{ route('address.create') }}">Address Book </a></li>
+                                    <li><a href="{{ route('wisih.create') }}">Wishlist</a></li>
+                                    <li><a href="{{ route('vendor.create') }}">Vendor</a></li>
+                                    <li><a href="{{ route('cart.create') }}">Cart</a></li>
+                                    <li><a href="{{ route('check.out.create') }}">Checkout</a></li>
+                                    <li><a href="{{ route('error.400.create') }}">Error404</a></li>
+                                    <li><a href="{{ route('error.500.create') }}">Error500</a></li>
                                 </ul>
                             </li>
                         </ul>
