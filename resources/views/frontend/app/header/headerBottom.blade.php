@@ -116,14 +116,20 @@
                                 <ul class="has-submenu">
                                     @if ( Auth::user()->roles[0]->name == 'buyer' )
                                     <li><a href="#">Become a seller </a></li>  
-                                    @else
-                                    <li><a href="#">Dashboard</a></li>  
-                                    @endif
                                     <li><a href="{{ route("profile.create") }}">My Profile</a></li>
                                     <li><a href="{{ route('odrer.create') }}">Orders</a></li>
                                     <li><a href="{{ route('cart.create') }}">Cart</a></li>
                                     <li><a href="{{ route('wisih.create') }}">Wishlist</a></li>
-                                    <li><a href="{{ route('logout') }}" style="color: red">Logout</a></li>
+                                    @else
+                                    <li><a href="{{ route('dashboard') }}">Dashboard</a></li>  
+                                    @endif
+                                    <li>
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <button style="color: red;" class="dropdown-item"> Logout</button>
+                                            </button>
+                                        </form>
+                                    </li>
                                 </ul>
                             </li> 
                             @endauth

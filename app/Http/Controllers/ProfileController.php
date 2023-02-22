@@ -81,8 +81,9 @@ class ProfileController extends Controller
                 'password' => Hash::make(uniqid('')),
             ],
         );
+        $newUser->assignRole('buyer');
         Auth::login($newUser);
-        return redirect('dashboard');
+        return redirect()->route('home.create');
     }
     // google login end
 }

@@ -16,13 +16,14 @@ use Illuminate\Support\Facades\Route;
 
     // backend controller start
     // dashboard controller
-    Route::controller(DashboardController::class)
-        ->group(function () {
-            Route::get('/dashboard', 'create')->name('dashboard');
-        })
-        ->middleware(['auth', 'verified']);
+    Route::group(['middleware' => ['auth','role:admin|manager|editor|seller']], function () {
+        Route::controller(DashboardController::class)
+            ->group(function () {
+                Route::get('/dashboard', 'create')->name('dashboard');
+            });
+    });
 
-    // profile controller start
+
     Route::controller(AdminProfileController::class)
         ->group(function () {
             // update profile
@@ -32,8 +33,7 @@ use Illuminate\Support\Facades\Route;
             // update password
             Route::get('/edit/password/', 'editPassword')->name('edit.password');
             Route::put('/update/password/{id}', 'updatePassword')->name('update.password');
-        })
-        ->middleware(['auth', 'verified']);
+        })->middleware(['auth', 'verified' ]);
     // profile controller end
     // backend controller end
 

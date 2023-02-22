@@ -87,10 +87,10 @@
                             <form method="post" action="{{ route('users.update', $user) }}" enctype="multipart/form-data">
                                 @csrf
                                 @method('put')
-                                <div class="col-lg-6 mb-1">
+                                <div class="col-lg-6">
                                     <label style="width: 9rem; height:9rem;"  for="imagefile">
                                         Profile Image<span class="text-danger">*</span>
-                                        <img id="liveImage" style="border:1px solid rgb(20, 159, 82); border-radius:50%;" src="{{ asset('images/image_placeholder.png') }}" alt="">
+                                        <img class="mt-1" id="liveImage" style=" height:100%; width:100%; border:2px solid rgb(20, 159, 82); border-radius:50%;" src="{{ asset('images/image_placeholder.png') }}" alt="">
                                         <input type="file" id="imagefile" style="visibility: hidden;" name="image" >
                                     </label>
                                     @error('image')
@@ -109,7 +109,7 @@
                                 </div>
                             </div>
                             <div class="billing-detail-blk">
-                                    <div class="row">
+                                    <div class="row mt-1">
                                         <div class="form-group col-lg-6">
                                             <label>Name <span class="text-danger">*</span></label>
                                             <input type="text" name="name" value="{{ $user->name }}" placeholder="Type your name">
@@ -147,7 +147,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-lg-6">
-                                            <label>Phone  </label>
+                                            <label>Phone<span class="text-danger">*</span> </label>
                                             <input type="phone" placeholder="Type phone number" name="phone" >
                                             @error('phone')
                                             <div class="alert alert-danger border-0 bg-danger alert-dismissible fade show py-2">
@@ -164,7 +164,7 @@
                                             @enderror
                                         </div>
                                         <div class="form-group col-lg-6">
-                                            <label>Address </label>
+                                            <label>Address<span class="text-danger">*</span> </label>
                                             <input type="text" value="{{ $user->address }}" placeholder="Type your address" name="address" >
                                             @error('address')
                                             <div class="alert alert-danger border-0 bg-danger alert-dismissible fade show py-2">
@@ -195,14 +195,4 @@
 @endsection
 
 {{-- Profile image auto change script --}}
-<script>
-    let inputImg = document.querySelector('#imagefile')
-    let image = document.querySelector('#liveImage')
-    let changeImage = (e) => {
-        let url = URL.createObjectURL(e.target.files[0])
-        image.src = url
-        console.log(image)
-    }
-    inputImg.addEventListener('change', changeImage)
 
-</script>

@@ -30,12 +30,6 @@ class FrontendController extends Controller
     }
 
 
-
-
-
-
-
-
     //image url generator
     private function imgNameGenator($email, $ext)
     {

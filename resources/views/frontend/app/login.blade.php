@@ -56,6 +56,12 @@
                     <div class="d-grid login-pharmacy mb-25">
                         <button class="btn btn-primary btn-start">Sign In</button>
                     </div>
+                    <div class="d-grid login-pharmacy mb-25">
+                        <div class="row col-lg-12">
+                            <a href="#" class="btn btn-primary col-lg-4">Sing In with Google</a>
+
+                        </div>
+                    </div>
                     <div class="create-account create-sign">
                         <p>Don't have an account? <a href="javascript:;" class="popup-toggle1">Create one</a>
                         </p>
