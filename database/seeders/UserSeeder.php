@@ -17,12 +17,23 @@ class UserSeeder extends Seeder
     public function run()
     {
 
+<<<<<<< HEAD
         //Dummy admin 
+=======
+        $user = new User();
+        $user->name = 'admin';
+        $user->email = 'admin@admin.com';
+        $user->password = Hash::make('password');
+        $user->save();
+        $user->assignRole('admin');;
+
+>>>>>>> 3ccbfa2d3d066a269e9837286110e31a44c999cb
         $user = new User();
         $user->name = 'Md Admin';
         $user->email = 'admin@gmail.com';
         $user->password = Hash::make('12345678');
         $user->save();
+<<<<<<< HEAD
         $user->assignRole('admin');
         
         //Dummy manager 
@@ -59,6 +70,8 @@ class UserSeeder extends Seeder
         $user->email = 'buyer@gmail.com';
         $user->password = Hash::make('12345678');
         $user->save();
+=======
+>>>>>>> 3ccbfa2d3d066a269e9837286110e31a44c999cb
         $user->assignRole('buyer');
     }
 }
