@@ -17,6 +17,9 @@
                             class='bx bx-x'></i></span>
                 </div>
             </div>
+            <span>
+                <a class="btn btn-sm btn-outline-primary" target="_blank" href="{{ route('home.create') }}">View Website</a>
+            </span>
             <div class="top-menu ms-auto">
                 <ul class="navbar-nav align-items-center">
                     <li class="nav-item mobile-search-icon">

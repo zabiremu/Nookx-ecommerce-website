@@ -12,22 +12,49 @@
             </div>
             <div class="login-group">
                 <h5>Login</h5>
-                <form action="account.html">
+                <form action="{{ route('login') }}" method="POST">
+                    @csrf
                     <div class="form-group">
-                        <input type="email" class="form-control" placeholder="Enter your email address">
+                        <input type="email" name="email" class="form-control" placeholder="Enter your email address">
+                        @error('email')
+                        <div class="alert alert-danger border-0 bg-danger alert-dismissible fade show py-2">
+                            <div class="d-flex align-items-center">
+                                <div class="font-35 text-white"><i class="bx bxs-message-square-x"></i>
+                                </div>
+                                <div class="ms-3">
+                                    <h6 class="mb-0 text-white">Error</h6>
+                                    <div class="text-white">{{ $message }}</div>
+                                </div>
+                            </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <div class="pass-group">
-                            <input type="password" class="form-control pass-input"
+                            <input type="password" name="password" class="form-control pass-input"
                                 placeholder="Enter your password">
                             <span class="feather-eye toggle-password"></span>
+                            @error('password')
+                            <div class="alert alert-danger border-0 bg-danger alert-dismissible fade show py-2">
+                                <div class="d-flex align-items-center">
+                                    <div class="font-35 text-white"><i class="bx bxs-message-square-x"></i>
+                                    </div>
+                                    <div class="ms-3">
+                                        <h6 class="mb-0 text-white">Error</h6>
+                                        <div class="text-white">{{ $message }}</div>
+                                    </div>
+                                </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            @enderror
                         </div>
                     </div>
                     <div class="forgot-pass">
                         <a class="forgot-link popup-toggle2" href="javascript:;">Forgot Password ?</a>
                     </div>
                     <div class="d-grid login-pharmacy mb-25">
-                        <button class="btn btn-primary btn-start" type="submit">Sign In</button>
+                        <button class="btn btn-primary btn-start">Sign In</button>
                     </div>
                     <div class="create-account create-sign">
                         <p>Don't have an account? <a href="javascript:;" class="popup-toggle1">Create one</a>

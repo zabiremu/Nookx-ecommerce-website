@@ -17,7 +17,13 @@
             <div class="col-xl-4 col-lg-6">
                 <div class="header-left">
                     <ul>
-                        <li><a class="popup-toggle"><i class="feather-user"></i>Login / Register</a></li>
+                        <li>
+                            @if (Auth::check())
+                            <a class="popup-toggle"><img style="height: 30px; width:30px;" class="rounded-circle" src="{{ Auth::user()->image == null ? 'https://api.dicebear.com/5.x/initials/svg?seed=Felix' : Auth::user()->image }}
+                                " alt="Profile Image"></a></li>
+                            @else
+                                <a class="popup-toggle"><i class="feather-user"></i>Login / Register</a></li>
+                            @endif
                         <li>
                             <a class="language-dropdown-active" href="#"><img
                                     src="{{ asset('frontend/assets/img/icons/flag-icon.svg') }}" alt=""

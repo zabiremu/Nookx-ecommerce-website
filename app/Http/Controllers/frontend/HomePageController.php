@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomePageController extends Controller
 {
@@ -68,8 +70,10 @@ class HomePageController extends Controller
     }
     // profile page
     public function createProfilePage()
-    {
-        return view('frontend.profile');
+    {   
+        $id = Auth::user()->id;
+        $user = User::with('roles')->find($id);
+        return view('frontend.profile', compact('user'));
     }
     // order page
     public function createOdrerPage()
