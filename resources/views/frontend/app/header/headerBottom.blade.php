@@ -114,8 +114,10 @@
                             <li>
                                 <a href="#">Profile <i class="fi-rs-angle-down"></i></a>
                                 <ul class="has-submenu">
-                                    @if ( $user->roles[0]->name == 'buyer' )
+                                    @if ( Auth::user()->roles[0]->name == 'buyer' )
                                     <li><a href="#">Become a seller </a></li>  
+                                    @else
+                                    <li><a href="#">Dashboard</a></li>  
                                     @endif
                                     <li><a href="{{ route("profile.create") }}">My Profile</a></li>
                                     <li><a href="{{ route('odrer.create') }}">Orders</a></li>
