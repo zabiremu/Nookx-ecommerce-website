@@ -149,7 +149,7 @@
                                             </div>
                                             <div class="col-12">
                                                 <div class="d-grid">
-                                                    <button class="btn btn-primary"><i
+                                                    <button type="submit" class="btn btn-primary"><i
                                                             class='bx bx-user'></i>Sign up</button>
                                                 </div>
                                             </div>

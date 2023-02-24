@@ -44,8 +44,22 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::login($user);
+        Auth::login($user->assignRole('buyer'));
+        if(Auth::user()->getRoleNames()->first() == 'admin'){
 
-        return redirect(RouteServiceProvider::HOME);
+            return redirect()->route('dashboard');
+        }elseif(Auth::user()->getRoleNames()->first() == 'manager'){
+            return redirect()->route('dashboard');
+            
+        }elseif(Auth::user()->getRoleNames()->first() == 'editor'){
+            return redirect()->route('dashboard');
+            
+        }elseif(Auth::user()->getRoleNames()->first() == 'seller'){
+            return redirect()->route('dashboard');
+            
+        }else{
+            return redirect()->route('profile.create');
+
+        }
     }
 }

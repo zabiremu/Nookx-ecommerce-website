@@ -110,21 +110,29 @@
                                     </li>
                                 </ul>
                             </li>
+                            @auth
                             <li>
-                                <a href="#">Pages <i class="fi-rs-angle-down"></i></a>
+                                <a href="#">Profile <i class="fi-rs-angle-down"></i></a>
                                 <ul class="has-submenu">
-                                    <li><a href="{{ route('create.account') }}">My Account</a></li>
-                                    <li><a href="{{ route('profile.create') }}">Profile</a></li>
+                                    @if ( Auth::user()->roles[0]->name == 'buyer' )
+                                    <li><a href="#">Become a seller </a></li>  
+                                    <li><a href="{{ route("profile.create") }}">My Profile</a></li>
                                     <li><a href="{{ route('odrer.create') }}">Orders</a></li>
-                                    <li><a href="{{ route('address.create') }}">Address Book </a></li>
-                                    <li><a href="{{ route('wisih.create') }}">Wishlist</a></li>
-                                    <li><a href="{{ route('vendor.create') }}">Vendor</a></li>
                                     <li><a href="{{ route('cart.create') }}">Cart</a></li>
-                                    <li><a href="{{ route('check.out.create') }}">Checkout</a></li>
-                                    <li><a href="{{ route('error.400.create') }}">Error404</a></li>
-                                    <li><a href="{{ route('error.500.create') }}">Error500</a></li>
+                                    <li><a href="{{ route('wisih.create') }}">Wishlist</a></li>
+                                    @else
+                                    <li><a href="{{ route('dashboard') }}">Dashboard</a></li>  
+                                    @endif
+                                    <li>
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <button style="color: red;" class="dropdown-item"> Logout</button>
+                                            </button>
+                                        </form>
+                                    </li>
                                 </ul>
-                            </li>
+                            </li> 
+                            @endauth
                         </ul>
                     </nav>
                 </div>

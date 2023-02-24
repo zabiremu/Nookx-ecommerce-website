@@ -16,8 +16,9 @@
                                                 <div class="account-key-name d-flex align-items-center">
                                                     <a href="#" class="d-flex"><span class="more-avatars">T</span></a>
                                                     <div class="profile-names">
-                                                        <h4>Teri Jennings</h4>
-                                                        <p>teri@example.com</p>
+                                                        <h4>{{ $user->name }}</h4>
+                                                        <span><small>{{ Str::ucfirst($user->roles[0]->name) }}</small></span>
+                                                        <p>{{ $user->email }}</p>
                                                     </div>
                                                 </div>
                                                 <div class="profile-account-img">
@@ -30,19 +31,30 @@
                             </div>
                             <div class="pharm-account-list mb-50">
                                 <ul>
+                                    @if ( $user->roles[0]->name == 'buyer' )
                                     <li>
-                                        <a href="account.html" >
+                                        <a href="vendor.html">
                                             <div>
-                                                <i class="feather-sliders"></i>
-                                                <p>Overview</p>
+                                                <i class="feather-shopping-cart"></i>
+                                                <p>Become a Seller</p>
                                             </div>
                                         </a>
-                                    </li>
+                                    </li> 
+                                    @else
+                                    <li>
+                                        <a href="vendor.html">
+                                            <div>
+                                                <i class="feather-shopping-cart"></i>
+                                                <p>Deshboard</p>
+                                            </div>
+                                        </a>
+                                    </li> 
+                                    @endif
                                     <li>
                                         <a href="profile.html" class="active">
                                             <div>
                                                 <img src="{{ asset('frontend/assets/img/icons/account-icon-02.png') }}" alt="Image">
-                                                <p>Profile</p>
+                                                <p>My Profile</p>
                                             </div>
                                         </a>
                                     </li>
@@ -50,15 +62,7 @@
                                         <a href="orders.html">
                                             <div>
                                                 <i class="feather-shopping-bag"></i>
-                                                <p>Orders</p>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="address-book.html">
-                                            <div>
-                                                <i class="feather-map"></i>
-                                                <p>Address Book</p>
+                                                <p>Cart</p>
                                             </div>
                                         </a>
                                     </li>
@@ -78,48 +82,107 @@
                                             </div>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="vendor.html">
-                                            <div>
-                                                <i class="feather-shopping-cart"></i>
-                                                <p>Become a Vendor</p>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="index.html">
-                                            <div>
-                                                <i class="feather-log-out"></i>
-                                                <p>Logout</p>
-                                            </div>
-                                        </a>
-                                    </li>
                                 </ul>
                             </div>
+                            <form method="post" action="{{ route('users.update', $user) }}" enctype="multipart/form-data">
+                                @csrf
+                                @method('put')
+                                <div class="col-lg-6">
+                                    <label style="width: 9rem; height:9rem;"  for="imagefile">
+                                        Profile Image<span class="text-danger">*</span>
+                                        <img class="mt-1" id="liveImage" style=" height:100%; width:100%; border:2px solid rgb(20, 159, 82); border-radius:50%;" src="{{ asset('images/image_placeholder.png') }}" alt="">
+                                        <input type="file" id="imagefile" style="visibility: hidden;" name="image" >
+                                    </label>
+                                    @error('image')
+                                        <div class="alert alert-danger border-0 bg-danger alert-dismissible fade show py-2">
+                                            <div class="d-flex align-items-center">
+                                                <div class="font-35 text-white"><i class="bx bxs-message-square-x"></i>
+                                                </div>
+                                                <div class="ms-3">
+                                                    <h6 class="mb-0 text-white">Error</h6>
+                                                    <div class="text-white">{{ $message }}</div>
+                                                </div>
+                                            </div>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
                             <div class="billing-detail-blk">
-                                <form method="post">
-                                    <div class="row">
+                                    <div class="row mt-1">
                                         <div class="form-group col-lg-6">
-                                            <label>First Name <span class="text-danger">*</span></label>
-                                            <input type="text" required="" name="fname" >
+                                            <label>Name <span class="text-danger">*</span></label>
+                                            <input type="text" name="name" value="{{ $user->name }}" placeholder="Type your name">
+                                            @error('name')
+                                            <div class="alert alert-danger border-0 bg-danger alert-dismissible fade show py-2">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="font-35 text-white"><i class="bx bxs-message-square-x"></i>
+                                                    </div>
+                                                    <div class="ms-3">
+                                                        <h6 class="mb-0 text-white">Error</h6>
+                                                        <div class="text-white">{{ $message }}</div>
+                                                    </div>
+                                                </div>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>
+                                            @enderror
                                         </div>
                                         <div class="form-group col-lg-6">
                                             <label>Date Of Birth <span class="text-danger">*</span></label>
-                                            <input type="text" required="" name="lname" class="selected-date" placeholder="DD-MM-YYYY">
+                                            <input type="date" name="dateofbirth" class="selected-date" placeholder="DD-MM-YYYY">
+                                            @error('dateofbirth')
+                                            <div class="alert alert-danger border-0 bg-danger alert-dismissible fade show py-2">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="font-35 text-white"><i class="bx bxs-message-square-x"></i>
+                                                    </div>
+                                                    <div class="ms-3">
+                                                        <h6 class="mb-0 text-white">Error</h6>
+                                                        <div class="text-white">{{ $message }}</div>
+                                                    </div>
+                                                </div>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="form-group valied-email col-lg-6">
-                                            <label>Email </label>
-                                            <input type="email" name="email" required="" value="teri@example.com">
+                                        <div class="form-group col-lg-6">
+                                            <label>Phone<span class="text-danger">*</span> </label>
+                                            <input type="phone" placeholder="Type phone number" name="phone" >
+                                            @error('phone')
+                                            <div class="alert alert-danger border-0 bg-danger alert-dismissible fade show py-2">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="font-35 text-white"><i class="bx bxs-message-square-x"></i>
+                                                    </div>
+                                                    <div class="ms-3">
+                                                        <h6 class="mb-0 text-white">Error</h6>
+                                                        <div class="text-white">{{ $message }}</div>
+                                                    </div>
+                                                </div>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>
+                                            @enderror
                                         </div>
                                         <div class="form-group col-lg-6">
-                                            <label>Phone  </label>
-                                            <input required="" type="text" name="phone" >
+                                            <label>Address<span class="text-danger">*</span> </label>
+                                            <input type="text" value="{{ $user->address }}" placeholder="Type your address" name="address" >
+                                            @error('address')
+                                            <div class="alert alert-danger border-0 bg-danger alert-dismissible fade show py-2">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="font-35 text-white"><i class="bx bxs-message-square-x"></i>
+                                                    </div>
+                                                    <div class="ms-3">
+                                                        <h6 class="mb-0 text-white">Error</h6>
+                                                        <div class="text-white">{{ $message }}</div>
+                                                    </div>
+                                                </div>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="profile-update mt-30">
-                                        <button type="button" class="btn btn-primary">Update</button>
+                                        <button type="submit" class="btn btn-primary">Update</button>
                                     </div>
                                 </form>
                             </div>    
@@ -130,3 +193,6 @@
         </div>
     </main>
 @endsection
+
+{{-- Profile image auto change script --}}
+

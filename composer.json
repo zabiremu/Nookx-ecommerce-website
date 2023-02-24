@@ -12,7 +12,11 @@
         "laravel/sanctum": "^3.0",
         "laravel/socialite": "^5.6",
         "laravel/tinker": "^2.7",
+<<<<<<< HEAD
         "mckenziearts/laravel-notify": "^2.3"
+=======
+        "spatie/laravel-permission": "^5.9"
+>>>>>>> f6bfe8ff637338b7d213eacad5077c1f1f8a1d46
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

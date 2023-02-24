@@ -1,7 +1,7 @@
 {{-- preloader start --}}
 
 
-<div id="loader-wrapper">
+{{-- <div id="loader-wrapper">
     <div class="preloader d-flex align-items-center justify-content-center">
         <div class="loaderPill">
             <div class="loaderPill-anim">
@@ -16,7 +16,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 
 {{-- preloader end --}}
