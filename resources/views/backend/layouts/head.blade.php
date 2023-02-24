@@ -22,7 +22,12 @@
 	<link rel="stylesheet" href="{{ asset('backend/assets/css/dark-theme.css') }}" />
 	<link rel="stylesheet" href="{{ asset('backend/assets/css/semi-dark.css') }}" />
 	<link rel="stylesheet" href="{{ asset('backend/assets/css/header-colors.css') }}" />
-	
+    {{-- laravel notify plament start  --}}
+    <style>.max-w-sm.w-full.bg-white.shadow-lg.rounded-lg.pointer-events-auto.border-l-4.border-green-600 {
+        margin-top: 47rem;
+    }</style>
+	@notifyCss
+    {{-- laravel notify plament end --}}
 	{{-- toast --}}
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 	<title>Nookx Ecommerce Website</title>

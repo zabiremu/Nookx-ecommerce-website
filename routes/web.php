@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\backend\AdminProfileController;
+use App\Http\Controllers\backend\CategoryController;
 use App\Http\Controllers\backend\DashboardController;
 use App\Http\Controllers\frontend\HomePageController;
 use App\Http\Controllers\ProfileController;
@@ -88,6 +89,20 @@ Route::controller(HomePageController::class)->group(function () {
     Route::get('/error/500/page', 'createError500Page')->name('error.500.create');
 });
 // Frontend Controller End
+
 // fortend controller end
 
 require __DIR__ . '/auth.php';
+
+
+// backend category seaction start
+Route::prefix('/category')->name('.category')->controller(CategoryController::class)->group(function(){
+    Route::get('/add', 'Categoryadd')->name('add');
+    Route::post('/store','Categorystore')->name('store');
+    Route::get('/edit/{editeCategory:slug}','Categoryedit')->name('edit');
+    Route::put('/update/{Category:slug}', 'Categoryupdate')->name('update');
+    Route::delete('/delete/{category:slug}', 'Categorydelete')->name('delete');
+
+});
+
+// backend category seaction end
