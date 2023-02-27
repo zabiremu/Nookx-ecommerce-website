@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\backend;
 
-use App\Http\Controllers\Controller;
+// use notify;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {
@@ -51,7 +52,7 @@ class CategoryController extends Controller
 
         $categories = new Category();
         $this->datastore($request, $categories);
-        notify()->success('Category Upload Successfully');
+        // notify()->success('Category Upload Successfully');
         return back();
 
     }
@@ -75,14 +76,14 @@ class CategoryController extends Controller
 
 
             $this->datastore($request, $Category);
-            notify()->success('Category Update Successfully');
+            // notify()->success('Category Update Successfully');
             return back();
     }
 
     public function Categorydelete(Category $category)
     {
         $category->delete();
-        notify()->success('Category Delete Successfully');
+        // notify()->success('Category Delete Successfully');
         return  redirect()->back();
     }
 }
