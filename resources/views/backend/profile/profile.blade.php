@@ -26,7 +26,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                                <img src="{{ $userData->image_url == null ? asset('images/No-Image-Placeholder.svg.png') : $userData->image_url }}"
+                                <img src="{{ $userData->image_url == null ? asset('images/image_placeholder.png') : $userData->image_url }}"
                                     alt="{{ $userData->name }}" class="rounded-circle p-1 bg-primary" width="110">
                                 <div class="mt-3">
                                     <h4>{{ $userData->name }}</h4>
@@ -119,7 +119,7 @@
                                     <h6 class="mb-0"></h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <img src="{{ $userData->image_url != null ? $userData->image_url : asset('images/No-Image-Placeholder.svg.png') }}"
+                                    <img src="{{ $userData->image_url != null ? $userData->image_url : asset('images/image_placeholder.png') }}"
                                         alt="" id="show_image" width="100" style="border-radius: 12px">
                                 </div>
                             </div>

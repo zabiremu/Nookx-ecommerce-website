@@ -2,11 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\backend\CategoryController;
 use App\Http\Controllers\backend\DashboardController;
-use App\Http\Controllers\frontend\FrontendController;
 use App\Http\Controllers\frontend\HomePageController;
 use App\Http\Controllers\backend\AdminProfileController;
+use App\Http\Controllers\backend\CategoryController;
+use App\Http\Controllers\backend\SubCategoryController;
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -20,6 +20,27 @@ Route::group(['middleware' => ['auth', 'role:admin|manager|editor|seller']], fun
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/dashboard', 'create')->name('dashboard');
     });
+
+    // category controller
+    Route::controller(CategoryController::class)->group(function(){
+        Route::get('/create/category','create')->name('create.category');
+        Route::post('/store/category','store')->name('store.category');
+        Route::get('/all/category','all')->name('all.category');
+        Route::get('/edit/category/{id}','edit')->name('edit.category');
+        Route::post('/update/category/{id}','update')->name('update.category');
+        Route::post('/delete/category/{id}','delete')->name('delete.category');
+    });
+
+     // sub category controller
+     Route::controller(SubCategoryController::class)->group(function(){
+        Route::get('/create/sub-category','create')->name('create.subCategory');
+        Route::post('/store/sub-category','store')->name('store.subCategory');
+        Route::get('/all/subCategory','all')->name('all.subCategory');
+        Route::get('/edit/subCategory/{id}','edit')->name('edit.subCategory');
+        Route::post('/update/subCategory/{id}','update')->name('update.subCategory');
+        Route::post('/delete/subCategory/{id}','delete')->name('delete.subCategory');
+    });
+
 });
 
 Route::controller(AdminProfileController::class)
@@ -35,17 +56,6 @@ Route::controller(AdminProfileController::class)
     ->middleware(['auth', 'verified']);
 // profile controller end
 
-// backend category seaction start
-Route::prefix('/category')
-    ->name('.category')
-    ->controller(CategoryController::class)
-    ->group(function () {
-        Route::get('/add', 'Categoryadd')->name('add');
-        Route::post('/store', 'Categorystore')->name('store');
-        Route::get('/edit/{editeCategory:slug}', 'Categoryedit')->name('edit');
-        Route::put('/update/{Category:slug}', 'Categoryupdate')->name('update');
-        Route::delete('/delete/{category:slug}', 'Categorydelete')->name('delete');
-    });
 // backend controller end
 
 // google login end

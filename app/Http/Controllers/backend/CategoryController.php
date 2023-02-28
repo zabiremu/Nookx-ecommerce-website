@@ -3,83 +3,144 @@
 namespace App\Http\Controllers\backend;
 
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
-    //
-    public function datastore($request , $categories){
-        $categories->title = $request->title;
-        $categories->slug = $this->uniqeslug($request->title, $request->slug);
-        $categories->save();
-        return  redirect()->back();
-    }
-    private function uniqeslug($title , $slug){
-        if(!$slug){
-            $newslug =  str()->slug($title);
-        }else{
-            $newslug =  str()->slug($slug);
-        }
-        $count= Category::where('slug', 'like', '%'. $newslug . '%' )->count();
-
-        if($count > 0){
-            $newslug = $newslug . '-'.$count++;
-        }
-
-        return $newslug;
-
-
-    }
-    public function Categoryadd()
+    //display category
+    public function create()
     {
-        // data featch
-        $categories = Category::all();
-        return view('backend.category.category', compact('categories'));
+        return view('backend.category.create');
     }
 
-
-    // category data store
-    public function Categorystore(Request $request)
+    public function store(Request $request)
     {
-
-
         $request->validate([
-            'title' => 'required',
-            'slug' => 'unique:categories,slug'
+            'Category_Name' => 'required|max:255',
+            'image' => 'required|max:255',
         ]);
 
-        $categories = new Category();
-        $this->datastore($request, $categories);
-        return back();
-
+        $category = new Category();
+        $category->cat_name = $this->uniqueTitle($request->Category_Name);
+        $category->cat_slug = $this->uniqueSlug($request->Category_Name, $request->Category_Slug);
+        $image = $this->saveImage($request);
+        $category->image = $image['name'];
+        $category->image_url = $image['image_url'];
+        $category->save();
+        $notification = [
+            'message' => 'Cateogory Successfully Uploaded',
+            'alert-type' => 'success',
+        ];
+        return redirect()
+            ->route('all.category')
+            ->with($notification);
     }
 
-    // category edit
-    public function Categoryedit(Category $editeCategory)
+    public function uniqueSlug($title, $slug)
     {
-    $categories = Category::all();
-    return view('backend.category.category',compact('editeCategory','categories'));
+        if (!$slug) {
+            $newSlug = Str::slug($title);
+        } else {
+            $newSlug = Str::slug($slug);
+        }
+
+        $count = Category::where('cat_slug', $newSlug)->count();
+        if ($count > 0) {
+            $newSlug = $newSlug . '-' . $count;
+        }
+        return $newSlug;
     }
 
-    // category update
-    public function Categoryupdate(Request $request, Category $Category)
+    public function uniqueTitle($title)
     {
+        if ($title) {
+            $newTitle = $title;
+        }
+        $count = Category::where('cat_slug', $newTitle)->count();
+        if ($count > 0) {
+            $newTitle = $newTitle . '-' . $count;
+        }
+        return $newTitle;
+    }
 
+    public function all()
+    {
+        $category = Category::latest()->get();
+        return view('backend.category.view', compact('category'));
+    }
 
+    public function edit($id)
+    {
+        $category = Category::findOrFail($id);
+        return view('backend.category.edit', compact('category'));
+    }
+
+    public function update(Request $request, $id)
+    {
         $request->validate([
-            'title' => 'required',
-            'slug' =>'required'
+            'Category_Name' => 'required|max:255',
         ]);
 
-
-            $this->datastore($request, $Category);
-            return back();
+        $category = Category::findOrFail($id);
+        if ($request->hasFile('image')) {
+            $path = 'category/' . $category->image;
+            if (Storage::disk('public')->exists($path)) {
+                Storage::disk('public')->delete($path);
+            }
+            $category->cat_name = $this->uniqueTitle($request->Category_Name);
+            $category->cat_slug = $this->uniqueSlug($request->Category_Name, $request->Category_Slug);
+            $image = $this->saveImage($request);
+            $category->image = $image['name'];
+            $category->image_url = $image['image_url'];
+            $category->save();
+            $notification = [
+                'message' => 'Cateogory Successfully Uploaded',
+                'alert-type' => 'success',
+            ];
+            return redirect()
+                ->route('all.category')
+                ->with($notification);
+        } else {
+            $category->cat_name = $this->uniqueTitle($request->Category_Name);
+            $category->cat_slug = $this->uniqueSlug($request->Category_Name, $request->Category_Slug);
+            $category->save();
+            $notification = [
+                'message' => 'Cateogory Successfully Uploaded',
+                'alert-type' => 'success',
+            ];
+            return redirect()
+                ->route('all.category')
+                ->with($notification);
+        }
     }
 
-    public function Categorydelete(Category $category)
+    public function delete($id)
     {
+        $category = Category::findOrFail($id);
+        $path = 'category/' . $category->image;
+        if (Storage::disk('public')->exists($path)) {
+            Storage::disk('public')->delete($path);
+        }
         $category->delete();
-        return  redirect()->back();
+        $notification = [
+            'message' => 'Cateogory Successfully Deleted',
+            'alert-type' => 'success',
+        ];
+        return redirect()
+            ->route('all.category')
+            ->with($notification);
+    }
+
+    // save image
+    public function saveImage($request)
+    {
+        $ext = $request->image->extension();
+        $name = 'category-' . uniqid() . '.' . $ext;
+        $save = $request->image->storeAs('category', $name, 'public');
+        $saveUrl = config('app.url') . 'storage/' . $save;
+        return ['name' => $name, 'image_url' => $saveUrl];
     }
 }

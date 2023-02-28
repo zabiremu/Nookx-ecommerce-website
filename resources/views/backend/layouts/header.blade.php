@@ -364,7 +364,7 @@
             <div class="user-box dropdown">
                 <a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret" href="#"
                     role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="{{ $user->image_url != null ? $user->image_url : asset('images/No-Image-Placeholder.svg.png') }}"
+                    <img src="{{ $user->image_url != null ? $user->image_url : asset('images/image_placeholder.png') }}"
                         class="user-img" alt="{{ $user->name }}">
                     <div class="user-info ps-3">
                         <p class="user-name mb-0">{{ $user->name }}</p>
