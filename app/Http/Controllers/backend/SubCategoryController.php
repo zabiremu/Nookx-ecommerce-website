@@ -13,7 +13,7 @@ class SubCategoryController extends Controller
     public function create()
     {
         $category = Category::latest()->get();
-        return view('backend.subCategory.create', compact('category'));
+        return view('backend.category.create', compact('category'));
     }
     public function store(Request $request)
     {
@@ -24,7 +24,7 @@ class SubCategoryController extends Controller
 
         $category = new SubCategory();
         $category->category_id = $request->category_id;
-        $category->sub_name = $this->uniqueTitle($request->SubCategory_Name);
+        $category->sub_name = $request->SubCategory_Name;
         $category->sub_slug = $this->uniqueSlug($request->SubCategory_Name, $request->SubCategory_Slug);
         $category->save();
         $notification = [
@@ -32,11 +32,11 @@ class SubCategoryController extends Controller
             'alert-type' => 'success',
         ];
         return redirect()
-            ->route('all.subCategory')
+            ->route('create.subCategory')
             ->with($notification);
     }
 
-    public function uniqueSlug($title, $slug)
+    private function uniqueSlug($title, $slug)
     {
         if (!$slug) {
             $newSlug = Str::slug($title);
@@ -44,23 +44,11 @@ class SubCategoryController extends Controller
             $newSlug = Str::slug($slug);
         }
 
-        $count = Category::where('cat_slug', $newSlug)->count();
+        $count = SubCategory::where('sub_slug', 'LIKE', '%' . $newSlug . '%' )->count();
         if ($count > 0) {
             $newSlug = $newSlug . '-' . $count;
         }
         return $newSlug;
-    }
-
-    public function uniqueTitle($title)
-    {
-        if ($title) {
-            $newTitle = $title;
-        }
-        $count = Category::where('cat_slug', $newTitle)->count();
-        if ($count > 0) {
-            $newTitle = $newTitle . '-' . $count;
-        }
-        return $newTitle;
     }
 
     public function all()

@@ -10,21 +10,24 @@ use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
+
     //display category
     public function create()
     {
-        return view('backend.category.create');
+        $category = Category::latest()->get();
+        return view('backend.category.create', compact('category'));
     }
-
+    
     public function store(Request $request)
     {
+        $category = Category::where('cat_name', $request->Category_Name)->get();
         $request->validate([
             'Category_Name' => 'required|max:255',
-            'image' => 'required|max:255',
+            'image' => 'required'
         ]);
 
         $category = new Category();
-        $category->cat_name = $this->uniqueTitle($request->Category_Name);
+        $category->cat_name = $request->Category_Name;
         $category->cat_slug = $this->uniqueSlug($request->Category_Name, $request->Category_Slug);
         $image = $this->saveImage($request);
         $category->image = $image['name'];
@@ -35,11 +38,11 @@ class CategoryController extends Controller
             'alert-type' => 'success',
         ];
         return redirect()
-            ->route('all.category')
+            ->route('create.category')
             ->with($notification);
     }
 
-    public function uniqueSlug($title, $slug)
+    private function uniqueSlug($title, $slug)
     {
         if (!$slug) {
             $newSlug = Str::slug($title);
@@ -47,23 +50,11 @@ class CategoryController extends Controller
             $newSlug = Str::slug($slug);
         }
 
-        $count = Category::where('cat_slug', $newSlug)->count();
+        $count = Category::where('cat_slug', 'LIKE', '%' . $newSlug . '%' )->count();
         if ($count > 0) {
             $newSlug = $newSlug . '-' . $count;
         }
         return $newSlug;
-    }
-
-    public function uniqueTitle($title)
-    {
-        if ($title) {
-            $newTitle = $title;
-        }
-        $count = Category::where('cat_slug', $newTitle)->count();
-        if ($count > 0) {
-            $newTitle = $newTitle . '-' . $count;
-        }
-        return $newTitle;
     }
 
     public function all()
@@ -90,7 +81,7 @@ class CategoryController extends Controller
             if (Storage::disk('public')->exists($path)) {
                 Storage::disk('public')->delete($path);
             }
-            $category->cat_name = $this->uniqueTitle($request->Category_Name);
+            $category->cat_name = $request->Category_Name;
             $category->cat_slug = $this->uniqueSlug($request->Category_Name, $request->Category_Slug);
             $image = $this->saveImage($request);
             $category->image = $image['name'];
@@ -104,7 +95,7 @@ class CategoryController extends Controller
                 ->route('all.category')
                 ->with($notification);
         } else {
-            $category->cat_name = $this->uniqueTitle($request->Category_Name);
+            $category->cat_name = $request->Category_Name;
             $category->cat_slug = $this->uniqueSlug($request->Category_Name, $request->Category_Slug);
             $category->save();
             $notification = [
@@ -135,11 +126,11 @@ class CategoryController extends Controller
     }
 
     // save image
-    public function saveImage($request)
+    private function saveImage($request)
     {
         $ext = $request->image->extension();
         $name = 'category-' . uniqid() . '.' . $ext;
-        $save = $request->image->storeAs('category', $name, 'public');
+        $save = $request->image->storeAs('product', $name, 'public');
         $saveUrl = config('app.url') . 'storage/' . $save;
         return ['name' => $name, 'image_url' => $saveUrl];
     }

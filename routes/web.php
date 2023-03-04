@@ -6,6 +6,7 @@ use App\Http\Controllers\backend\DashboardController;
 use App\Http\Controllers\frontend\HomePageController;
 use App\Http\Controllers\backend\AdminProfileController;
 use App\Http\Controllers\backend\CategoryController;
+use App\Http\Controllers\backend\ProductController;
 use App\Http\Controllers\backend\SubCategoryController;
 
 Route::middleware('auth')->group(function () {
@@ -39,6 +40,13 @@ Route::group(['middleware' => ['auth', 'role:admin|manager|editor|seller']], fun
         Route::get('/edit/subCategory/{id}','edit')->name('edit.subCategory');
         Route::post('/update/subCategory/{id}','update')->name('update.subCategory');
         Route::post('/delete/subCategory/{id}','delete')->name('delete.subCategory');
+    });
+
+    //product route
+    Route::controller(ProductController::class)->group(function(){
+        Route::get('/create/product', 'create')->name('create.product');
+        Route::post('/store/product', 'store')->name('store.product');
+        Route::get('/all/products', 'all')->name('all.Products');
     });
 
 });
