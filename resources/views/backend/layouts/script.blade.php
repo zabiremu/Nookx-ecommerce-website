@@ -13,6 +13,8 @@
 <script src="{{ asset('backend/assets/plugins/apexcharts-bundle/js/apexcharts.min.js') }}"></script>
 <script src="{{ asset('backend/assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('backend/assets/plugins/datatable/js/dataTables.bootstrap5.min.js') }}"></script>
+{{-- Ckeditor --}}
+<script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
 <script>
     $(document).ready(function() {
         $('#Transaction-History').DataTable({
@@ -23,6 +25,7 @@
         });
     });
 </script>
+
 <script src="{{ asset('backend/assets/js/dashboard-eCommerce.js') }}"></script>
 
 <script src="assets/plugins/datatable/js/jquery.dataTables.min.js"></script>

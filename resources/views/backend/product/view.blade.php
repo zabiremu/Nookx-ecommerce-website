@@ -38,9 +38,11 @@
                                         <td>{{ ++$key }}</td>
                                         <td>{{ $product->title }}</td>
                                         <td>
-                                            <img src="{{ url('storage/') . '/' . $product->image }}" alt=""width="110">
+                                            <img src="{{ url('storage/' . $product->image) }}" alt="" srcset="">
                                         </td>
-                                        <td></td>
+                                        <td>
+                                            {{ $product->status == 0 ? 'De-Active' : 'Active' }}
+                                        </td>
                                         <td>
                                             <a class="btn btn-primary btn-sm"
                                                 href="">Edit</a>

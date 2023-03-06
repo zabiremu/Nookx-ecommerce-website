@@ -24,6 +24,7 @@ return new class extends Migration
                   ->onUpdate('cascade')
                   ->onDelete('cascade');
             $table->foreignId('sub_category_id')
+                  ->nullable()
                   ->constrained()
                   ->onUpdate('cascade')
                   ->onDelete('cascade');
@@ -32,12 +33,13 @@ return new class extends Migration
             $table->string('image_url')->nullable();
             $table->string('sku');
             $table->integer('stock');
-            $table->string('description');
-            $table->string('specification');
-            $table->integer('banner')->default('1');
-            $table->integer('featured')->default('1');
-            $table->integer('trending')->default('1');
-            $table->integer('deals_of_the_day')->default('1');
+            $table->text('description');
+            $table->text('specification');
+            $table->integer('banner')->nullable();
+            $table->integer('featured')->nullable();
+            $table->integer('trending')->nullable();
+            $table->integer('status')->default('1');
+            $table->integer('deals_of_the_day')->nullable();
             $table->integer('soft_delete')->default('1');
             $table->timestamps();
         });

@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
+use function PHPUnit\Framework\isNull;
+
 class ProductController extends Controller
 {
     //create product method
@@ -25,12 +27,11 @@ class ProductController extends Controller
         $user = Auth::user();
         $request->validate([
             'category' => 'required',
-            'sub_category' => 'required',
             'product_name' => 'required|min:10|max:45',
-            'sku_name' => 'required|min:5|max:15',
+            'sku_name' => 'required|min:2|max:30',
             'stock' => 'required',
-            'specification' => 'required|max:30',
-            'description' => 'required'
+            'specification' => 'required',
+            'description' => 'required',
 
         ]);
         $product = new Product();
@@ -47,6 +48,23 @@ class ProductController extends Controller
         $image_name = $this->slugGenerator($product->image_url) . '.' . $ext;
         $upload_product_img = $request->product_image->storeAs('product', $image_name, 'public');
         $product->image = $upload_product_img;
+        if(!isset($request->banner)){
+            $product->banner = '0';
+        }else{
+            $product->banner = '1';
+        }if(!isset($request->featured)){
+            $product->featured = '0';
+        }else{
+            $product->featured = '1';
+        }if(!isset($request->trending)){
+            $product->trending = '0';
+        }else{
+            $product->trending = '1';
+        }if(!isset($request->deals_of_the_day)){
+            $product->deals_of_the_day = '0';
+        }else{
+            $product->deals_of_the_day = '1';
+        }
         $product->save();
         $notification = [
             'message' => 'Your product successful update',
