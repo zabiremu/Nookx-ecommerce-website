@@ -43,10 +43,11 @@ class ProductController extends Controller
         $product->stock = $request->stock;
         $product->description = $request->description;
         $product->specification = $request->specification;
-        $product->image_url = str()->slug($request->product_name);
+        $imageUrl = str()->slug($request->product_name);
         $ext = $request->product_image->extension();
-        $image_name = $this->slugGenerator($product->image_url) . '.' . $ext;
+        $image_name = $this->slugGenerator($imageUrl) . '.' . $ext;
         $upload_product_img = $request->product_image->storeAs('product', $image_name, 'public');
+        $product->image_url = config('app.url') . 'storage/' . $upload_product_img;
         $product->image = $upload_product_img;
         if(!isset($request->banner)){
             $product->banner = '0';
@@ -78,6 +79,15 @@ class ProductController extends Controller
     {
         $products = Product::paginate(5);
         return view('backend.product.view', compact('products'));
+    }
+
+    //edit product method
+    public function edit($id)
+    {
+        $product = Product::find($id);
+        $categories = Category::get();
+        $sub_categories = SubCategory::get();
+        return view('backend.product.edit', compact('product','categories', 'sub_categories'));
     }
 
 

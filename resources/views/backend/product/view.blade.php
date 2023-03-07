@@ -38,14 +38,14 @@
                                         <td>{{ ++$key }}</td>
                                         <td>{{ $product->title }}</td>
                                         <td>
-                                            <img src="{{ url('storage/' . $product->image) }}" alt="" srcset="">
+                                            <img src="{{ url('storage/' . $product->image) }}" alt="{{ $product->image }}" style="width:6rem;height:4rem;">
                                         </td>
                                         <td>
                                             {{ $product->status == 0 ? 'De-Active' : 'Active' }}
                                         </td>
                                         <td>
-                                            <a class="btn btn-primary btn-sm"
-                                                href="">Edit</a>
+                                            <a class="btn btn-success btn-sm" href="{{ route('edit.product', $product) }}">View</a>
+                                            <a class="btn btn-primary btn-sm" href="">Edit</a>
                                             <button class="btn btn-sm btn-danger button">Delete</button>
                                             <form action="" method="post">
                                                 @csrf
