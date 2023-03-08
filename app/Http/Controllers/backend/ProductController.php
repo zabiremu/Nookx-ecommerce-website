@@ -151,9 +151,13 @@ class ProductController extends Controller
     //Soft delete product method
     public function delete($id)
     {
-        $product = Product::find($id)->delete();
-
-        return back();
+        Product::find($id)->delete();
+        $notification = [
+            'message' => 'Product move to trash !',
+            'alert-type' => 'warning'
+        ];
+        return back()
+                ->with($notification);
     }
 
 
