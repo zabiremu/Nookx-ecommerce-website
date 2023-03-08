@@ -20,11 +20,17 @@
     <!--end breadcrumb-->
 
     {{-- form start --}}
-    <form action="{{ route('store.product') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('update.product', $product) }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="card">
             <div class="card-body p-4">
-                <h5 class="card-title">Edit product</h5>
+                <div class="row">
+                    <h4 class="card-title col-sm-10">Edit Product</h4>
+                    <div class=" col-sm-2">
+                      <a class="btn btn-outline-info btn-sm" href="{{ route('all.Products') }}">Back</a>
+                      <a class="btn btn-outline-success btn-sm" href="{{ route('viewSingle.product', $product) }}">View</a>
+                    </div>
+                </div>
                 <div class="form-body">
                 <div class="row">
                     <div class="col-lg-8">
@@ -114,7 +120,7 @@
                             </div>
                             <div class="col-md-12">
                                 <label for="sku_name" class="form-label">SKU<span style="color: red;">*</span></label>
-                                <input type="text" value="{{ $product->sku_name }}" name="sku_name" class="form-control" id="sku_name">
+                                <input type="text" value="{{ $product->sku }}" name="sku_name" class="form-control" id="sku_name">
                                 @error('sku_name')
                                 <div style="color: red;">{{ $message }}</div>
                                 @enderror

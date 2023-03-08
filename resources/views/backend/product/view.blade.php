@@ -44,12 +44,13 @@
                                             {{ $product->status == 0 ? 'De-Active' : 'Active' }}
                                         </td>
                                         <td>
-                                            <a class="btn btn-success btn-sm" href="{{ route('edit.product', $product) }}">View</a>
-                                            <a class="btn btn-primary btn-sm" href="">Edit</a>
-                                            <button class="btn btn-sm btn-danger button">Delete</button>
-                                            <form action="" method="post">
+                                            <a class="btn btn-outline-success btn-sm" href="{{ route('viewSingle.product', $product) }}">View</a>
+                                            <a class="btn btn-outline-primary btn-sm" href="{{ route('edit.product', $product) }}">Edit</a>
+                                            <a class="btn btn-outline-danger btn-sm" href="{{ route('delete.product', $product) }}">Trash</a>
+                                            {{-- <form action="{{ route('delete.product') }}" method="post">
                                                 @csrf
-                                            </form>    
+                                                <button class="btn btn-outline-danger btn-sm">Delete</button>
+                                            </form>     --}}
                                         </td>
                                     </tr>   
                                     @empty
