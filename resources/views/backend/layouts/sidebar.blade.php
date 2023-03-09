@@ -51,6 +51,18 @@
                 </li>
             </ul>
         </li>
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class="bx bx-category"></i>
+                </div>
+                <div class="menu-title">Recycle Bin</div>
+            </a>
+            <ul>
+                <li> <a href="{{ route('all.restore') }}"><i class="bx bx-right-arrow-alt"></i>Product Recycle</a>
+                </li>
+
+            </ul>
+        </li>
 
         <li class="menu-label">UI Elements</li>
         <li>

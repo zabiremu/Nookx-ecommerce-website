@@ -109,7 +109,7 @@ class ProductController extends Controller
     //show all product method
     public function all()
     {
-        $products = Product::latest()->paginate(5);
+        $products = Product::where('SoftDelete', 1)->latest()->paginate(5);
         return view('backend.product.view', compact('products'));
     }
 
@@ -283,27 +283,16 @@ class ProductController extends Controller
     //Soft delete product method
     public function delete($id)
     {
-        $product = Product::find($id);
-        $path = 'product/' . $product->image;
-        if (Storage::disk('public')->exists($path)) {
-            Storage::disk('public')->delete($path);
-        }
-//        $productImage = ProductImage::where('product_id', $id)->get();
-//        foreach ($productImage->image as $image) {
-//
-//            $path1 = 'product/gallery' . $image;
-//            if (Storage::disk('public')->exists($path1)) {
-//                Storage::disk('public')->delete($path1);
-//            }
-//        }
-        $product->delete();
+        $product =Product::find($id);
 
+       $product->SoftDelete = 0;
+        $product->save();
         $notification = [
-            'message' => 'Product move to trash !',
-            'alert-type' => 'warning',
+            'message' => 'Product move to the Trashed folder  !',
+            'alert-type' => 'warning'
         ];
         return back()
-            ->with($notification);
+                ->with($notification);
     }
 
 

@@ -7,6 +7,7 @@ use App\Http\Controllers\frontend\HomePageController;
 use App\Http\Controllers\backend\AdminProfileController;
 use App\Http\Controllers\backend\CategoryController;
 use App\Http\Controllers\backend\ProductController;
+use App\Http\Controllers\backend\RecycleBinController;
 use App\Http\Controllers\backend\SubCategoryController;
 
 Route::middleware('auth')->group(function () {
@@ -50,12 +51,19 @@ Route::group(['middleware' => ['auth', 'role:admin|manager|editor|seller']], fun
         Route::get('edit/products/{id}', 'edit')->name('edit.product');
         Route::post('update/product/{id}', 'update')->name('update.product');
         Route::get('viewSingle/product/{id}', 'viewSingle')->name('viewSingle.product');
-        Route::post('/delete/product/{id}', 'delete')->name('delete.product');
+        Route::post('delete/product/{id}', 'delete')->name('delete.product');
 
         // gallery image
 
         Route::post('/gallery-image/{id}','galleryImage')->name('gallery.image');
         Route::post('/delete-gallery-image/{id}','deleteGalleryImage')->name('delete.image');
+    });
+
+    Route::controller(RecycleBinController::class)->group(function(){
+        Route::get('/all/restore/product/', 'all')->name('all.restore');
+        Route::get('/restore/product/{id}', 'restoreProduct')->name('restore.product');
+        Route::post('/permanent/delete/product/{id}', 'deleteProduct')->name('permanent.delete.product');
+
     });
 
 });

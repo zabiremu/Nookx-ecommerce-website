@@ -24,53 +24,50 @@
                         <div class="table-responsive">
                             <table id="example2" class="table table-striped table-bordered">
                                 <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Product Name</th>
-                                    <th>Image</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Product Name</th>
+                                        <th>Image</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                @forelse ($products as $key=>$product)
+                                   @forelse ($products as $key=>$product)
                                     <tr>
                                         <td>{{ ++$key }}</td>
                                         <td>{{ $product->title }}</td>
                                         <td>
-                                            <img src="{{ $product->image_url }}" alt="{{ $product->image }}"
-                                                 style="width:6rem;height:4rem;">
+                                            <img src="{{ $product->image_url }}" alt="{{ $product->image }}" style="width:6rem;height:4rem;">
                                         </td>
                                         <td>
-                                            {{ $product->status == 0 ? 'De-Active' : 'Active' }}
+                                            <a class="btn btn-outline-success btn-sm" href="{{ route('restore.product', $product->id) }}">Restore</a>
                                         </td>
+
                                         <td>
-                                            <a class="btn btn-outline-success btn-sm"
-                                               href="{{ route('viewSingle.product', $product->id) }}">View</a>
-                                            <a class="btn btn-outline-primary btn-sm"
-                                               href="{{ route('edit.product', $product->id) }}">Edit</a>
-                                                {{-- <a class="btn btn-outline-danger btn-sm" href="{{ route('delete.product', $product->id) }}">Trash</a> --}}
+
+                                            {{-- <a class="btn btn-outline-danger btn-sm" href="{{ route('delete.product', $product) }}">Delete</a> --}}
                                             <button class="btn btn-outline-danger btn-sm button">Delete</button>
-                                            <form action="{{ route('delete.product', $product->id) }}" method="post">
+                                          <form action="{{ route('permanent.delete.product', $product->id) }}" method="post">
                                                 @csrf
                                             </form>
                                         </td>
                                     </tr>
-                                @empty
+                                    @empty
                                     <tr>
                                         <td colspan="5" class="text-center">No Category</td>
                                     </tr>
-                                @endforelse
+                                    @endforelse
 
                                 </tbody>
                                 <tfoot>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Product Name</th>
-                                    <th>Image</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Product Name</th>
+                                        <th>Image</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
                                 </tfoot>
                             </table>
                         </div>
@@ -83,7 +80,7 @@
     @push('script')
         <script>
             var button = $('.button')
-            button.on('click', function () {
+            button.on('click', function() {
                 var form = $(this).next('form');
                 Swal.fire({
                     title: 'Are you sure?',
