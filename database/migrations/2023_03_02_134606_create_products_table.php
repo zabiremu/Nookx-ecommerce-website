@@ -35,14 +35,15 @@ return new class extends Migration
             $table->string('sku');
             $table->integer('stock');
             $table->text('description');
+            $table->string('product_tag')->nullable();
             $table->text('specification');
             $table->integer('banner')->nullable();
             $table->integer('featured')->nullable();
             $table->integer('trending')->nullable();
             $table->integer('status')->default('1');
+            $table->integer('softDelete')->default('1');
             $table->integer('deals_of_the_day')->nullable();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

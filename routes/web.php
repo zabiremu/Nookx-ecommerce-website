@@ -47,10 +47,15 @@ Route::group(['middleware' => ['auth', 'role:admin|manager|editor|seller']], fun
         Route::get('/create/product', 'create')->name('create.product');
         Route::post('/store/product', 'store')->name('store.product');
         Route::get('/all/products', 'all')->name('all.Products');
-        Route::get('edit/products/{id:id}', 'edit')->name('edit.product');
-        Route::post('update/product/{id:id}', 'update')->name('update.product');
-        Route::get('viewSingle/product/{id:id}', 'viewSingle')->name('viewSingle.product');
-        Route::get('/delete/product/{id:id}', 'delete')->name('delete.product');
+        Route::get('edit/products/{id}', 'edit')->name('edit.product');
+        Route::post('update/product/{id}', 'update')->name('update.product');
+        Route::get('viewSingle/product/{id}', 'viewSingle')->name('viewSingle.product');
+        Route::post('/delete/product/{id}', 'delete')->name('delete.product');
+
+        // gallery image
+
+        Route::post('/gallery-image/{id}','galleryImage')->name('gallery.image');
+        Route::post('/delete-gallery-image/{id}','deleteGalleryImage')->name('delete.image');
     });
 
 });

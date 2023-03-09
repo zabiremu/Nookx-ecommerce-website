@@ -17,7 +17,7 @@ class CategoryController extends Controller
         $category = Category::latest()->get();
         return view('backend.category.create', compact('category'));
     }
-    
+
     public function store(Request $request)
     {
         $category = Category::where('cat_name', $request->Category_Name)->get();
@@ -77,7 +77,7 @@ class CategoryController extends Controller
 
         $category = Category::findOrFail($id);
         if ($request->hasFile('image')) {
-            $path = 'category/' . $category->image;
+            $path ='category/' . $category->image;
             if (Storage::disk('public')->exists($path)) {
                 Storage::disk('public')->delete($path);
             }
@@ -130,7 +130,7 @@ class CategoryController extends Controller
     {
         $ext = $request->image->extension();
         $name = 'category-' . uniqid() . '.' . $ext;
-        $save = $request->image->storeAs('product', $name, 'public');
+        $save = $request->image->storeAs('category', $name, 'public');
         $saveUrl = config('app.url') . 'storage/' . $save;
         return ['name' => $name, 'image_url' => $saveUrl];
     }

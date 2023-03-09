@@ -25,7 +25,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="card">
-                    <p style="padding: 0.5rem; background-color:rgb(40, 43, 255);color:white;" >Category</p>
+                    <p style="padding: 0.5rem; background-color:#0d6efd;color:white;" >Category</p>
                     <form class="card-body" action="{{ route('store.category') }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
@@ -78,7 +78,7 @@
         {{-- Subcategoy starting --}}
         <div class="col-lg-6">
             <div class="card">
-                <p style="padding: 0.5rem; background-color:rgb(40, 43, 255);color:white;" >Sub-Category</p>
+                <p style="padding: 0.5rem; background-color:#0d6efd;color:white;" >Sub-Category</p>
                 <form class="card-body" action="{{ route('store.subCategory') }}" method="POST">
                     @csrf
 

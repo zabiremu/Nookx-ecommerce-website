@@ -17,61 +17,65 @@
 
     <div class="card">
         <div class="row g-0">
-          <div class="col-md-4 border-end" >
-            <img src="{{ url($product->image_url) }}" class="img-fluid" style="width: 100%;">
-            <div class="row mb-3 row-cols-auto g-2 justify-content-center mt-3">
-                <div class="col"><img src="{{ url($product->image_url) }}" width="70" class="border rounded cursor-pointer" alt=""></div>
-                <div class="col"><img src="{{ url($product->image_url) }}" width="70" class="border rounded cursor-pointer" alt=""></div>
-                <div class="col"><img src="{{ url($product->image_url) }}" width="70" class="border rounded cursor-pointer" alt=""></div>
-                <div class="col"><img src="{{ url($product->image_url) }}" width="70" class="border rounded cursor-pointer" alt=""></div>
-            </div>
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-                <div class="row">
-                    <h4 class="card-title col-sm-9">{{ $product->title }}</h4>
-                    <div class=" col-sm-3">
-                      <a class="btn btn-outline-info btn-sm" href="{{ route('all.Products') }}">Back</a>
-                      <a class="btn btn-outline-primary btn-sm" href="{{ route('edit.product', $product) }}">Edit</a>
-                    </div>
+            <div class="col-md-4 border-end">
+                <img src="{{ url($product->image_url) }}" class="img-fluid" style="width: 100%;">
+                <div class="row mb-3 row-cols-auto g-2 justify-content-center mt-3">
+                        @forelse($galleryImage as $image)
+                            <div class="col"><img src="{{ $image->image_url }}" width="70"
+                                                  class="border rounded cursor-pointer" alt=""></div>
+                        @empty
+                            <div class="col">No Gallery Image</div>
+                        @endforelse
                 </div>
-              <hr>
-              <div class="d-flex gap-3 py-3">
-                {{-- <div class="cursor-pointer">
-                    <i class='bx bxs-star text-warning'></i>
-                    <i class='bx bxs-star text-warning'></i>
-                    <i class='bx bxs-star text-warning'></i>
-                    <i class='bx bxs-star text-warning'></i>
-                    <i class='bx bxs-star text-secondary'></i>
-                  </div>	
-                  <div>142 reviews</div> --}}
-                  <div class="text-success"><i class='bx bxs-cart-alt align-middle'></i> {{ $product->stock }}<span> Stock</span></div>
-              </div>
-              {{-- <div class="mb-3"> 
-                <span class="price h4">$149.00</span> 
-                <span class="text-muted">/per pic</span> 
-            </div> --}}
-              <p class="card-text fs-6">{{ $product->description }}</p>
-              <dl class="row">
-                  <dt class="col-sm-3">Category :</dt>
-                  <dd class="col-sm-9">{{ $product->category_id }}</dd>
-                  <dt class="col-sm-3">Category :</dt>
-                  <dd class="col-sm-9">{{ $product->sub_category_id }}</dd>
-                  <dt class="col-sm-3">Price :</dt>
-                  <dd class="col-sm-9"></dd>
-                <dt class="col-sm-3">SKU :</dt>
-                <dd class="col-sm-9">{{ $product->sku }}</dd>
-                <dt class="col-sm-3">Product Show On :</dt>
-                <dd class="col-sm-9">{{ $product->banner == 1 ? 'Banner.' : '' }}</dd>
-                <dt class="col-sm-3"></dt>
-                <dd class="col-sm-9">{{ $product->featured == 1 ? 'Featured.' : '' }}</dd>
-                <dt class="col-sm-3"></dt>
-                <dd class="col-sm-9">{{ $product->trending == 1 ? 'Trending.' : '' }}</dd>
-                <dt class="col-sm-3"></dt>
-                <dd class="col-sm-9">{{ $product->deals_of_the_day == 1 ? 'Deals of the day.' : '' }}</dd>
-              </dl>
             </div>
-          </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <div class="row">
+                        <h4 class="card-title col-sm-9">{{ $product->title }}</h4>
+                        <div class=" col-sm-3">
+                            <a class="btn btn-outline-info btn-sm" href="{{ route('all.Products') }}">Back</a>
+                            <a class="btn btn-outline-primary btn-sm"
+                               href="{{ route('edit.product', $product) }}">Edit</a>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="d-flex gap-3 py-3">
+                        {{-- <div class="cursor-pointer">
+                            <i class='bx bxs-star text-warning'></i>
+                            <i class='bx bxs-star text-warning'></i>
+                            <i class='bx bxs-star text-warning'></i>
+                            <i class='bx bxs-star text-warning'></i>
+                            <i class='bx bxs-star text-secondary'></i>
+                          </div>
+                          <div>142 reviews</div> --}}
+                        <div class="text-success"><i class='bx bxs-cart-alt align-middle'></i> {{ $product->stock }}
+                            <span> Stock</span></div>
+                    </div>
+                    {{-- <div class="mb-3">
+                      <span class="price h4">$149.00</span>
+                      <span class="text-muted">/per pic</span>
+                  </div> --}}
+                    <p class="card-text fs-6">{{ $product->description }}</p>
+                    <dl class="row">
+                        <dt class="col-sm-3">Category :</dt>
+                        <dd class="col-sm-9">{{ $product->category->cat_name }}</dd>
+                        <dt class="col-sm-3">Sub-Category :</dt>
+                        <dd class="col-sm-9">{{ isset($product->subCategory->sub_name) ? $product->subCategory->sub_name : '' }}</dd>
+                        <dt class="col-sm-3">Price :</dt>
+                        <dd class="col-sm-9">{{ $product->productPrice[0]->price }}</dd>
+                        <dt class="col-sm-3">SKU :</dt>
+                        <dd class="col-sm-9">{{ $product->sku }}</dd>
+                        <dt class="col-sm-3">Product Show On :</dt>
+                        <dd class="col-sm-9">{{ $product->banner == 1 ? 'Banner.' : '' }}</dd>
+                        <dt class="col-sm-3"></dt>
+                        <dd class="col-sm-9">{{ $product->featured == 1 ? 'Featured.' : '' }}</dd>
+                        <dt class="col-sm-3"></dt>
+                        <dd class="col-sm-9">{{ $product->trending == 1 ? 'Trending.' : '' }}</dd>
+                        <dt class="col-sm-3"></dt>
+                        <dd class="col-sm-9">{{ $product->deals_of_the_day == 1 ? 'Deals of the day.' : '' }}</dd>
+                    </dl>
+                </div>
+            </div>
         </div>
         <hr/>
         <div class="card-body">
@@ -81,7 +85,7 @@
                         <div class="d-flex align-items-center">
                             <div class="tab-icon"><i class='bx bx-comment-detail font-18 me-1'></i>
                             </div>
-                            <div class="tab-title"> Product Specification </div>
+                            <div class="tab-title"> Product Specification</div>
                         </div>
                     </a>
                 </li>
@@ -117,5 +121,5 @@
             </div>
         </div>
 
-      </div>
+    </div>
 @endsection
