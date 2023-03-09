@@ -84,17 +84,20 @@ class ProductController extends Controller
         $productPrice->discount = $request->discount;
         $productPrice->save();
 
-        $gallery_images = $request->gallery_images;
-        foreach ($gallery_images as $image) {
-            $ext = $image->extension();
-            $image_name = 'gallery-' . uniqid() . '.' . $ext;
-            $upload_product_img = $image->storeAs('product/gallery', $image_name, 'public');
-            $galleryImage = new ProductImage();
-            $galleryImage->product_id = $product->id;
-            $galleryImage->image = $image_name;
-            $galleryImage->image_url = config('app.url') . 'storage/' . $upload_product_img;
-            $galleryImage->save();
+        if ($request->gallery_images) {
+            $gallery_images = $request->gallery_images;
+            foreach ($gallery_images as $image) {
+                $ext = $image->extension();
+                $image_name = 'gallery-' . uniqid() . '.' . $ext;
+                $upload_product_img = $image->storeAs('product/gallery', $image_name, 'public');
+                $galleryImage = new ProductImage();
+                $galleryImage->product_id = $product->id;
+                $galleryImage->image = $image_name;
+                $galleryImage->image_url = config('app.url') . 'storage/' . $upload_product_img;
+                $galleryImage->save();
+            }
         }
+
         $notification = [
             'message' => 'Your product successful update',
             'alert-type' => 'success'
@@ -281,7 +284,7 @@ class ProductController extends Controller
     public function delete($id)
     {
         $product = Product::find($id);
-        $path = 'product' . $product->image;
+        $path = 'product/' . $product->image;
         if (Storage::disk('public')->exists($path)) {
             Storage::disk('public')->delete($path);
         }
