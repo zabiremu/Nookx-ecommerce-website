@@ -29,11 +29,15 @@ return new class extends Migration
                   ->constrained()
                   ->onUpdate('cascade')
                   ->onDelete('cascade');
-            $table->string('title');
+            $table->text('title');
+            $table->text('slug_unique')->nullable();
             $table->string('image')->nullable();
             $table->string('image_url')->nullable();
             $table->string('sku');
             $table->integer('stock');
+            $table->integer('purchase_price')->nullable();
+            $table->integer('intial_stock')->nullable();
+            $table->integer('left_stock')->nullable();
             $table->text('description');
             $table->string('product_tag')->nullable();
             $table->text('specification');

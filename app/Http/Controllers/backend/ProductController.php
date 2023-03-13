@@ -32,9 +32,9 @@ class ProductController extends Controller
         $user = Auth::user();
         $request->validate([
             'category' => 'required',
-            'product_name' => 'required|min:10|max:45',
-            'sku_name' => 'required|min:2|max:30',
-            'stock' => 'required',
+            'product_name' => 'required|max:255',
+            'sku_name' => 'required|max:255',
+            'stock' => 'required|max:255',
             'specification' => 'required',
             'description' => 'required',
             'price' => 'required',
@@ -109,7 +109,7 @@ class ProductController extends Controller
     //show all product method
     public function all()
     {
-        $products = Product::where('SoftDelete', 1)->latest()->paginate(5);
+        $products = Product::where('SoftDelete', 1)->latest()->get();
         return view('backend.product.view', compact('products'));
     }
 
@@ -127,9 +127,9 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'category' => 'required',
-            'product_name' => 'required|min:10|max:45',
-            'sku_name' => 'required|min:2|max:30',
+            'category' => 'required|max:255',
+            'product_name' => 'required|max:255',
+            'sku_name' => 'required|max:255',
             'stock' => 'required',
             'specification' => 'required',
             'description' => 'required',
