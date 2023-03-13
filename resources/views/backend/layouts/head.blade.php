@@ -22,6 +22,10 @@
 	<link rel="stylesheet" href="{{ asset('backend/assets/css/dark-theme.css') }}" />
 	<link rel="stylesheet" href="{{ asset('backend/assets/css/semi-dark.css') }}" />
 	<link rel="stylesheet" href="{{ asset('backend/assets/css/header-colors.css') }}" />
+
+    <link rel="stylesheet" href="https://www.jqueryscript.net/demo/jQuery-Plugin-For-Custom-Tags-Input-Select-Box-selectize-js/selectize.js">
+
+
     {{-- laravel notify plament start  --}}
     <style>.max-w-sm.w-full.bg-white.shadow-lg.rounded-lg.pointer-events-auto.border-l-4.border-green-600 {
         margin-top: 47rem;

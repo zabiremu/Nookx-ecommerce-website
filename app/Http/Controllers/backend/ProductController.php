@@ -12,6 +12,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use function Pest\Laravel\json;
 use function PHPUnit\Framework\isNull;
 
 class ProductController extends Controller
@@ -26,9 +28,16 @@ class ProductController extends Controller
         return view('backend.product.create', compact('categories', 'sub_categories'));
     }
 
+    // jquery ajax find category's subcategory
+    public function category($id)
+    {
+        $subCategory = SubCategory::where('category_id',$id)->get(['id','sub_name']);
+        return response()->json($subCategory);
+    }
     //Store product method
     public function store(Request $request)
     {
+//        dd($request->all());
         $user = Auth::user();
         $request->validate([
             'category' => 'required',
@@ -38,6 +47,8 @@ class ProductController extends Controller
             'specification' => 'required',
             'description' => 'required',
             'price' => 'required',
+            'Product_Purchase_Price' => 'required',
+            'initial_stock'=> 'required',
 
         ]);
         $product = new Product();
@@ -46,14 +57,17 @@ class ProductController extends Controller
         $product->category_id = $request->category;
         $product->sub_category_id = $request->sub_category;
         $product->title = $request->product_name;
+        $product->slug_unique = $this->slugGenerator($request->product_name,$request->product_slug);
         $product->sku = $request->sku_name;
         $product->stock = $request->stock;
+        $product->purchase_price = $request->Product_Purchase_Price;
+        $product->intial_stock = $request->initial_stock;
         $product->product_tag = $request->product_tag;
         $product->description = $request->description;
         $product->specification = $request->specification;
-        $imageUrl = str()->slug($request->product_name);
+        $imageUrl = $this->slugGenerator($request->product_name,$request->product_slug);
         $ext = $request->product_image->extension();
-        $image_name = $this->slugGenerator($imageUrl) . '.' . $ext;
+        $image_name = $imageUrl . '.' . $ext;
         $upload_product_img = $request->product_image->storeAs('product', $image_name, 'public');
         $product->image_url = config('app.url') . 'storage/' . $upload_product_img;
         $product->image = $image_name;
@@ -296,12 +310,19 @@ class ProductController extends Controller
     }
 
 
-    private function slugGenerator($title)
+    public function slugGenerator($title,$slug)
     {
-        $count = Product::where('image_url', 'LIKE', '%' . $title . '%')->count();
-        if ($count > 0) {
-            $title = $title . '-' . $count++;
+        $new_title='';
+        if(!$slug){
+            $new_title= Str::slug($title);
+        }else{
+            $new_title= Str::slug($slug);
         }
-        return $title;
+
+        $count = Product::where('slug_unique', 'LIKE', '%' . $new_title . '%')->count();
+        if ($count > 0) {
+            $new_title = $title . '-' . $count++;
+        }
+        return $new_title;
     }
 }

@@ -72,6 +72,21 @@
         }
     @endif
 </script>
+<script src="https://www.jqueryscript.net/demo/jQuery-Plugin-For-Custom-Tags-Input-Select-Box-selectize-js/selectize.js"></script>
+
+<script>
+    $('#product_tag').selectize({
+        delimiter: ',',
+        persist: false,
+        create: function(input) {
+            return {
+                value: input,
+                text: input
+            }
+        }
+    })
+
+</script>
 @notifyJs
 
 @stack('script')

@@ -37,6 +37,12 @@
                                     <div style="color: red;">{{ $message }}</div>
                                     @enderror
                                 </div>
+                                <div class="mb-2">
+                                    <label for="product_name" class="form-label">Product Slug</label>
+                                    <input type="text" name="product_slug" class="form-control" id="product_slug"
+                                           placeholder="Enter product slug">
+
+                                </div>
                                 <div class="mb-3">
                                     <label for="specification" class="form-label">Specification<span
                                             style="color: red;">*</span></label>
@@ -50,7 +56,7 @@
                                     <div class="mt-2 col-sm-12" style=" border-radius:10px;">
                                         <label for="image" class="col-sm-12">Product Image<span
                                                 style="color: red;">*</span>
-                                            <div class="text-secondary col-sm-12" style="height: 25rem;">
+                                            <div class="text-secondary col-sm-12" style="height: 31rem;">
                                                 <img src="{{ asset('images/image_placeholder_3.jpg') }}" id="show_image"
                                                      style=" width: 100%; height:100%; border-radius: 10px; border:2px dashed rgba(0, 123, 254, 0.685);">
                                                 <div class="col-sm-9 text-secondary" style="display:none;">
@@ -73,7 +79,7 @@
                                 <style>
                                     .gallery img {
                                         display: inline-block;
-                                        width: 50px;
+                                        width: 60px;
                                         margin: 12px 12px;
                                     }
                                 </style>
@@ -131,11 +137,29 @@
                                         </select>
                                     </div>
                                     <div class="col-md-12">
+                                        <label for="discount" class="form-label">Product Purchase Price<span
+                                                style="color: red;">*</span></label>
+                                        <input type="number" name="Product_Purchase_Price" class="form-control"
+                                               placeholder="Enter Product Purchase Price">
+                                        @error('Product_Purchase_Price')
+                                        <div style="color: red;">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-12">
                                         <label for="price" class="form-label">Price<span
                                                 style="color: red;">*</span></label>
                                         <input type="number" name="price" class="form-control" id="price"
                                                placeholder="00.00">
                                         @error('price')
+                                        <div style="color: red;">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="discount" class="form-label">Product discount<span
+                                                style="color: red;">*</span></label>
+                                        <input type="number" name="discount" class="form-control" id="discount"
+                                               placeholder="Enter Product discount">
+                                        @error('discount')
                                         <div style="color: red;">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -157,6 +181,15 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-12">
+                                        <label for="stock" class="form-label">Initial Stock<span
+                                                style="color: red;">*</span></label>
+                                        <input type="number" name="initial_stock" class="form-control" id="initial_stock"
+                                               placeholder="00.00">
+                                        @error('initial_stock')
+                                        <div style="color: red;">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-12">
                                         <label for="product_tag" class="form-label">Product Tags<span
                                                 style="color: red;">*</span></label>
                                         <input type="text" name="product_tag" class="form-control" id="product_tag"
@@ -165,15 +198,7 @@
                                         <div style="color: red;">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="col-md-12">
-                                        <label for="discount" class="form-label">Product discount<span
-                                                style="color: red;">*</span></label>
-                                        <input type="number" name="discount" class="form-control" id="discount"
-                                               placeholder="Enter Product discount">
-                                        @error('discount')
-                                        <div style="color: red;">{{ $message }}</div>
-                                        @enderror
-                                    </div>
+
                                     <div class="col-md-12">
                                         <label for="description" class="form-label">Description<span
                                                 style="color: red;">*</span></label>
@@ -200,6 +225,15 @@
 
 
     @push('script')
+        <script>
+            var product_name = $('#product_name');
+            var product_slug = $('#product_slug');
+            product_name.on('keyup',function(){
+                var value = $(this).val();
+                var slug = value.split(' ').join('-').toLowerCase();
+                product_slug.val(slug)
+            })
+        </script>
         <script>
             ClassicEditor
                 .create(document.querySelector('.editor'))
@@ -253,5 +287,23 @@
             });
         </script>
 
+        <script>
+            var category = $('#category');
+            category.on('change', function () {
+                var value = $(this).val();
+                $.ajax({
+                    url: '/category/' + value,
+                    method: 'get',
+                    success: function (data) {
+                        var subCategories= [];
+                        data.map(element=> {
+                            var subCategory = `<option value="${element.id}">${element.sub_name}</option>`;
+                            subCategories.push(subCategory);
+                        })
+                        $('#sub_category').html(subCategories)
+                    },
+                })
+            })
+        </script>
     @endpush
 @endsection

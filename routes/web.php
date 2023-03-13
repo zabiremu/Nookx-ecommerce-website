@@ -53,6 +53,10 @@ Route::group(['middleware' => ['auth', 'role:admin|manager|editor|seller']], fun
         Route::get('viewSingle/product/{id}', 'viewSingle')->name('viewSingle.product');
         Route::post('delete/product/{id}', 'delete')->name('delete.product');
 
+        // jQuery ajax product table
+
+        Route::get('/category/{id}','category')->name('category');
+
         // gallery image
 
         Route::post('/gallery-image/{id}','galleryImage')->name('gallery.image');

@@ -23,14 +23,14 @@ class ProductFactory extends Factory
     public function definition()
     {
         return [
-            'category_id'=> $this->faker->numberBetween(0,12),
-            'sub_category_id' =>$this->faker->numberBetween(0,20),
+            'category_id'=> $this->faker->numberBetween(1,12),
+            'sub_category_id' =>$this->faker->numberBetween(1,20),
             'title' =>$this->faker->name(),
             'slug_unique' =>$this->faker->slug(),
             'image'=>$this->faker->name(),
             'image_url'=> $this->faker->imageUrl(),
             'sku'=> $this->faker->uuid,
-            'stock'=>$this->faker->numberBetween(0,80),
+            'stock'=>$this->faker->numberBetween(60,80),
             'purchase_price'=>$this->faker->numberBetween(1,1000),
             'intial_stock'=>$this->faker->numberBetween(60,80),
             'left_stock'=>$this->faker->numberBetween(1,10),
