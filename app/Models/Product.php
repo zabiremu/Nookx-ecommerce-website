@@ -13,7 +13,7 @@ class Product extends Model
 
     public function productPrice()
     {
-        return $this->hasMany(ProductPrice::class);
+        return $this->hasOne(ProductPrice::class);
     }
 
     public function category()

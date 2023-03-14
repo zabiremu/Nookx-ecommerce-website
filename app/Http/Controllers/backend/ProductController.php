@@ -123,7 +123,7 @@ class ProductController extends Controller
     //show all product method
     public function all()
     {
-        $products = Product::where('SoftDelete', 1)->latest()->get();
+        $products = Product::where('SoftDelete', 1)->latest()->get(['id','image_url','title','status']);
         return view('backend.product.view', compact('products'));
     }
 
@@ -155,8 +155,11 @@ class ProductController extends Controller
             $product->category_id = $request->category;
             $product->sub_category_id = $request->sub_category;
             $product->title = $request->product_name;
+            $product->slug_unique = $this->slugGenerator($request->product_name,$request->product_slug);
             $product->sku = $request->sku_name;
             $product->stock = $request->stock;
+            $product->purchase_price = $request->Product_Purchase_Price;
+            $product->intial_stock = $request->initial_stock;
             $product->product_tag = $request->product_tag;
             $product->description = $request->description;
             $product->specification = $request->specification;
@@ -164,9 +167,9 @@ class ProductController extends Controller
             if (Storage::disk('public')->exists($path)) {
                 Storage::disk('public')->delete($path);
             }
-            $imageUrl = str()->slug($request->product_name);
+            $imageUrl=$this->slugGenerator($request->product_name,$request->product_slug);
             $ext = $request->product_image->extension();
-            $image_name = $this->slugGenerator($imageUrl) . '.' . $ext;
+            $image_name = $imageUrl . '.' . $ext;
             $upload_product_img = $request->product_image->storeAs('product', $image_name, 'public');
             $product->image_url = config('app.url') . 'storage/' . $upload_product_img;
             $product->image = $image_name;
@@ -206,8 +209,11 @@ class ProductController extends Controller
             $product->category_id = $request->category;
             $product->sub_category_id = $request->sub_category;
             $product->title = $request->product_name;
+            $product->slug_unique = $this->slugGenerator($request->product_name,$request->product_slug);
             $product->sku = $request->sku_name;
             $product->stock = $request->stock;
+            $product->purchase_price = $request->Product_Purchase_Price;
+            $product->intial_stock = $request->initial_stock;
             $product->description = $request->description;
             $product->specification = $request->specification;
             $product->product_tag = $request->product_tag;

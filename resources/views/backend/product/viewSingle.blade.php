@@ -62,10 +62,12 @@
                         <dt class="col-sm-3">Sub-Category :</dt>
                         <dd class="col-sm-9">{{ isset($product->subCategory->sub_name) ? $product->subCategory->sub_name : '' }}</dd>
                         <dt class="col-sm-3">Price :</dt>
-                        <dd class="col-sm-9">{{ $product->productPrice[0]->price }}</dd>
-                        <dt class="col-sm-3">SKU :</dt>
+                        <dd class="col-sm-9">{{ isset($product->productPrice) ? $product->productPrice->price : ' '}}</dd>
+                        <dt class="col-sm-3">Discount:</dt>
+                        <dd class="col-sm-9">{{ ($product->productPrice) ? $product->productPrice->discount : 'No Discount'}}</dd>
+                        <dt class="col-sm-9">SKU :</dt>
                         <dd class="col-sm-9">{{ $product->sku }}</dd>
-                        <dt class="col-sm-3">Product Show On :</dt>
+                        <dt class="col-sm-9">Product Show On :</dt>
                         <dd class="col-sm-9">{{ $product->banner == 1 ? 'Banner.' : '' }}</dd>
                         <dt class="col-sm-3"></dt>
                         <dd class="col-sm-9">{{ $product->featured == 1 ? 'Featured.' : '' }}</dd>

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\ProductImage;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -14,10 +15,13 @@ class ProductImageFactory extends Factory
      *
      * @return array<string, mixed>
      */
+    protected $model = ProductImage::class;
     public function definition()
     {
         return [
-            //
+            'product_id' => $this->faker->numberBetween(1,60),
+            'image' =>$this->faker->name(),
+            'image_url' =>$this->faker->imageUrl(),
         ];
     }
 }

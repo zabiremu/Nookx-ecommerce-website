@@ -43,64 +43,70 @@
                                     <div style="color: red;">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="mb-3">
-                                    <label for="specification" class="form-label">Specification<span
-                                            style="color: red;">*</span></label>
-                                    <textarea class="form-control editor" placeholder="Type product specification"
-                                              name="specification" id="specification"
-                                              rows="3">{{ $product->specification }}</textarea>
-                                    @error('specification')
-                                    <div style="color: red;">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class=" mb-3">
-                                    <div class="mt-2 col-sm-12" style=" border-radius:10px;">
-                                        <label for="image" class="col-sm-12">Product Image<span
-                                                style="color: red;">*</span>
-                                            <div class="text-secondary col-sm-12" style="height: 25rem;">
-                                                <img src="{{ $product->image_url }}" id="show_image"
-                                                     style=" width: 100%; height:100%; border-radius: 10px; border:2px dashed rgba(0, 123, 254, 0.525);">
-                                                <div class="col-sm-9 text-secondary" style="display:none;">
-                                                    <input type="file" class="form-control" id="image"
-                                                           name="product_image"/>
-                                                </div>
-                                            </div>
-                                        </label>
+                                <div class="mb-2">
+                                    <label for="product_name" class="form-label">Product Slug</label>
+                                    <input type="text" name="product_slug" class="form-control" id="product_slug"
+                                           placeholder="Enter product slug" value="{{$product->slug_unique}}">
+                                    <div class="mb-3">
+                                        <label for="specification" class="form-label">Specification<span
+                                                style="color: red;">*</span></label>
+                                        <textarea class="form-control editor" placeholder="Type product specification"
+                                                  name="specification" id="specification"
+                                                  rows="3">{{ $product->specification }}</textarea>
+                                        @error('specification')
+                                        <div style="color: red;">{{ $message }}</div>
+                                        @enderror
                                     </div>
-                                    @error('product_image')
-                                    <div style="color: red;">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <div class="col-sm-12 mt-1">
-                                    <div class="row col-sm-12" style="border-radius:10px; padding: 0px 10px 0px 10px;">
-                                        <div class="form-group form-check col-sm-3 mt-1">
-                                            <input type="checkbox"
-                                                   {{ $product->banner == 1 ? 'checked' : '' }} class="form-check-input"
-                                                   name="banner" id="banner">
-                                            <label class="form-check-label" for="banner">Banner</label>
+                                    <div class=" mb-3">
+                                        <div class="mt-2 col-sm-12" style=" border-radius:10px;">
+                                            <label for="image" class="col-sm-12">Product Image<span
+                                                    style="color: red;">*</span>
+                                                <div class="text-secondary col-sm-12" style="height: 35rem;">
+                                                    <img src="{{ $product->image_url }}" id="show_image"
+                                                         style=" width: 100%; height:100%; border-radius: 10px; border:2px dashed rgba(0, 123, 254, 0.525);">
+                                                    <div class="col-sm-9 text-secondary" style="display:none;">
+                                                        <input type="file" class="form-control" id="image"
+                                                               name="product_image"/>
+                                                    </div>
+                                                </div>
+                                            </label>
                                         </div>
-                                        <div class="form-group form-check col-sm-3 mt-1">
-                                            <input type="checkbox"
-                                                   {{ $product->featured == 1 ? 'checked' : '' }} class="form-check-input"
-                                                   name="featured" id="featured">
-                                            <label class="form-check-label" for="featured">Featured</label>
-                                        </div>
-                                        <div class="form-group form-check col-sm-3 mt-1">
-                                            <input type="checkbox"
-                                                   {{ $product->trending == 1 ? 'checked' : '' }} class="form-check-input"
-                                                   name="trending" id="trending">
-                                            <label class="form-check-label" for="trending">Trending</label>
-                                        </div>
-                                        <div class="form-group form-check col-sm-3 mt-1">
-                                            <input type="checkbox"
-                                                   {{ $product->deals_of_the_day == 1 ? 'checked' : '' }} class="form-check-input"
-                                                   name="deals_of_the_day" id="deals_of_the_day">
-                                            <label class="form-check-label" for="deals_of_the_day">Deals of </label>
+                                        @error('product_image')
+                                        <div style="color: red;">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-sm-12 mt-1">
+                                        <div class="row col-sm-12"
+                                             style="border-radius:10px; padding: 0px 10px 0px 10px;">
+                                            <div class="form-group form-check col-sm-3 mt-1">
+                                                <input type="checkbox"
+                                                       {{ $product->banner == 1 ? 'checked' : '' }} class="form-check-input"
+                                                       name="banner" id="banner">
+                                                <label class="form-check-label" for="banner">Banner</label>
+                                            </div>
+                                            <div class="form-group form-check col-sm-3 mt-1">
+                                                <input type="checkbox"
+                                                       {{ $product->featured == 1 ? 'checked' : '' }} class="form-check-input"
+                                                       name="featured" id="featured">
+                                                <label class="form-check-label" for="featured">Featured</label>
+                                            </div>
+                                            <div class="form-group form-check col-sm-3 mt-1">
+                                                <input type="checkbox"
+                                                       {{ $product->trending == 1 ? 'checked' : '' }} class="form-check-input"
+                                                       name="trending" id="trending">
+                                                <label class="form-check-label" for="trending">Trending</label>
+                                            </div>
+                                            <div class="form-group form-check col-sm-3 mt-1">
+                                                <input type="checkbox"
+                                                       {{ $product->deals_of_the_day == 1 ? 'checked' : '' }} class="form-check-input"
+                                                       name="deals_of_the_day" id="deals_of_the_day">
+                                                <label class="form-check-label" for="deals_of_the_day">Deals of </label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div><!--end col lg 8-->
                         <div class="col-lg-4">
                             <div class="border border-3 p-4 rounded">
                                 <div class="row g-3">
@@ -130,11 +136,30 @@
                                         </select>
                                     </div>
                                     <div class="col-md-12">
+                                        <label for="discount" class="form-label">Product Purchase Price<span
+                                                style="color: red;">*</span></label>
+                                        <input type="number" name="Product_Purchase_Price" class="form-control"
+                                               placeholder="Enter Product Purchase Price" value="{{ ($product->purchase_price) ? $product->purchase_price : ''}}">
+                                        @error('Product_Purchase_Price')
+                                        <div style="color: red;">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-12">
                                         <label for="price" class="form-label">Price<span
                                                 style="color: red;">*</span></label>
                                         <input type="number" name="price" class="form-control" id="price"
-                                               placeholder="00.00" value="{{$product->productPrice[0]->price}}">
+                                               placeholder="00.00" value="{{ ($product->productPrice) ? $product->productPrice[0]->price : ''}}">
                                         @error('price')
+                                        <div style="color: red;">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="discount" class="form-label">Product discount<span
+                                                style="color: red;">*</span></label>
+                                        <input type="number" name="discount" class="form-control" id="discount"
+                                               placeholder="Enter Product discount"
+                                               value="{{$product->productPrice[0]->discount}}">
+                                        @error('discount')
                                         <div style="color: red;">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -157,6 +182,15 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-12">
+                                        <label for="stock" class="form-label">Initial Stock<span
+                                                style="color: red;">*</span></label>
+                                        <input type="number" name="initial_stock" class="form-control" id="initial_stock"
+                                               placeholder="00.00" value="{{$product->intial_stock}}">
+                                        @error('initial_stock')
+                                        <div style="color: red;">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-12">
                                         <label for="product_tag" class="form-label">Product Tags<span
                                                 style="color: red;">*</span></label>
                                         <input type="text" name="product_tag" class="form-control" id="product_tag"
@@ -165,16 +199,7 @@
                                         <div style="color: red;">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="col-md-12">
-                                        <label for="discount" class="form-label">Product discount<span
-                                                style="color: red;">*</span></label>
-                                        <input type="number" name="discount" class="form-control" id="discount"
-                                               placeholder="Enter Product discount"
-                                               value="{{$product->productPrice[0]->discount}}">
-                                        @error('discount')
-                                        <div style="color: red;">{{ $message }}</div>
-                                        @enderror
-                                    </div>
+
                                     <div class="col-md-12">
                                         <label for="description" class="form-label">Description<span
                                                 style="color: red;">*</span></label>
@@ -184,18 +209,16 @@
                                         <div style="color: red;">{{ $message }}</div>
                                         @enderror
                                     </div>
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-primary">Save Product</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12">
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-primary">Save Product</button>
-                            </div>
-                        </div>
-                    </div><!--end row-->
+
+                    </div>
                 </div>
             </div>
-        </div>
     </form>
     {{-- form end --}}
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xl-4">
@@ -213,7 +236,7 @@
                                 <label for="image1" class="form-label text-center">Gallery Image
                                     <input type="file" class="form-control" name="gallery_image"/>
                                     <img src="{{$image->image_url}}" class="mt-3 mx-auto"
-                                         style="width: 100%; cursor: pointer" >
+                                         style="width: 100%; cursor: pointer">
                                 </label>
                             </div>
                             <div class="col-12">
@@ -222,7 +245,8 @@
                                 </div>
                             </div>
                         </form>
-                        <form action="{{route('delete.image',$image->id)}}" method="post" enctype="multipart/form-data" class="mt-3">
+                        <form action="{{route('delete.image',$image->id)}}" method="post" enctype="multipart/form-data"
+                              class="mt-3">
                             @csrf
                             <div class="col-12">
                                 <div class="d-grid">
