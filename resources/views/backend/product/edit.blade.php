@@ -148,7 +148,7 @@
                                         <label for="price" class="form-label">Price<span
                                                 style="color: red;">*</span></label>
                                         <input type="number" name="price" class="form-control" id="price"
-                                               placeholder="00.00" value="{{ ($product->productPrice) ? $product->productPrice[0]->price : ''}}">
+                                               placeholder="00.00" value="{{ ($product->productPrice != null) ? $product->productPrice->price : ''}}">
                                         @error('price')
                                         <div style="color: red;">{{ $message }}</div>
                                         @enderror
@@ -158,7 +158,7 @@
                                                 style="color: red;">*</span></label>
                                         <input type="number" name="discount" class="form-control" id="discount"
                                                placeholder="Enter Product discount"
-                                               value="{{$product->productPrice[0]->discount}}">
+                                               value="{{ $product->productPrice != null ? $product->productPrice->discount : ''}}">
                                         @error('discount')
                                         <div style="color: red;">{{ $message }}</div>
                                         @enderror
