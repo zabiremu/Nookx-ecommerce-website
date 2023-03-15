@@ -14,10 +14,7 @@ class HomePageController extends Controller
     public function create()
     {
         $products = Product::latest()
-                    ->with('user')
-                    ->with('category')
-                    ->with('subCategory')
-                    ->with('productPrice')
+                    ->with('user', 'category', 'subCategory', 'productPrice')
                     ->limit(8)
                     ->get();
         return view('frontend.homePage', compact('products'));
@@ -26,7 +23,9 @@ class HomePageController extends Controller
     // Display product details page
     public function createProductDetailsPage($slug=null)
     {
-        $product = Product::where('slug_unique', $slug)->get();
+        $product = Product::
+                      with('user', 'category', 'subCategory', 'productPrice', 'comments')
+                    ->where('slug_unique', $slug)->get();
         return view('frontend.productDetailsPage', compact('product'));
     }
 

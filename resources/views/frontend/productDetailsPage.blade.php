@@ -13,11 +13,10 @@
                                 <div class="col-md-5 col-sm-12 col-xs-12 mb-md-0 mb-sm-5">
                                     <div class="detail-gallery">
                                         <!-- MAIN SLIDES -->
-
                                         <div class="position-relative">
                                         <div class="product-image-slider">
                                             <figure class="border-radius-10">
-                                                <img src="" alt="product image">
+                                                <img src="{{ $product[0]->image_url }}" alt="product image">
                                             </figure>
                                             <figure class="border-radius-10">
                                                 <img src="" alt="product image">
@@ -58,7 +57,7 @@
                                         <div class="bg-price">
                                             <span class="save-price mb-10">100%</span>
                                         </div>
-                                        <h5 class="title-detail">Digital Blood Pressure Monitor With Intellisense Technology For Most Accurate Measurement - Arm Circumference (22-32Cm)</h5>
+                                        <h5 class="title-detail">{{ $product[0]->title }}</h5>
                                         <div class="rating d-inline-block">
                                             <i class="fas fa-star"></i>
                                             <i class="fas fa-star"></i>
@@ -74,9 +73,9 @@
                                             </div>
                                         </div>
                                         <ul class="pro-code">
-                                            <li>SKU ID : <span class="text-black">BPM-001</span></li>
-                                            <li>Category : <span class="text-black">Health, Thermometer</span></li>
-                                            <li>Availability : <span class="text-brand">In stock</span></li>
+                                            <li>SKU ID : <span class="text-black">{{ $product[0]->sku }}</span></li>
+                                            <li>Category : <span class="text-black">{{ $product[0]->category->cat_name }}</span></li>
+                                            <li>Availability : <span class="text-brand">{{ $product[0]->stock !== 0 ? 'In Stock' : 'Sold Out' }}</span></li>
                                         </ul>                                  
                                         <div class="product-extra-link2 ">
                                             <h5>Quantity</h5>
@@ -111,10 +110,10 @@
                                 <div class="tab-style3">
                                     <ul class="nav nav-tabs text-uppercase">
                                         <li class="nav-item">
-                                            <a class="nav-link active" id="Description-tab" data-bs-toggle="tab" href="#Description">Description</a>
+                                            <a class="nav-link" id="Additional-info-tab" data-bs-toggle="tab" href="#Specification">Specification</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" id="Additional-info-tab" data-bs-toggle="tab" href="#Specification">Specification</a>
+                                            <a class="nav-link active" id="Description-tab" data-bs-toggle="tab" href="#Description">Description</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" id="review-tab" data-bs-toggle="tab" href="#Review">Review(4)</a>
@@ -122,94 +121,15 @@
                                     </ul>
                                     <div class="view-detail-tab">
                                         <div class="tab-content shop_info_tab entry-main-content">
-                                            <div class="tab-pane about-items fade show active" id="Description">
-                                                <h5>About this item</h5>
-                                                <div class="">
-                                                    <ul class="pro-desc">
-                                                        <li>The omron hem 7120 is a compact fully automatic blood pressure monitor operating on the oscillometric principle for precise measurements and accurate results. It measures your blood pressure and pulse rate with easy one touch operation</li>
-                                                        <li>Cuff Size - Fits Arm Circumference (22-32Cm) The device uses its advanced IntelliSense technology for comfortable controlled inflation without the need of pressure pre-setting or re-inflation even a slight pressure change can be detected resulting most accurate measurement</li>
-                                                        <li>Along with blood pressure monitoring this product detects irregular heartbeat. It is loaded with body movement indicator and blinks if your systolic or diastolic pressure is outside the standard range (above 135 systolic/85 diastolic mmHg)</li>
-                                                        <li>Omron hem-7120 comes with 3 years warranty and lifetime support provided by omron. This digital blood pressure monitor is guaranteed to meet your standards</li>
-                                                        <li>This product is mainly designed for general household use. Please read the Important safety Information in the instruction manual before using the unit. Hypertension Indicator</li>
-                                                        <li>Measurement Tips 1 Wrapping the cuff properly is necessary for an accurate reading 2 measure at the same time of the day (within 1 hour after getting up and before bed time is recommended 3 Sit in a chair straighten your back and be relaxed</li>
-                                                        <li>Manufacturer : Seven Rocks International, Seven Rocks International, Cheema Chowk, Ludhiana</li>
-                                                        <li>Wait 2-3 minutes before taking another blood pressure measurement. Waiting between readings allows the arteries to return to the condition prior to taking the blood pressure measurement.</li>
-                                                    </ul> 
-                                                </div>
-                                            </div>
                                             <div class="tab-pane specific-perform fade" id="Specification">
-                                                <h5>Performance</h5>
-                                                <div class="table-responsive">
-                                                    <table class="table table-bordered ">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>Higher memory bandwidth	</td>
-                                                                <td>1,544 MHz</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Higher pixel rate	</td>
-                                                                <td>74.1 GPixel/s</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <h5>Speed</h5>
-                                                <div class="table-responsive">
-                                                    <table class="table table-bordered ">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>More shading units</td>
-                                                                <td>1,544 MHz</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Better PassMark direct compute score</td>
-                                                                <td>3,953 GFLOPS</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>More texture mapping units	</td>
-                                                                <td>123.5 GTexel/s</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Higher memory clock speed	</td>
-                                                                <td>1,759 MHz</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Better floating-point performance	</td>
-                                                                <td>5,049</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <h5>Information</h5>
-                                                <div class="table-responsive">
-                                                    <table class="table table-bordered mb-0">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>Power</td>
-                                                                <td>5,049</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Windows</td>
-                                                                <td>64bit Windows 7*, 8 or 10</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Graphic Card	</td>
-                                                                <td>4Gb dedicated Graphics card (such as NVIDIA – Open GL 4.0 or later)</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>HDD</td>
-                                                                <td>500Gb HDD (this is more driven by the amount of data you want to keep on your computer, rather than LSS itself)</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Screen</td>
-                                                                <td>Single HD Screen (1920x1080 with 100% desktop scaling) or 1366x768 with second monitor 1920x1080 or higher</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
+                                                {!! $product[0]->specification !!}
+                                            </div>
+                                            <div class="tab-pane about-items fade show active">
+                                                {{ $product[0]->description }}
                                             </div>
                                             <div class="tab-pane review-tab fade" id="Review">
                                                 <div class="review-rating-blk">
+                                                    {{ dd($product) }}
                                                     <div class="rating-views-blk">
                                                         <div class="rating-views text-center">
                                                             <h3>4.5<span>/5</span></h3>
