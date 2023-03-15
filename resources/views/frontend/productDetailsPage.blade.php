@@ -13,41 +13,42 @@
                                 <div class="col-md-5 col-sm-12 col-xs-12 mb-md-0 mb-sm-5">
                                     <div class="detail-gallery">
                                         <!-- MAIN SLIDES -->
+
                                         <div class="position-relative">
                                         <div class="product-image-slider">
                                             <figure class="border-radius-10">
-                                                <img src="{{ asset('frontend/assets/img/shop/product-big-1.jpg') }}" alt="product image">
+                                                <img src="" alt="product image">
                                             </figure>
                                             <figure class="border-radius-10">
-                                                <img src="{{ asset('frontend/assets/img/shop/product-big-1.jpg') }}" alt="product image">
+                                                <img src="" alt="product image">
                                             </figure>
                                             <figure class="border-radius-10">
-                                                <img src="{{ asset('frontend/assets/img/shop/product-big-1.jpg') }}" alt="product image">
+                                                <img src="" alt="product image">
                                             </figure>
                                             <figure class="border-radius-10">
-                                                <img src="{{ asset('frontend/assets/img/shop/product-big-1.jpg') }}" alt="product image">
+                                                <img src="" alt="product image">
                                             </figure>
                                             <figure class="border-radius-10">
-                                                <img src="{{ asset('frontend/assets/img/shop/product-big-1.jpg') }}" alt="product image">
+                                                <img src="" alt="product image">
                                             </figure>
                                             <figure class="border-radius-10">
-                                                <img src="{{ asset('frontend/assets/img/shop/product-big-1.jpg') }}" alt="product image">
+                                                <img src="" alt="product image">
                                             </figure>
                                             <figure class="border-radius-10">
-                                                <img src="{{ asset('frontend/assets/img/shop/product-big-1.jpg') }}" alt="product image">
+                                                <img src="" alt="product image">
                                             </figure>
                                         </div>
                                             <span class="zoom-icon"><i class="feather-search"></i></span>
                                         </div>
                                         <!-- THUMBNAILS -->
                                         <div class="slider-nav-thumbnails">
-                                            <div><img src="{{ asset('frontend/assets/img/shop/product-small-02.jpg') }}" alt="product image"></div>
-                                            <div><img src="{{ asset('frontend/assets/img/shop/product-small-03.jpg') }}" alt="product image"></div>
-                                            <div><img src="{{ asset('frontend/assets/img/shop/product-small-02.jpg') }}" alt="product image"></div>
-                                            <div><img src="{{ asset('frontend/assets/img/shop/product-small-03.jpg') }}" alt="product image"></div>
-                                            <div><img src="{{ asset('frontend/assets/img/shop/product-small-02.jpg') }}" alt="product image"></div>
-                                            <div><img src="{{ asset('frontend/assets/img/shop/product-small-03.jpg') }}" alt="product image"></div>
-                                            <div><img src="{{ asset('frontend/assets/img/shop/product-small-02.jpg') }}" alt="product image"></div>
+                                            <div><img src="" alt="product image"></div>
+                                            <div><img src="" alt="product image"></div>
+                                            <div><img src="" alt="product image"></div>
+                                            <div><img src="" alt="product image"></div>
+                                            <div><img src="" alt="product image"></div>
+                                            <div><img src="" alt="product image"></div>
+                                            <div><img src="" alt="product image"></div>
                                         </div>
                                     </div>
                                     <!-- End Gallery -->
@@ -265,7 +266,7 @@
                                                 <h3>Recent Reviews</h3>
                                                 <div class="review-group mb-10">
                                                     <div class="review-img">
-                                                        <a href="profile.html"><img src="{{ asset('frontend/assets/img/user/user-04.jpg') }}" alt="img" class="img-fluid"></a>
+                                                        <a href="profile.html"><img src="" alt="img" class="img-fluid"></a>
                                                     </div>
                                                     <div class="review-name-group">
                                                         <h5><a href="profile.html">Teri Jennings</a> <span>11 months age</span></h5>
