@@ -1,4 +1,7 @@
 {{-- header bottom start--}}
+@php
+    $categories = App\Models\Category::latest()->limit(6)->with('subCategory')->get();
+@endphp
 <div class="header-bottom sticky-bar">
     <div class="container">
         <div class="header-col">
@@ -12,104 +15,20 @@
                 <div class="main-menu d-none d-lg-block">
                     <nav>
                         <ul>
+                            @foreach ($categories as $category)
                             <li>
-                                <a class="active" href="#">All Medicines <i
-                                        class="fi-rs-angle-down"></i></a>
+                                <a class="active" href="#">{{ $category->cat_name }}</a>
+                                @if (count($category->subCategory) > 0)
+                                <i class="fi-rs-angle-down fa-sm text-white"></i>
                                 <ul class="has-submenu">
-                                    <li><a href="{{ route('product.details.create') }}">COVID Medicines</a></li>
-                                    <li><a href="{{ route('product.details.create') }}">Ayrvedic Medicines</a></li>
-                                    <li><a href="{{ route('product.details.create') }}">Health Equipments</a></li>
-                                    <li><a href="{{ route('product.details.create') }}">Personal Care</a></li>
-                                    <li><a href="{{ route('product.details.create') }}">Fitness Suppliments</a></li>
-                                    <li><a href="{{ route('product.details.create') }}l">Childcare</a></li>
+                                    @foreach ($category->subCategory as $subcategory)
+                                    <li><a href="{{ route('product.details.create') }}">{{ $subcategory->sub_name }}</a></li>
+                                    @endforeach
+                                    
                                 </ul>
-                            </li>
-                            <li>
-                                <a href="#">COVID Medicines <i class="fi-rs-angle-down"></i></a>
-                                <ul class="has-submenu">
-                                    <li><a href="{{ route('product.details.create') }}">Stimulants</a></li>
-                                    <li><a href="{{ route('product.details.create') }}">Opoids</a></li>
-                                    <li><a href="{{ route('product.details.create') }}">Antibiotics</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#">Ayrvedic Medicines <i class="fi-rs-angle-down"></i></a>
-                                <ul class="has-submenu">
-                                    <li><a href="{{ route('product.details.create') }}">Calcitonin</a></li>
-                                    <li><a href="{{ route('product.details.create') }}">Echinocandins</a></li>
-                                    <li><a href="{{ route('product.details.create') }}">Handicraft</a></li>
-                                    <li><a href="{{ route('product.details.create') }}">Suppositories</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#">Health Equipments <i class="fi-rs-angle-down"></i></a>
-                                <ul class="has-submenu">
-                                    <li><a href="{{ route('product.details.create') }}">Medical Supplies</a></li>
-                                    <li><a href="{{ route('product.details.create') }}">Pulse Oximeters</a></li>
-                                    <li><a href="{{ route('product.details.create') }}">Examination Gloves</a></li>
-                                    <li><a href="{{ route('product.details.create') }}">Baby Care</a></li>
-                                    <li><a href="{{ route('product.details.create') }}">Respiratory</a></li>
-                                    <li><a href="{{ route('product.details.create') }}">Medical Equipment</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#">Personal Care <i class="fi-rs-angle-down"></i></a>
-                                <ul class="has-submenu">
-                                    <li><a href="{{ route('product.details.create') }}"> Digital Glucose Meter</a></li>
-                                    <li><a href="{{ route('product.details.create') }}">Digital Thermometer</a></li>
-                                    <li><a href="{{ route('product.details.create') }}">Cotton Mask</a></li>
-                                    <li><a href="{{ route('product.details.create') }}">Kids Thermometer</a></li>
-                                    <li><a href="{{ route('product.details.create') }}">Face Mask</a></li>
-                                    <li><a href="{{ route('product.details.create') }}">Digital Meter</a></li>
-                                </ul>
-                            </li>
-                            <li class="position-static">
-                                <a href="#">Mega Menu <i class="fi-rs-angle-down"></i></a>
-
-                                <ul class="mega-menu">
-                                    <li class="sub-mega-menu sub-mega-menu-two">
-                                        <div class="menu-banner-wrap">
-                                            <div class="menu-banner-content">
-                                                <p>WEEKEND DISCOUNT 20%</p>
-                                                <h4>Blood Pressure</h4>
-                                                <h3>Monitor Upper Arm</h3>
-                                                <div class="menu-banner-price">
-                                                    <span class="new-price">Save to 20%</span>
-                                                </div>
-                                                <div class="menu-banner-btn">
-                                                    <a href="cart.html">Shop All</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="sub-mega-menu sub-mega-menu-one">
-                                        <a class="menu-title">Shop Layouts</a>
-                                        <ul class="dropdown">
-                                            <li><a href="{{ route('shop.grid.create') }}">Shop Grid</a></li>
-                                            <li><a href="{{ route('shop.list.create') }}">Shop List</a></li>
-                                            <li><a href="{{ route('shop.left.list.create') }}">Shop Left Sidebar</a></li>
-                                            <li><a href="{{ route('shop.right.list.create') }}">Shop Right Sidebar</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="sub-mega-menu sub-mega-menu-one">
-                                        <a class="menu-title" href="#">Product Layouts</a>
-                                        <ul>
-                                            <li><a href="{{ route('product.details.create') }}">View Product</a></li>
-                                            <li><a href="{{ route('shop.left.details.create') }}">Product Left Sidebar</a>
-                                            </li>
-                                            <li><a href="{{ route('shop.right.details.create') }}">Product Right Sidebar</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="sub-mega-menu sub-mega-menu-one">
-                                        <a class="menu-title" href="#">Product Type</a>
-                                        <ul>
-                                            <li><a href="{{ route('store.listing.create') }}">Store Listing</a></li>
-                                            <li><a href="{{ route('store.single.create') }}">Store Single</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
+                                @endif
+                            </li>    
+                            @endforeach
                             @auth
                             <li>
                                 <a href="#">Profile <i class="fi-rs-angle-down"></i></a>

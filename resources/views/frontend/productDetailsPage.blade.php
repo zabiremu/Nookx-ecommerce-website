@@ -3,7 +3,6 @@
 
 @section('content')
 <!-- Main -->
-{{ dd($product) }}
     <main class="main">
         <div class="page-content">
             <div class="container">
@@ -129,6 +128,7 @@
                                                 {{ $product[0]->description }}
                                             </div>
                                             <div class="tab-pane review-tab fade" id="Review">
+                                            {{-- Rating Review --}}
                                                 <div class="review-rating-blk">
                                                     <div class="rating-views-blk">
                                                         <div class="rating-views text-center">
@@ -183,13 +183,17 @@
                                                         </div>
                                                     </div>
                                                 </div> 
+
+
+                                                {{-- Comment Review --}}
                                                 <h3>Recent Reviews</h3>
+                                                @forelse ($product[0]->comments as $comment)
                                                 <div class="review-group mb-10">
                                                     <div class="review-img">
                                                         <a href="profile.html"><img src="" alt="img" class="img-fluid"></a>
                                                     </div>
                                                     <div class="review-name-group">
-                                                        <h5><a href="profile.html">Teri Jennings</a> <span>11 months age</span></h5>
+                                                        <h5><a href="profile.html">{{ $comment }}</a> <span> | {{ $comment->updated_at->diffForhumans() }}</span></h5>
                                                         <div class="review-card-bottom ">
                                                             <div class="rating d-inline-block">
                                                                 <i class="fas fa-star"></i>
@@ -199,48 +203,17 @@
                                                                 <i class="fas fa-star filled"></i>
                                                             </div>
                                                         </div>
-                                                        <h6>Allegra Generic</h6>
-                                                        <p>I have been in treatment all my life For extrinsic asthma. As spring pollen are big triggers, I really depend on antihistamines and Allegra Generic, from Curist, is as effective as Brand Allegra. And a very be healthy difference in price.</p>
+                                                        {{-- @if($comment->replies > 0)
+                                                        <h6><a href="profile.html">{{ $comment }}</a> <span> | {{ $comment->updated_at->diffForhumans() }}</span>Allegra Generic</h6>
+                                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum eos, voluptates nostrum velit veritatis sapiente nobis dolore atque quam commodi. </p>  
+                                                        @endif --}}
                                                     </div>
                                                 </div>
-                                                <div class="review-group mb-10">
-                                                    <div class="review-img">
-                                                        <a href="profile.html"><img src="{{ asset('frontend/assets/img/user/user-04.jpg') }}" alt="img" class="img-fluid"></a>
-                                                    </div>
-                                                    <div class="review-name-group">
-                                                        <h5><a href="profile.html">Teri Jennings</a> <span>11 months age</span></h5>
-                                                        <div class="review-card-bottom ">
-                                                            <div class="rating d-inline-block">
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                            </div>
-                                                        </div>
-                                                        <h6>Allegra Generic</h6>
-                                                        <p>I have been in treatment all my life For extrinsic asthma. As spring pollen are big triggers, I really depend on antihistamines and Allegra Generic, from Curist, is as effective as Brand Allegra. And a very be healthy difference in price.</p>
-                                                    </div>
-                                                </div>
-                                                <div class="review-group mb-10">
-                                                    <div class="review-img">
-                                                        <a href="profile.html"><img src="{{ asset('frontend/assets/img/user/user-04.jpg') }}" alt="img" class="img-fluid"></a>
-                                                    </div>
-                                                    <div class="review-name-group">
-                                                        <h5><a href="profile.html">Teri Jennings</a> <span>11 months age</span></h5>
-                                                        <div class="review-card-bottom ">
-                                                            <div class="rating d-inline-block">
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                            </div>
-                                                        </div>
-                                                        <h6>Allegra Generic</h6>
-                                                        <p>I have been in treatment all my life For extrinsic asthma. As spring pollen are big triggers, I really depend on antihistamines and Allegra Generic, from Curist, is as effective as Brand Allegra. And a very be healthy difference in price.</p>
-                                                    </div>
-                                                </div>
+                                                    
+                                                @empty
+                                                    <h3>No Comment yet</h3>
+                                                @endforelse
+
                                                 <h3>Leave a Comment</h3>
                                                 <div class="review-coment-group">
                                                     <p >Your email address will not be published. Required fields are marked *</p>

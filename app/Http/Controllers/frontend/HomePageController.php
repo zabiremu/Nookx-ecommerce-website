@@ -17,16 +17,18 @@ class HomePageController extends Controller
                     ->with('user', 'category', 'subCategory', 'productPrice')
                     ->limit(8)
                     ->get();
-        return view('frontend.homePage', compact('products'));
+        $banners = Product::where('banner', 1)->limit(5)->latest()->get();
+        $most_view = Product::where('trending', 1)->with('category')->limit(3)->get();
+        $trendings = Product::where('trending', 1)->with('category')->limit(12)->get();
+        return view('frontend.homePage', compact('products', 'banners', 'most_view', 'trendings'));
     }
 
     // Display product details page
     public function createProductDetailsPage($slug=null)
     {
         $product = Product::
-                      with('user', 'category', 'subCategory', 'productPrice', 'comments.replies', 'user', 'comments.user')
-                    ->where('slug_unique', $slug)->get();
-                    dd($product->toArray());
+                      with('user', 'category', 'subCategory', 'productPrice', 'comments.replies', 'user', 'comments.user', 'comments.replies.user')
+                    ->where('slug_unique', $slug)->get();                   
         return view('frontend.productDetailsPage', compact('product'));
     }
 
