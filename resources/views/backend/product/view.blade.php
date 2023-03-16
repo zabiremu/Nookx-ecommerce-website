@@ -22,7 +22,11 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="example2" class="table table-striped table-bordered">
+                            <div style="padding: 12px 0">
+                                <a href="{{route('show.pdf')}}" class="btn btn-primary">PDF</a>
+                                <a href="{{route('export.execl')}}" class="btn btn-success">Excel</a>
+                            </div>
+                            <table id="" class="table table-striped table-bordered">
                                 <thead>
                                 <tr>
                                     <th>#</th>
@@ -80,31 +84,4 @@
         </div>
     </div>
 
-    @push('script')
-        <script>
-            var button = $('.button')
-            button.on('click', function () {
-                var form = $(this).next('form');
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You will be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        Swal.fire(
-                            'Deleted!',
-                            'Your file has been deleted.',
-                            'success'
-                        )
-
-                        form.submit()
-                    }
-                })
-            })
-        </script>
-    @endpush
 @endsection

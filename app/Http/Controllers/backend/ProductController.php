@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\backend;
 
+use App\Exports\ProductExport;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\ProductImage;
@@ -15,7 +16,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use function Pest\Laravel\json;
 use function PHPUnit\Framework\isNull;
-
+use Dompdf\Dompdf;
+use Maatwebsite\Excel\Facades\Excel;
 class ProductController extends Controller
 {
 
@@ -330,5 +332,20 @@ class ProductController extends Controller
             $new_title = $title . '-' . $count++;
         }
         return $new_title;
+    }
+
+    public function showPdf()
+    {
+        $product = Product::latest()->get();
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml('backend.PDF');
+        $dompdf->render();
+        $dompdf->stream('product.pdf');
+
+    }
+
+    public function export()
+    {
+        return Excel::download(new ProductExport, 'products.xlsx');
     }
 }

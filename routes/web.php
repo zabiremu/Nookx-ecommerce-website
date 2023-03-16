@@ -61,6 +61,12 @@ Route::group(['middleware' => ['auth', 'role:admin|manager|editor|seller']], fun
 
         Route::post('/gallery-image/{id}','galleryImage')->name('gallery.image');
         Route::post('/delete-gallery-image/{id}','deleteGalleryImage')->name('delete.image');
+
+
+        // print pdf
+        Route::get('/show-product-pdf','showPdf')->name('show.pdf');
+
+        Route::get('prdouct/export/', 'export')->name('export.execl');
     });
 
     Route::controller(RecycleBinController::class)->group(function(){
