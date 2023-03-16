@@ -9,6 +9,7 @@
             ->get();
     @endphp
     <main class="main">
+        {{ dd($products) }}
         <section class="banner-section position-relative">
             <div class="container">
                 <div class="banner-slider">
@@ -206,7 +207,7 @@
                                         <div class="product-img product-img-zoom">
                                             <a href="{{ route('product.details.create', $product->slug_unique) }}">
                                                 <img src="{{ $product->image_url }}"
-                                                    alt="">
+                                                alt="">
                                             </a>
                                         </div>
                                         <div class="product-badge">

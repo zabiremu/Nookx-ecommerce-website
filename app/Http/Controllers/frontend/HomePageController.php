@@ -24,8 +24,9 @@ class HomePageController extends Controller
     public function createProductDetailsPage($slug=null)
     {
         $product = Product::
-                      with('user', 'category', 'subCategory', 'productPrice', 'comments')
+                      with('user', 'category', 'subCategory', 'productPrice', 'comments.replies', 'user', 'comments.user')
                     ->where('slug_unique', $slug)->get();
+                    dd($product->toArray());
         return view('frontend.productDetailsPage', compact('product'));
     }
 

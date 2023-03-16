@@ -2,7 +2,8 @@
 
 
 @section('content')
-    <!-- Main -->
+<!-- Main -->
+{{ dd($product) }}
     <main class="main">
         <div class="page-content">
             <div class="container">
@@ -129,7 +130,6 @@
                                             </div>
                                             <div class="tab-pane review-tab fade" id="Review">
                                                 <div class="review-rating-blk">
-                                                    {{ dd($product) }}
                                                     <div class="rating-views-blk">
                                                         <div class="rating-views text-center">
                                                             <h3>4.5<span>/5</span></h3>
