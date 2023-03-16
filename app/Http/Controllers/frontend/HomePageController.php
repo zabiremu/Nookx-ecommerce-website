@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,13 +13,20 @@ class HomePageController extends Controller
     //Display home page
     public function create()
     {
-        return view('frontend.homePage');
+        $products = Product::latest()
+                    ->with('user', 'category', 'subCategory', 'productPrice')
+                    ->limit(8)
+                    ->get();
+        return view('frontend.homePage', compact('products'));
     }
 
     // Display product details page
-    public function createProductDetailsPage()
+    public function createProductDetailsPage($slug=null)
     {
-        return view('frontend.productDetailsPage');
+        $product = Product::
+                      with('user', 'category', 'subCategory', 'productPrice', 'comments')
+                    ->where('slug_unique', $slug)->get();
+        return view('frontend.productDetailsPage', compact('product'));
     }
 
     // display shop grid page

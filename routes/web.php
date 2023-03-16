@@ -103,9 +103,8 @@ Route::get('/google/redriect', [ProfileController::class, 'redriect'])->name('go
 Route::controller(HomePageController::class)->group(function () {
     // home page setup
     Route::get('/', 'create')->name('home.create');
-
     // product details page setup
-    Route::get('/product/details', 'createProductDetailsPage')->name('product.details.create');
+    Route::get('/product/details/{slug?}', 'createProductDetailsPage')->name('product.details.create');
 
     // mega menu
     // shop grid

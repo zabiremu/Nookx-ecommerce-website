@@ -30,4 +30,12 @@ class Product extends Model
     {
         return $this->hasMany(ProductImage::class);
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class)->whereNull('parent_id');
+    }
 }
