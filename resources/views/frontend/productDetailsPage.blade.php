@@ -212,61 +212,33 @@
                                                             <h6><a href="profile.html">{{ $comment->replies->comment }}</a> <span> | {{ $comment->updated_at->diffForhumans() }}</span>Allegra Generic</h6>
                                                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum eos, voluptates nostrum velit veritatis sapiente nobis dolore atque quam commodi. </p>  
                                                             @endif
+                                                            <form action="{{ route('comment.create', $product[0]->id) }}" method="post">
+                                                                @csrf
+                                                                <div class="form-group">
+                                                                    <label>Comment <span class="text-danger">*</span></label>
+                                                                    <div class="rating row">
+                                                                        <input type="text" name="comment" class="form-control col-sm-8">
+                                                                        <button class="btn btn-sm btn-primary col-sm-4" type="submit">Send</button>
+                                                                    </div>
+                                                                </div>
+    
+                                                            </form>
                                                         </div>
                                                     </div>
                                                         
                                                     @empty
-                                                        <h3>No Comment yet</h3>
-                                                    @endforelse
-    
-                                                    <h3>Leave a Comment</h3>
-                                                    <div class="review-coment-group">
-                                                        <p >Your email address will not be published. Required fields are marked *</p>
                                                         <form action="javascript:;">
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label>Your Name <span class="text-danger">*</span></label>
-                                                                        <div class="rating ">
-                                                                            <i class="far fa-star"></i>
-                                                                            <i class="far fa-star"></i>
-                                                                            <i class="far fa-star"></i>
-                                                                            <i class="far fa-star"></i>
-                                                                            <i class="far fa-star "></i>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label>Your Name <span class="text-danger">*</span></label>
-                                                                        <input type="text" class="form-control">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label>Your Email <span class="text-danger">*</span></label>
-                                                                        <input type="email" class="form-control">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label>Your Review</label>
-                                                                        <textarea class="form-control" rows="7" id="comment" name="text"></textarea>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-12">
-                                                                    <div class="form-check mb-3">
-                                                                        <label class="form-check-label">
-                                                                        <input class="form-check-input" type="checkbox" name="remember"> Remember me
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="review-submit">
-                                                                    <button type="button" class="btn btn-primary">Submit</button>
+                                                            <div class="form-group">
+                                                                <label>Comment <span class="text-danger">*</span></label>
+                                                                <div class="rating ">
+                                                                    <input type="text" name="comment" class="form-controll">
                                                                 </div>
                                                             </div>
+
                                                         </form>
                                                     </div>
+                                                    @endforelse
+    
                                                 @else
                                                     <h4>Do you write a comment or reiview please <a class="btn btn-sm btn-primary" href="{{ route('login') }}">login</a> required</h4>
                                                 @endif

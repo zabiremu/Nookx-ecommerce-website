@@ -9,6 +9,7 @@ use App\Http\Controllers\backend\CategoryController;
 use App\Http\Controllers\backend\ProductController;
 use App\Http\Controllers\backend\RecycleBinController;
 use App\Http\Controllers\backend\SubCategoryController;
+use App\Http\Controllers\frontend\CommentController;
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -142,6 +143,12 @@ Route::controller(HomePageController::class)->group(function () {
 });
 // HomePage Controller End
 
+//comment al controller
+Route::controller(CommentController::class)->group(function () {
+    // home page setup
+    Route::post('/create/comment', 'createComment/{id}')->name('comment.create');
+   
+});
 // fortend all controller end
 
 require __DIR__ . '/auth.php';

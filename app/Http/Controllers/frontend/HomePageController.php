@@ -30,8 +30,7 @@ class HomePageController extends Controller
     {
         $product = Product::
                       with('user', 'category', 'subCategory', 'productPrice', 'comments.replies', 'user', 'comments.user', 'comments.replies.user')
-                    ->where('slug_unique', $slug)->get();   
-                    // dd($product->all());                
+                    ->where('slug_unique', $slug)->get();                
         return view('frontend.productDetailsPage', compact('product'));
     }
 
