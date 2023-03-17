@@ -141,7 +141,7 @@
                                     </div>
                                     <div class="product-content">
                                         <div class="sold-group mb-15">
-                                            <p>Added By <span>{{ $product->user_id }}</span></p>
+                                            <p>Added By <span>{{ $product->user->name }}</span></p>
                                         </div>
                                         <h2><a href="{{ route('product.details.create', $product->slug_unique) }}">{{ $product->title }}</a></h2>
                                         <div class="product-card-bottom ">
@@ -157,7 +157,7 @@
                                         
                                         <div class="product-card-bottom ">
                                             <div class="product-price">
-                                                <span>$ {{ $product->productPrice }}.00</span>
+                                                <span>$ {{ $productPrice->price != null ? $productPrice->price : '00' }}.00</span>
                                                 <span class="old-price">$ 450.00</span>
                                             </div>
                                         </div>

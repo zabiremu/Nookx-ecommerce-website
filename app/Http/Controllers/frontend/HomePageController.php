@@ -17,10 +17,12 @@ class HomePageController extends Controller
                     ->with('user', 'category', 'subCategory', 'productPrice')
                     ->limit(8)
                     ->get();
+        $productPrice = Product::with('productPrice')->first();
         $banners = Product::where('banner', 1)->limit(5)->latest()->get();
         $most_view = Product::where('trending', 1)->with('category')->limit(3)->get();
         $trendings = Product::where('trending', 1)->with('category')->limit(12)->get();
-        return view('frontend.homePage', compact('products', 'banners', 'most_view', 'trendings'));
+        // dd($products->all());
+        return view('frontend.homePage', compact('products', 'banners', 'most_view', 'trendings', 'productPrice'));
     }
 
     // Display product details page
@@ -28,7 +30,8 @@ class HomePageController extends Controller
     {
         $product = Product::
                       with('user', 'category', 'subCategory', 'productPrice', 'comments.replies', 'user', 'comments.user', 'comments.replies.user')
-                    ->where('slug_unique', $slug)->get();                   
+                    ->where('slug_unique', $slug)->get();   
+                    // dd($product->all());                
         return view('frontend.productDetailsPage', compact('product'));
     }
 
