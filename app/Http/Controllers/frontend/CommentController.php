@@ -12,15 +12,18 @@ class CommentController extends Controller
 {
     public function createComment(Request $request, $id)
     {
-        // dd($request);
         $request->validate([
             'comment' => ['required'],
         ]);
         $user = Auth::user();
-        $product = Product::find($id);
-        dd($product);
+        // $product = Product::find($id);
         $comment = new Comment();
         $comment->user_id = $user->id;
+        $comment->product_id = $id;
+        $comment->comment = $request->comment;
+        $comment->save();
+        return back();
+
          
 
     }

@@ -1,15 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\NewController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\backend\DashboardController;
-use App\Http\Controllers\frontend\HomePageController;
-use App\Http\Controllers\backend\AdminProfileController;
-use App\Http\Controllers\backend\CategoryController;
 use App\Http\Controllers\backend\ProductController;
+use App\Http\Controllers\backend\CategoryController;
+use App\Http\Controllers\frontend\CommentController;
+use App\Http\Controllers\backend\DashboardController;
+use App\Http\Controllers\frontend\FrontendController;
+use App\Http\Controllers\frontend\HomePageController;
 use App\Http\Controllers\backend\RecycleBinController;
 use App\Http\Controllers\backend\SubCategoryController;
-use App\Http\Controllers\frontend\CommentController;
+use App\Http\Controllers\backend\AdminProfileController;
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -146,9 +148,10 @@ Route::controller(HomePageController::class)->group(function () {
 //comment al controller
 Route::controller(CommentController::class)->group(function () {
     // home page setup
-    Route::post('/create/comment', 'createComment/{id}')->name('comment.create');
+    Route::post('/create/comment/{id}', 'createComment')->name('comment.create');
    
 });
+
 // fortend all controller end
 
 require __DIR__ . '/auth.php';

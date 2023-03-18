@@ -195,7 +195,8 @@
                                                     @forelse ($product[0]->comments as $comment)
                                                     <div class="review-group mb-10">
                                                         <div class="review-img">
-                                                            <a href="profile.html"><img src="" alt="img" class="img-fluid"></a>
+                                                            {{-- {{ dd($comment) }} --}}
+                                                            <a href="profile.html"><img src="{{ $comment }}" alt="img" class="img-fluid"></a>
                                                         </div>
                                                         <div class="review-name-group">
                                                             <h5><a href="profile.html">{{ $comment->comment }}</a> <span> | {{ $comment->updated_at->diffForhumans() }}</span></h5>
@@ -209,36 +210,27 @@
                                                                 </div>
                                                             </div>
                                                             @if(count($comment->replies) > 0)
-                                                            <h6><a href="profile.html">{{ $comment->replies->comment }}</a> <span> | {{ $comment->updated_at->diffForhumans() }}</span>Allegra Generic</h6>
+                                                            <p><a href="profile.html">{{ $comment->replies->comment }}</a> <span> | {{ $comment->updated_at->diffForhumans() }}</span>Allegra Generic</p>
                                                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum eos, voluptates nostrum velit veritatis sapiente nobis dolore atque quam commodi. </p>  
                                                             @endif
-                                                            <form action="{{ route('comment.create', $product[0]->id) }}" method="post">
-                                                                @csrf
-                                                                <div class="form-group">
-                                                                    <label>Comment <span class="text-danger">*</span></label>
-                                                                    <div class="rating row">
-                                                                        <input type="text" name="comment" class="form-control col-sm-8">
-                                                                        <button class="btn btn-sm btn-primary col-sm-4" type="submit">Send</button>
-                                                                    </div>
-                                                                </div>
-    
-                                                            </form>
                                                         </div>
                                                     </div>
-                                                        
                                                     @empty
-                                                        <form action="javascript:;">
-                                                            <div class="form-group">
-                                                                <label>Comment <span class="text-danger">*</span></label>
-                                                                <div class="rating ">
-                                                                    <input type="text" name="comment" class="form-controll">
+                                                    <form action="{{ route('comment.create', $product[0]->id) }}" method="post">
+                                                        @csrf
+                                                        <div class="form-group">
+                                                            <label>Comment <span class="text-danger">*</span></label>
+                                                            <div class="rating row">
+                                                                <div class="col-sm-8">
+                                                                    <input type="text" name="comment" class="form-control col-sm-8">
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <button class="btn btn-sm btn-primary col-sm-4" type="submit">Send</button>
                                                                 </div>
                                                             </div>
-
-                                                        </form>
-                                                    </div>
+                                                        </div>
+                                                    </form>
                                                     @endforelse
-    
                                                 @else
                                                     <h4>Do you write a comment or reiview please <a class="btn btn-sm btn-primary" href="{{ route('login') }}">login</a> required</h4>
                                                 @endif
