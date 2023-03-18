@@ -29,12 +29,10 @@ class HomePageController extends Controller
     // Display product details page
     public function createProductDetailsPage($slug)
     {
-        $id = Product::where('slug_unique', $slug)->first(['id']);
         $product = Product::where('slug_unique', $slug)
             ->
             with('user', 'category', 'subCategory', 'productImage', 'productPrice', 'comments.replies', 'user', 'comments.user', 'comments.replies.user')
             ->first();
-//        dd($product->all());
         return view('frontend.productDetailsPage', compact('product'));
     }
 
