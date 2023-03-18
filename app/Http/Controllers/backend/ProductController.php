@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use function Pest\Laravel\json;
 use function PHPUnit\Framework\isNull;
-use Dompdf\Dompdf;
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 class ProductController extends Controller
 {
 
@@ -336,11 +336,9 @@ class ProductController extends Controller
 
     public function showPdf()
     {
-        $product = Product::latest()->get();
-        $dompdf = new Dompdf();
-        $dompdf->loadHtml('backend.PDF');
-        $dompdf->render();
-        $dompdf->stream('product.pdf');
+        $data = collect(Product::latest()->first())->toArray();
+        $pdf = Pdf::loadView('backend.PDF.PDF', $data);
+        return $pdf->download('product.pdf');
 
     }
 

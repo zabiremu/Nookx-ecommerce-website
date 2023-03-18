@@ -3,10 +3,10 @@
     <div class="container">
         <div class="header-col">
             <div class="logo header-logo">
-                <a href="index.html" class="d-none d-lg-block"><img src="{{ asset('frontend/assets/img/logo.png') }}"
+                <a href="{{url('/')}}" class="d-none d-lg-block"><img src="{{ asset('frontend/assets/img/logo.png') }}"
                         alt="logo"></a>
-                <a href="index.html" class="d-lg-none d-sm-block"><img
-                        src="{{ asset('frontend/assets/img/logo-01.png') }}" alt="logo"></a>
+                <a href="{{url('/')}}" class="d-lg-none d-sm-block"><img
+                        src="{{ asset('frontend/assets/img/logo-01.png') }}" alt="logo 2"></a>
             </div>
             <div class="header-right">
                 <div class="header-search">

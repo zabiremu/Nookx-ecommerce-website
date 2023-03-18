@@ -40,5 +40,7 @@
   {{-- Instant photo change --}}
   <script src="{{ asset('frontend/assets/js/instantPhoto.js') }}"></script>
 
-  
+
 {{-- javaScript file end--}}
+
+@stack('script')

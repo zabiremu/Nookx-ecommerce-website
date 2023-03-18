@@ -3,7 +3,7 @@
     <div class="mobile-header-inner">
         <div class="mobile-header-top">
             <div class="mobile-header-logo">
-                <a href="index.html"><img src="{{ asset('frontend/assets/img/logo.png') }}" alt="logo" /></a>
+                <a href="{{url('/')}}"><img src="{{ asset('frontend/assets/img/logo.png') }}" alt="logo" /></a>
             </div>
             <div class="mobile-menu-close close-col menu-close-position">
                 <button class="close-style">
