@@ -36,9 +36,11 @@
   <!-- Custom JS -->
   <script src="{{ asset('frontend/assets/js/script.js') }}"></script>
 
-
   {{-- Instant photo change --}}
   <script src="{{ asset('frontend/assets/js/instantPhoto.js') }}"></script>
+
+  {{-- Product comment reply  --}}
+  <script src="{{ asset('frontend/assets/js/commentReply.js') }}"></script>
 
 
 {{-- javaScript file end--}}

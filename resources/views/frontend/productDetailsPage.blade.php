@@ -238,10 +238,19 @@
                                                                         <i class="fas fa-star filled"></i>
                                                                     </div>
                                                                 </div>
-                                                                {{-- @if($comment->replies > 0)
-                                                                <h6><a href="profile.html">{{ $comment }}</a> <span> | {{ $comment->updated_at->diffForhumans() }}</span>Allegra Generic</h6>
-                                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum eos, voluptates nostrum velit veritatis sapiente nobis dolore atque quam commodi. </p>
-                                                                @endif --}}
+                                                                <a id="{{$comment->id}}" style="color: rgb(33, 160, 106);" class="replyBtn-{{$comment->id}}">Reply</a>
+                                                                <form id="replyForm-{{$comment->id}}"
+                                                                class="replyForm-{{$comment->id}}" 
+                                                                action="" method="post">
+                                                                <div class="row">
+                                                                    <div class="input col-sm-8">
+                                                                        <input class="form-control mt-1" type="text" name="name" placeholder="Enter your name"/>
+                                                                    </div>
+                                                                    <div class="btn-group col-sm-4">
+                                                                        <button class="btn btn-sm btn-primary">Send</button>
+                                                                    </div>
+                                                                </div>
+                                                                </form>
                                                             </div>
                                                         </div>
 
@@ -642,3 +651,5 @@
         </script>
     @endpush
 @endsection
+
+
