@@ -357,22 +357,16 @@
                                                                         @endif
                                                                     @endif
                                                                 </div>
-                                                                <a id="{{ $comment->id }}"
-                                                                    style="color: rgb(33, 160, 106);"
-                                                                    class="replyBtn-{{ $comment->id }}">Reply</a>
-                                                                <form id="replyForm-{{ $comment->id }}"
-                                                                    class="replyForm-{{ $comment->id }}" action=""
-                                                                    method="post">
-                                                                    <div class="row">
-                                                                        <div class="input col-sm-8">
-                                                                            <input class="form-control mt-1"
-                                                                                type="text" name="name"
-                                                                                placeholder="Enter your name" />
-                                                                        </div>
-                                                                        <div class="btn-group col-sm-4">
-                                                                            <button
-                                                                                class="btn btn-sm btn-primary">Send</button>
-                                                                        </div>
+                                                                <a id="{{$comment->id}}" style="color: rgb(33, 160, 106);" class="replyBtn-{{$comment->id}}">Reply</a>
+                                                                <form id="replyForm-{{$comment->id}}"
+                                                                class="replyForm-{{$comment->id}}" 
+                                                                action="" method="post">
+                                                                <div class="row">
+                                                                    <div class="input col-sm-8">
+                                                                        <input class="form-control mt-1" type="text" name="name" placeholder="Enter your name"/>
+                                                                    </div>
+                                                                    <div class="btn-group col-sm-4">
+                                                                        <button class="btn btn-sm btn-primary">Send</button>
                                                                     </div>
                                                                 </form>
                                                             </div>
@@ -387,8 +381,9 @@
                                                     <div class="review-coment-group">
                                                         <p>Your email address will not be published. Required fields are
                                                             marked *</p>
-                                                        <form action="{{ route('comment.create', $product->id) }}"
-                                                            method="post">
+{{--                                                        {{dd($product->id)}}--}}
+                                                        <form action="{{ route('comment.create',$product->id) }}"
+                                                              method="post">
                                                             @csrf
                                                             <div class="row">
 

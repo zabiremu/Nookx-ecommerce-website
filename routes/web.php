@@ -153,8 +153,8 @@ Route::controller(HomePageController::class)->group(function () {
 
 //comment al controller
 Route::controller(CommentController::class)->group(function () {
-    // home page setup
     Route::post('/create/comment/{id}', 'createComment')->name('comment.create');
+   
 });
 
 // fortend all controller end
