@@ -73,12 +73,46 @@
                                         </div>
                                         <h5 class="title-detail">{{ $product->title }}</h5>
                                         <div class="rating d-inline-block">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star filled"></i>
-                                            <span class="ml-5"> (3.5)</span>
+                                            @if ($averageResult == 1)
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    @elseif ($averageResult == 1.5)
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fa-regular fa-star-half-stroke"></i>
+                                                                    @elseif ($averageResult == 2)
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    @elseif ($averageResult == 2.5)
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fa-regular fa-star-half-stroke"></i>
+                                                                    @elseif ($averageResult == 3)
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    @elseif ($averageResult == 3.5)
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fa-regular fa-star-half-stroke"></i>
+                                                                    @elseif ($averageResult == 4)
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    @elseif ($averageResult == 4.5)
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fa-regular fa-star-half-stroke"></i>
+                                                                    @elseif ($averageResult == 5)
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    @endif
+                                            <span class="ml-5"> ({{$averageResult}})</span>
                                         </div>
                                         <div class="clearfix product-price-cover">
                                             <div class="product-price primary-color float-left">
@@ -140,7 +174,7 @@
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" id="review-tab" data-bs-toggle="tab"
-                                                href="#Review">Review(4)</a>
+                                                href="#Review">Review</a>
                                         </li>
                                     </ul>
                                     <div class="view-detail-tab">
@@ -157,17 +191,51 @@
                                                 <div class="review-rating-blk">
                                                     <div class="rating-views-blk">
                                                         <div class="rating-views text-center">
-                                                            <h3>4.5<span>/5</span></h3>
+                                                            <h3>{{ $averageResult }}<span>/5</span></h3>
                                                             <div class="review-card-bottom ">
                                                                 <div class="rating d-inline-block">
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star filled"></i>
+                                                                    @if ($averageResult == 1)
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    @elseif ($averageResult == 1.5)
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fa-regular fa-star-half-stroke"></i>
+                                                                    @elseif ($averageResult == 2)
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    @elseif ($averageResult == 2.5)
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fa-regular fa-star-half-stroke"></i>
+                                                                    @elseif ($averageResult == 3)
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    @elseif ($averageResult == 3.5)
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fa-regular fa-star-half-stroke"></i>
+                                                                    @elseif ($averageResult == 4)
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    @elseif ($averageResult == 4.5)
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fa-regular fa-star-half-stroke"></i>
+                                                                    @elseif ($averageResult == 5)
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    @endif
                                                                 </div>
                                                             </div>
-                                                            <p>296 Ratings</p>
+                                                            <p id="averageRatings" class="d-inline-block">{{ $averageResult }}</p><p class="d-inline-block">Ratings</p>
                                                         </div>
                                                     </div>
                                                     <div class="rating-star-group">
@@ -234,17 +302,62 @@
                                                             </h5>
                                                             <div class="review-card-bottom ">
                                                                 <div class="rating d-inline-block">
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star filled"></i>
+
+                                                                    @if ($comment->review[0]->ratings == 1)
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    @elseif ($comment->review[0]->ratings == 1.5)
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fa-regular fa-star-half-stroke"></i>
+                                                                    @elseif ($comment->review[0]->ratings == 2)
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    @elseif ($comment->review[0]->ratings== 2.5)
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fa-regular fa-star-half-stroke"></i>
+                                                                    @elseif ($comment->review[0]->ratings == 3)
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    @elseif ($comment->review[0]->ratings == 3.5)
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fa-regular fa-star-half-stroke"></i>
+                                                                    @elseif ($comment->review[0]->ratings== 4)
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    @elseif ($comment->review[0]->ratings == 4.5)
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fa-regular fa-star-half-stroke"></i>
+                                                                    @elseif ($comment->review[0]->ratings == 5)
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    <i class="fas fa-star avgResult"></i>
+                                                                    @endif
+
                                                                 </div>
+                                                                <a id="{{$comment->id}}" style="color: rgb(33, 160, 106);" class="replyBtn-{{$comment->id}}">Reply</a>
+                                                                <form id="replyForm-{{$comment->id}}"
+                                                                class="replyForm-{{$comment->id}}" 
+                                                                action="" method="post">
+                                                                <div class="row">
+                                                                    <div class="input col-sm-8">
+                                                                        <input class="form-control mt-1" type="text" name="name" placeholder="Enter your name"/>
+                                                                    </div>
+                                                                    <div class="btn-group col-sm-4">
+                                                                        <button class="btn btn-sm btn-primary">Send</button>
+                                                                    </div>
+                                                                </div>
+                                                                </form>
                                                             </div>
-                                                            {{-- @if ($comment->replies > 0)
-                                                                <h6><a href="profile.html">{{ $comment }}</a> <span> | {{ $comment->updated_at->diffForhumans() }}</span>Allegra Generic</h6>
-                                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum eos, voluptates nostrum velit veritatis sapiente nobis dolore atque quam commodi. </p>
-                                                                @endif --}}
                                                         </div>
                                                     </div>
 
@@ -610,27 +723,27 @@
         <script type="text/javascript">
             $(document).ready(function() {
                 $("#star1").click(function() {
-                    $(".fa-star").css("color", "black").removeClass("bigstar");
+                    $("#star1").css("color", "black").removeClass("bigstar");
                     $("#star1").css("color", "#FFC700");
                     $(this).addClass("bigstar");
                 });
                 $("#star2").click(function() {
-                    $(".fa-star").css("color", "black").removeClass("bigstar");
+                    $("#star2").css("color", "black").removeClass("bigstar");
                     $("#star1,#star2").css("color", "#FFC700");
                     $(this).addClass("bigstar");
                 });
                 $("#star3").click(function() {
-                    $(".fa-star").css("color", "black").removeClass("bigstar");
+                    $("#star3").css("color", "black").removeClass("bigstar");
                     $("#star1,#star2,#star3").css("color", "#FFC700");
                     $(this).addClass("bigstar");
                 });
                 $("#star4").click(function() {
-                    $(".fa-star").css("color", "black").removeClass("bigstar");
+                    $("#star4").css("color", "black").removeClass("bigstar");
                     $("#star1,#star2,#star3,#star4").css("color", "#FFC700");
                     $(this).addClass("bigstar");
                 });
                 $("#star5").click(function() {
-                    $(".fa-star").css("color", "black").removeClass("bigstar");
+                    $("#star5").css("color", "black").removeClass("bigstar");
                     $("#star1,#star2,#star3,#star4,#star5").css("color", "#FFC700");
                     $(this).addClass("bigstar");
                 });
@@ -642,5 +755,8 @@
                 $('.raitng').val(id)
             })
         </script>
+       
     @endpush
 @endsection
+
+

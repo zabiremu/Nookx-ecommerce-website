@@ -46,8 +46,9 @@ class HomePageController extends Controller
     // Display product details page
     public function createProductDetailsPage($slug)
     {
+        $userId = Auth::user();
         $product = Product::where('slug_unique', $slug)
-            ->with('user', 'category', 'subCategory', 'productImage', 'productPrice', 'comments.replies', 'user', 'comments.user', 'comments.replies.user')
+            ->with('user', 'category', 'subCategory', 'productImage', 'productPrice', 'comments.replies', 'user', 'comments.user', 'comments.replies.user','review')
             ->first();
         $id = Review::where('product_id', $product->id)->get();
         $five = Review::where('product_id', $product->id)
@@ -67,8 +68,19 @@ class HomePageController extends Controller
         $one = Review::where('product_id', $product->id)
             ->where('ratings', 1)
             ->count();   
+        $totalCount = Review::where('product_id', $product->id)
+            ->count();
+        $totalRatings= ($five * 5)+($four * 4)+($three * 3)+($two * 2)+($one * 1);
+        $averageResult = 0;
+        if($totalRatings > 0){
+            $averageResult = ceil($totalRatings / $totalCount);
+        }else{
+            $averageResult = 0;
+        }
 
-        return view('frontend.productDetailsPage', compact('product','five','four','three','two','one'));
+        $userRatings = Review::where('user_id',$userId->id)->select('id','user_id','ratings')->first();
+        //dd($product->review[0]->ratings);
+        return view('frontend.productDetailsPage', compact('product','five','four','three','two','one','averageResult','userRatings'));
     }
 
     // display shop grid page

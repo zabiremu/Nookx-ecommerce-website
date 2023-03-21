@@ -36,11 +36,15 @@
   <!-- Custom JS -->
   <script src="{{ asset('frontend/assets/js/script.js') }}"></script>
 
-
   {{-- Instant photo change --}}
   <script src="{{ asset('frontend/assets/js/instantPhoto.js') }}"></script>
 
+  {{-- Product comment reply  --}}
+  <script src="{{ asset('frontend/assets/js/commentReply.js') }}"></script>
 
+  {{-- fontawesome --}}
+  <script src="https://kit.fontawesome.com/622cc589c6.js" crossorigin="anonymous"></script>
+  
 {{-- javaScript file end--}}
 
 @stack('script')
