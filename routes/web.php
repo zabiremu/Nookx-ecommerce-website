@@ -109,6 +109,8 @@ Route::controller(HomePageController::class)->group(function () {
     // product details page setup
     Route::get('/product/details/{slug?}', 'createProductDetailsPage')->name('product.details.create');
 
+    // search product
+    Route::post('/search-product','search')->name('search-product');
     // mega menu
     // shop grid
     Route::get('/shop/grid', 'createShopGrid')->name('shop.grid.create');

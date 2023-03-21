@@ -80,6 +80,20 @@ class HomePageController extends Controller
         return view('frontend.productDetailsPage', compact('product', 'five', 'four', 'three', 'two', 'one', 'averageResult'));
     }
 
+    // search product
+    public function search(Request $request)
+    {
+        $searchResult= $request->searchResult;
+
+        $product= Product::where('title','Like','%'. $searchResult .'%')->limit(5)->get();
+
+        if($product){
+            return response()->json($product);
+        }else{
+            return response()->json('No Product Found');
+        }
+       
+    }
     // display shop grid page
     public function createShopGrid()
     {

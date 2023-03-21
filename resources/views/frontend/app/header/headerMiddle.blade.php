@@ -8,9 +8,10 @@
                 <a href="{{url('/')}}" class="d-lg-none d-sm-block"><img
                         src="{{ asset('frontend/assets/img/logo-01.png') }}" alt="logo 2"></a>
             </div>
-            <div class="header-right">
+            <div class="header-right position-relative">
                 <div class="header-search">
-                    <form action="javascript:;">
+                    <form action="" method="POST">
+                        @csrf
                         <select class="select-active">
                             <option>Select Pincode</option>
                             <option>628233</option>
@@ -19,9 +20,16 @@
                             <option>428233</option>
                             <option>128233</option>
                         </select>
-                        <input type="text" placeholder="Search for medicines, health products and more">
+                        <input type="text" class="search" placeholder="Search for medicines, health products and more">
                         <input type="submit" name="form-submit" class="submit-btn popup-toggle3">
                     </form>
+                    <ul class="position-absolute col-lg-12 searchData" style="z-index: 1">
+                        {{-- <li class="form-control d-block" style="padding:12px 0 0 16px; margin: 4px 0;background:white;z-index:1"><a href=""> Medicine </a> </li>
+                        <li class="form-control d-block" style="padding:12px 0 0 16px; margin: 4px 0;background:white;z-index:1"><a href=""> Alarm</a></li>
+                        <li class="form-control d-block" style="padding:12px 0 0 16px; margin: 4px 0;background:white;z-index:1"><a href=""> Medicine</a></li>
+                        <li class="form-control d-block" style="padding:12px 0 0 16px; margin: 4px 0;background:white;z-index:1"><a href=""> Medicine</a></li>
+                        <li class="form-control d-block" style="padding:12px 0 0 16px; margin: 4px 0;background:white;z-index:1"><a href=""> Medicine</a></li> --}}
+                    </ul>
                 </div>
                 <div class="header-details">
                     <div class="header-inner">
