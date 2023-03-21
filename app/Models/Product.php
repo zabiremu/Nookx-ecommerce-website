@@ -38,4 +38,8 @@ class Product extends Model
     {
         return $this->hasMany(Comment::class)->whereNull('parent_id');
     }
+    public function review()
+    {
+        return $this->hasMany(Review::class);
+    }
 }

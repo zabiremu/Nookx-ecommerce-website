@@ -155,7 +155,6 @@ Route::controller(HomePageController::class)->group(function () {
 Route::controller(CommentController::class)->group(function () {
     // home page setup
     Route::post('/create/comment/{id}', 'createComment')->name('comment.create');
-   
 });
 
 // fortend all controller end

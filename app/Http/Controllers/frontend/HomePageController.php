@@ -4,7 +4,9 @@ namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Product;
+use App\Models\Review;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,11 +20,26 @@ class HomePageController extends Controller
             ->with('user', 'category', 'subCategory', 'productPrice')
             ->limit(8)
             ->get();
-        $banners = Product::where('banner', 1)->limit(4)->latest()->get(['id', 'title', 'image_url', 'description']);
-        $most_view = Product::where('trending', 1)->with('category', 'productPrice')->limit(3)->get();
-        $trendings = Product::where('trending', 1)->with('category', 'productPrice')->limit(12)->get();
-        $dealsOfTheDay = Product::where('deals_of_the_day', 1)->with('category', 'productPrice')->limit(8)->get();
-        $category = Category::latest()->limit(6)->with('subCategory')->get(['id', 'cat_name', 'image_url']);
+        $banners = Product::where('banner', 1)
+            ->limit(4)
+            ->latest()
+            ->get(['id', 'title', 'image_url', 'description']);
+        $most_view = Product::where('trending', 1)
+            ->with('category', 'productPrice')
+            ->limit(3)
+            ->get();
+        $trendings = Product::where('trending', 1)
+            ->with('category', 'productPrice')
+            ->limit(12)
+            ->get();
+        $dealsOfTheDay = Product::where('deals_of_the_day', 1)
+            ->with('category', 'productPrice')
+            ->limit(8)
+            ->get();
+        $category = Category::latest()
+            ->limit(6)
+            ->with('subCategory')
+            ->get(['id', 'cat_name', 'image_url']);
         return view('frontend.homePage', compact('products', 'banners', 'most_view', 'trendings', 'category', 'dealsOfTheDay'));
     }
 
@@ -30,10 +47,28 @@ class HomePageController extends Controller
     public function createProductDetailsPage($slug)
     {
         $product = Product::where('slug_unique', $slug)
-            ->
-            with('user', 'category', 'subCategory', 'productImage', 'productPrice', 'comments.replies', 'user', 'comments.user', 'comments.replies.user')
+            ->with('user', 'category', 'subCategory', 'productImage', 'productPrice', 'comments.replies', 'user', 'comments.user', 'comments.replies.user')
             ->first();
-        return view('frontend.productDetailsPage', compact('product'));
+        $id = Review::where('product_id', $product->id)->get();
+        $five = Review::where('product_id', $product->id)
+            ->where('ratings', 5)
+            ->count();
+
+        $four = Review::where('product_id', $product->id)
+            ->where('ratings', 4)
+            ->count();
+
+        $three = Review::where('product_id', $product->id)
+            ->where('ratings', 3)
+            ->count();
+        $two = Review::where('product_id', $product->id)
+            ->where('ratings', 2)
+            ->count();
+        $one = Review::where('product_id', $product->id)
+            ->where('ratings', 1)
+            ->count();   
+
+        return view('frontend.productDetailsPage', compact('product','five','four','three','two','one'));
     }
 
     // display shop grid page
