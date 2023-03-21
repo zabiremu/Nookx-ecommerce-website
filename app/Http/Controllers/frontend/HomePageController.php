@@ -17,9 +17,10 @@ class HomePageController extends Controller
     public function create()
     {
         $products = Product::latest()
-            ->with('user', 'category', 'subCategory', 'productPrice')
+            ->with('user', 'category', 'subCategory', 'productPrice', 'review')
             ->limit(8)
             ->get();
+
         $banners = Product::where('banner', 1)
             ->limit(4)
             ->latest()
@@ -29,7 +30,7 @@ class HomePageController extends Controller
             ->limit(3)
             ->get();
         $trendings = Product::where('trending', 1)
-            ->with('category', 'productPrice')
+            ->with('category', 'productPrice', 'review')
             ->limit(12)
             ->get();
         $dealsOfTheDay = Product::where('deals_of_the_day', 1)
@@ -46,9 +47,8 @@ class HomePageController extends Controller
     // Display product details page
     public function createProductDetailsPage($slug)
     {
-        $userId = Auth::user();
         $product = Product::where('slug_unique', $slug)
-            ->with('user', 'category', 'subCategory', 'productImage', 'productPrice', 'comments.replies', 'user', 'comments.user', 'comments.replies.user','review')
+            ->with('user', 'category', 'subCategory', 'productImage', 'productPrice', 'comments.replies', 'user', 'comments.user', 'comments.replies.user', 'review')
             ->first();
         $id = Review::where('product_id', $product->id)->get();
         $five = Review::where('product_id', $product->id)
@@ -67,20 +67,17 @@ class HomePageController extends Controller
             ->count();
         $one = Review::where('product_id', $product->id)
             ->where('ratings', 1)
-            ->count();   
-        $totalCount = Review::where('product_id', $product->id)
             ->count();
-        $totalRatings= ($five * 5)+($four * 4)+($three * 3)+($two * 2)+($one * 1);
+        $totalCount = Review::where('product_id', $product->id)->count();
+        $totalRatings = $five * 5 + $four * 4 + $three * 3 + $two * 2 + $one * 1;
         $averageResult = 0;
-        if($totalRatings > 0){
+        if ($totalRatings > 0) {
             $averageResult = ceil($totalRatings / $totalCount);
-        }else{
+        } else {
             $averageResult = 0;
         }
-
-        $userRatings = Review::where('user_id',$userId->id)->select('id','user_id','ratings')->first();
-        //dd($product->review[0]->ratings);
-        return view('frontend.productDetailsPage', compact('product','five','four','three','two','one','averageResult','userRatings'));
+  
+        return view('frontend.productDetailsPage', compact('product', 'five', 'four', 'three', 'two', 'one', 'averageResult'));
     }
 
     // display shop grid page
