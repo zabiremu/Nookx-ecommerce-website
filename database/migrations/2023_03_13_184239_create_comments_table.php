@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->unsignedBigInteger('product_id')->nullable();
-            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->unsignedBigInteger('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade')->nullable();
+            $table->unsignedBigInteger('product_id')->constrained()->onUpdate('cascade')->onDelete('cascade')->nullable();
+            $table->unsignedBigInteger('parent_id')->constrained()->onUpdate('cascade')->onDelete('cascade')->nullable();
             $table->text('comment')->nullable();
             $table->timestamps();
         });

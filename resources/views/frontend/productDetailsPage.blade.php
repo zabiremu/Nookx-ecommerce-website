@@ -299,89 +299,101 @@
                                                 {{-- Comment Review --}}
                                                 <h3>Recent Reviews</h3>
                                                 @forelse ($product->comments as $comment)
-                                                    <div class="review-group mb-10">
-                                                        <div class="review-img">
-                                                            <a href="profile.html"><img
-                                                                    src="{{ $comment->user->image_url != null ? $comment->user->image_url : asset('images/image_placeholder.png') }}"
-                                                                    alt="img" class="img-fluid"></a>
+                                                <div class="review-group mb-10">
+                                                    <div class="review-img">
+                                                        <a href="profile.html"><img src="{{ $comment->user->image_url != null ? $comment->user->image_url : asset('images/image_placeholder.png') }}" alt="img" class="img-fluid"></a>
+                                                    </div>
+                                                    <div class="review-name-group">
+                                                        <h5><a href="profile.html">{{ $comment->user->name }}</a> <span>| {{ $comment->updated_at->diffForhumans() }}</span></h5>
+                                                        <div class="review-card-bottom ">
                                                         </div>
-                                                        <div class="review-name-group">
-                                                            <h5>
-                                                                <a href="profile.html">{{ $comment->user->name }}</a>
-                                                            </h5>
-                                                            <h5><a href="profile.html">{{ $comment->comment }}</a>
-                                                                <span> | {{ $comment->updated_at->diffForhumans() }}</span>
-                                                            </h5>
-                                                            <div class="review-card-bottom ">
-                                                                <div class="rating d-inline-block">
-
-                                                                    @if (($comment->review->count() > 0 ))
-                                                                        @if ($comment->review[0]->ratings == 1)
-                                                                            <i class="fas fa-star avgResult"></i>
-                                                                        @elseif ($comment->review[0]->ratings == 1.5)
-                                                                            <i class="fas fa-star avgResult"></i>
-                                                                            <i class="fa-regular fa-star-half-stroke"></i>
-                                                                        @elseif ($comment->review[0]->ratings == 2)
-                                                                            <i class="fas fa-star avgResult"></i>
-                                                                            <i class="fas fa-star avgResult"></i>
-                                                                        @elseif ($comment->review[0]->ratings == 2.5)
-                                                                            <i class="fas fa-star avgResult"></i>
-                                                                            <i class="fas fa-star avgResult"></i>
-                                                                            <i class="fa-regular fa-star-half-stroke"></i>
-                                                                        @elseif ($comment->review[0]->ratings == 3)
-                                                                            <i class="fas fa-star avgResult"></i>
-                                                                            <i class="fas fa-star avgResult"></i>
-                                                                            <i class="fas fa-star avgResult"></i>
-                                                                        @elseif ($comment->review[0]->ratings == 3.5)
-                                                                            <i class="fas fa-star avgResult"></i>
-                                                                            <i class="fas fa-star avgResult"></i>
-                                                                            <i class="fas fa-star avgResult"></i>
-                                                                            <i class="fa-regular fa-star-half-stroke"></i>
-                                                                        @elseif ($comment->review[0]->ratings == 4)
-                                                                            <i class="fas fa-star avgResult"></i>
-                                                                            <i class="fas fa-star avgResult"></i>
-                                                                            <i class="fas fa-star avgResult"></i>
-                                                                            <i class="fas fa-star avgResult"></i>
-                                                                        @elseif ($comment->review[0]->ratings == 4.5)
-                                                                            <i class="fas fa-star avgResult"></i>
-                                                                            <i class="fas fa-star avgResult"></i>
-                                                                            <i class="fas fa-star avgResult"></i>
-                                                                            <i class="fas fa-star avgResult"></i>
-                                                                            <i class="fa-regular fa-star-half-stroke"></i>
-                                                                        @elseif ($comment->review[0]->ratings == 5)
-                                                                            <i class="fas fa-star avgResult"></i>
-                                                                            <i class="fas fa-star avgResult"></i>
-                                                                            <i class="fas fa-star avgResult"></i>
-                                                                            <i class="fas fa-star avgResult"></i>
-                                                                            <i class="fas fa-star avgResult"></i>
+                                                        <div>
+                                                            <small class="text-black" > 
+                                                                {{ $comment->comment }}
+                                                                <span>
+                                                                    <div class="rating d-inline-block">
+                                                                        @if (($comment->review->count() > 0 ))
+                                                                            @if ($comment->review[0]->ratings == 1)
+                                                                                <i class="fas fa-star avgResult"></i>
+                                                                            @elseif ($comment->review[0]->ratings == 1.5)
+                                                                                <i class="fas fa-star avgResult"></i>
+                                                                                <i class="fa-regular fa-star-half-stroke"></i>
+                                                                            @elseif ($comment->review[0]->ratings == 2)
+                                                                                <i class="fas fa-star avgResult"></i>
+                                                                                <i class="fas fa-star avgResult"></i>
+                                                                            @elseif ($comment->review[0]->ratings == 2.5)
+                                                                                <i class="fas fa-star avgResult"></i>
+                                                                                <i class="fas fa-star avgResult"></i>
+                                                                                <i class="fa-regular fa-star-half-stroke"></i>
+                                                                            @elseif ($comment->review[0]->ratings == 3)
+                                                                                <i class="fas fa-star avgResult"></i>
+                                                                                <i class="fas fa-star avgResult"></i>
+                                                                                <i class="fas fa-star avgResult"></i>
+                                                                            @elseif ($comment->review[0]->ratings == 3.5)
+                                                                                <i class="fas fa-star avgResult"></i>
+                                                                                <i class="fas fa-star avgResult"></i>
+                                                                                <i class="fas fa-star avgResult"></i>
+                                                                                <i class="fa-regular fa-star-half-stroke"></i>
+                                                                            @elseif ($comment->review[0]->ratings == 4)
+                                                                                <i class="fas fa-star avgResult"></i>
+                                                                                <i class="fas fa-star avgResult"></i>
+                                                                                <i class="fas fa-star avgResult"></i>
+                                                                                <i class="fas fa-star avgResult"></i>
+                                                                            @elseif ($comment->review[0]->ratings == 4.5)
+                                                                                <i class="fas fa-star avgResult"></i>
+                                                                                <i class="fas fa-star avgResult"></i>
+                                                                                <i class="fas fa-star avgResult"></i>
+                                                                                <i class="fas fa-star avgResult"></i>
+                                                                                <i class="fa-regular fa-star-half-stroke"></i>
+                                                                            @elseif ($comment->review[0]->ratings == 5)
+                                                                                <i class="fas fa-star avgResult"></i>
+                                                                                <i class="fas fa-star avgResult"></i>
+                                                                                <i class="fas fa-star avgResult"></i>
+                                                                                <i class="fas fa-star avgResult"></i>
+                                                                                <i class="fas fa-star avgResult"></i>
+                                                                            @endif
                                                                         @endif
-                                                                    @endif
-                                                                </div>
+                                                                    </div>
+                                                               </span>
+                                                           </small>
+                                                        </div>
+                                                        )FJ*() }}
                                                                 <a id="{{$comment->id}}" style="color: rgb(33, 160, 106);" class="replyBtn-{{$comment->id}}">Reply</a>
                                                                 <form id="replyForm-{{$comment->id}}"
                                                                 class="replyForm-{{$comment->id}}" 
-                                                                action="" method="post">
+                                                                action="{{ route('comment.reply.create', $comment->id) }}" method="post">
+                                                                @csrf
                                                                 <div class="row">
                                                                     <div class="input col-sm-8">
-                                                                        <input class="form-control mt-1" type="text" name="name" placeholder="Enter your name"/>
+                                                                        <input class="form-control mt-1" type="text" name="reply" placeholder="Enter your reply"/>
                                                                     </div>
                                                                     <div class="btn-group col-sm-4">
                                                                         <button class="btn btn-sm btn-primary">Send</button>
                                                                     </div>
                                                                 </form>
+                                                                </div>
+                                                                @if (count($comment->replies) > 0)
+                                                                @foreach ($comment->replies as $reply)
+                                                           <div class="review-group mb-10">
+                                                                <div class="review-img">
+                                                                    <a href="profile.html"><img src="{{ $reply->user->image_url != null ? $reply->user->image_url : asset('images/image_placeholder.png') }}" alt="img" class="img-fluid"></a>
+                                                                </div>
+                                                            <div class="review-name-group">
+                                                                <h5><a href="profile.html">{{ $reply->user->name }}</a> <span>| {{ $reply->updated_at->diffForhumans() }}</span></h5>
+                                                                <small class="text-black" > 
+                                                                    {{ $reply->comment }}
+                                                                </small>
                                                             </div>
                                                         </div>
+                                                           @endforeach
+                                                        @endif
                                                     </div>
-
+                                                </div>
                                                 @empty
-                                                    <h3>No Comment yet</h3>
+                                                    <small>No Comment yet</small>
                                                 @endforelse
                                                 @if ($user != null)
-                                                    <h3>Leave a Comment</h3>
-                                                    <div class="review-coment-group">
-                                                        <p>Your email address will not be published. Required fields are
-                                                            marked *</p>
-{{--                                                        {{dd($product->id)}}--}}
+                                                <div class="review-coment-group">
                                                         <form action="{{ route('comment.create',$product->id) }}"
                                                               method="post">
                                                             @csrf
@@ -389,7 +401,7 @@
 
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
-                                                                        <label>Your Name <span
+                                                                        <label>Review <span
                                                                                 class="text-danger">*</span></label>
                                                                         <div class="rating">
                                                                             @error('raitings')
@@ -428,12 +440,12 @@
                                                                 </div>
                                                             </div>
                                                         </form>
-                                                    @else
-                                                        <h4>Do you write a comment or reiview please <a
-                                                                class="btn btn-sm btn-primary"
-                                                                href="{{ route('login') }}">login</a> required</h4>
+                                                    </div>
+                                                @else
+                                                 <h4>Do you write a comment or reiview please <a
+                                                    class="btn btn-sm btn-primary"
+                                                    href="{{ route('login') }}">login</a> required</h4>
                                                 @endif
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
