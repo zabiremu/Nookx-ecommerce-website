@@ -356,22 +356,7 @@
                                                                     </div>
                                                                </span>
                                                            </small>
-                                                        </div>
-                                                        )FJ*() }}
-                                                                <a id="{{$comment->id}}" style="color: rgb(33, 160, 106);" class="replyBtn-{{$comment->id}}">Reply</a>
-                                                                <form id="replyForm-{{$comment->id}}"
-                                                                class="replyForm-{{$comment->id}}" 
-                                                                action="{{ route('comment.reply.create', $comment->id) }}" method="post">
-                                                                @csrf
-                                                                <div class="row">
-                                                                    <div class="input col-sm-8">
-                                                                        <input class="form-control mt-1" type="text" name="reply" placeholder="Enter your reply"/>
-                                                                    </div>
-                                                                    <div class="btn-group col-sm-4">
-                                                                        <button class="btn btn-sm btn-primary">Send</button>
-                                                                    </div>
-                                                                </form>
-                                                                </div>
+                                                        </div>       
                                                                 @if (count($comment->replies) > 0)
                                                                 @foreach ($comment->replies as $reply)
                                                            <div class="review-group mb-10">
@@ -386,6 +371,22 @@
                                                             </div>
                                                         </div>
                                                            @endforeach
+                                                        @endif
+                                                        @if ($authUser !== null)
+                                                        <a id="{{$comment->id}}" style="color: rgb(33, 160, 106);" class="replyBtn-{{$comment->id}}">Reply</a>
+                                                        <form id="replyForm-{{$comment->id}}"
+                                                        class="replyForm-{{$comment->id}}" 
+                                                        action="{{ route('comment.reply.create', $comment->id) }}" method="post">
+                                                        @csrf
+                                                        <div class="row">
+                                                            <div class="input col-sm-8">
+                                                                <input class="form-control mt-1" type="text" name="reply" placeholder="Enter your reply"/>
+                                                            </div>
+                                                            <div class="btn-group col-sm-4">
+                                                                <button class="btn btn-sm btn-primary">Send</button>
+                                                            </div>
+                                                        </form>
+                                                        </div>
                                                         @endif
                                                     </div>
                                                 </div>
