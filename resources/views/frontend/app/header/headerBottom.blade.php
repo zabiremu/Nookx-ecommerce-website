@@ -1,15 +1,18 @@
 @php
-    $category =   App\Models\Category::latest()->limit(6)->with('subCategory')->get(['id','cat_name','image_url']);
+    $category = App\Models\Category::latest()
+        ->limit(6)
+        ->with('subCategory')
+        ->get(['id', 'cat_name', 'cat_slug', 'image_url']);
 @endphp
 
-{{-- header bottom start--}}
+{{-- header bottom start --}}
 <div class="header-bottom sticky-bar">
     <div class="container">
         <div class="header-col">
             <div class="logo header-logo d-block d-lg-none">
-                <a href="{{url('/')}}" class="d-none d-lg-block"><img
+                <a href="{{ url('/') }}" class="d-none d-lg-block"><img
                         src="{{ asset('frontend/assets/img/logo.png') }}" alt="logo"></a>
-                <a href="{{url('/')}}" class="d-sm-block"><img src="{{ asset('frontend/assets/img/logo-01.png') }}"
+                <a href="{{ url('/') }}" class="d-sm-block"><img src="{{ asset('frontend/assets/img/logo-01.png') }}"
                         alt="logo"></a>
             </div>
             <div class="header-nav d-none d-lg-flex">
@@ -17,44 +20,47 @@
                     <nav>
                         <ul>
                             <li>
-                                <a href="{{url('/')}}">Home</a>
+                                <a href="{{ url('/') }}">Home</a>
                             </li>
                             @foreach ($category as $category)
-                            <li>
-                                <a class="active" href="#">{{ $category->cat_name }}</a>
-                                @if (count($category->subCategory) > 0)
-                                <i class="fi-rs-angle-down fa-sm text-white"></i>
-                                <ul class="has-submenu">
-                                    @foreach ($category->subCategory as $subcategory)
-                                    <li><a href="{{ route('product.details.create') }}">{{ $subcategory->sub_name }}</a></li>
-                                    @endforeach
+                                <li>
+                                    <a
+                                        href="{{ route('category-wise-product', $category->cat_slug) }}">{{ $category->cat_name }}</a>
+                                    @if (count($category->subCategory) > 0)
+                                        <i class="fi-rs-angle-down fa-sm text-white"></i>
+                                        <ul class="has-submenu">
+                                            @foreach ($category->subCategory as $subcategory)
+                                                <li><a
+                                                        href="{{ route('sub-wise-product-show', $subcategory->sub_slug) }}">{{ $subcategory->sub_name }}</a>
+                                                </li>
+                                            @endforeach
 
-                                </ul>
-                                @endif
-                            </li>
+                                        </ul>
+                                    @endif
+                                </li>
                             @endforeach
                             @auth
-                            <li>
-                                <a href="#">Profile <i class="fi-rs-angle-down"></i></a>
-                                <ul class="has-submenu">
-                                    @if ( Auth::user()->roles[0]->name == 'buyer' )
-                                    <li><a href="#">Become a seller </a></li>
-                                    <li><a href="{{ route("profile.create") }}">My Profile</a></li>
-                                    <li><a href="{{ route('odrer.create') }}">Orders</a></li>
-                                    <li><a href="{{ route('cart.create') }}">Cart</a></li>
-                                    <li><a href="{{ route('wisih.create') }}">Wishlist</a></li>
-                                    @else
-                                    <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                                    @endif
-                                    <li>
-                                        <form method="POST" action="{{ route('logout') }}">
-                                            @csrf
-                                            <button style="color: red;" class="dropdown-item"> Logout</button>
-                                            </button>
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
+                                <li>
+                                    <a href="#">Profile <i class="fi-rs-angle-down"></i></a>
+                                    <ul class="has-submenu">
+                                        @if (Auth::user()->roles[0]->name == 'buyer')
+                                            <li><a href="#">Become a seller </a></li>
+                                            <li><a href="{{ route('profile.create') }}">My Profile</a></li>
+                                            <li><a href="{{ route('odrer.create') }}">Orders</a></li>
+                                            <li><a href="{{ route('cart.create') }}">Cart</a></li>
+                                            <li><a href="{{ route('wisih.create') }}">Wishlist</a></li>
+                                        @else
+                                            <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                                        @endif
+                                        <li>
+                                            <form method="POST" action="{{ route('logout') }}">
+                                                @csrf
+                                                <button style="color: red;" class="dropdown-item"> Logout</button>
+                                                </button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </li>
                             @endauth
                         </ul>
                     </nav>
@@ -182,4 +188,4 @@
         </div>
     </div>
 </div>
-{{-- header bottom end--}}
+{{-- header bottom end --}}

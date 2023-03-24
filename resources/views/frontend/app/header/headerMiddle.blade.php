@@ -24,11 +24,7 @@
                         <input type="submit" name="form-submit" class="submit-btn popup-toggle3">
                     </form>
                     <ul class="position-absolute col-lg-12 searchData" style="z-index: 1">
-                        {{-- <li class="form-control d-block" style="padding:12px 0 0 16px; margin: 4px 0;background:white;z-index:1"><a href=""> Medicine </a> </li>
-                        <li class="form-control d-block" style="padding:12px 0 0 16px; margin: 4px 0;background:white;z-index:1"><a href=""> Alarm</a></li>
-                        <li class="form-control d-block" style="padding:12px 0 0 16px; margin: 4px 0;background:white;z-index:1"><a href=""> Medicine</a></li>
-                        <li class="form-control d-block" style="padding:12px 0 0 16px; margin: 4px 0;background:white;z-index:1"><a href=""> Medicine</a></li>
-                        <li class="form-control d-block" style="padding:12px 0 0 16px; margin: 4px 0;background:white;z-index:1"><a href=""> Medicine</a></li> --}}
+                        
                     </ul>
                 </div>
                 <div class="header-details">

@@ -12,6 +12,7 @@ use App\Http\Controllers\frontend\HomePageController;
 use App\Http\Controllers\backend\RecycleBinController;
 use App\Http\Controllers\backend\SubCategoryController;
 use App\Http\Controllers\backend\AdminProfileController;
+use App\Http\Controllers\frontend\ProductsListsController;
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -157,6 +158,12 @@ Route::controller(HomePageController::class)->group(function () {
 Route::controller(CommentController::class)->group(function () {
     Route::post('/create/comment/{id}', 'createComment')->name('comment.create');
    Route::post('/create/comment/reply/{id}', 'createReplyComment')->name('comment.reply.create');
+});
+
+// Products lists
+Route::controller(ProductsListsController::class)->group(function(){
+    Route::get('/category-wise-product/{slug}','catProduct')->name('category-wise-product');
+    Route::get('/subCategory-wise-product/{slug}','subProduct')->name('sub-wise-product-show');
 });
 
 // fortend all controller end
