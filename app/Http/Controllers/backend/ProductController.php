@@ -125,7 +125,8 @@ class ProductController extends Controller
     //show all product method
     public function all()
     {
-        $products = Product::where('SoftDelete', 1)->latest()->get(['id','image_url','title','status']);
+        // $products = Product::where('SoftDelete', 1)->latest()->get(['id','image_url','title','status']);
+        $products = Product::where('SoftDelete', 1)->latest()->select('id','image_url','title','status')->simplePaginate(10);
         return view('backend.product.view', compact('products'));
     }
 

@@ -47,6 +47,7 @@ class HomePageController extends Controller
     // Display product details page
     public function createProductDetailsPage($slug)
     {
+        $authUser = Auth::user();
         $product = Product::where('slug_unique', $slug)
             ->with('user', 'category', 'subCategory', 'productImage', 'productPrice', 'comments.replies', 'user', 'comments.user', 'comments.replies.user', 'review')
             ->first();
@@ -77,7 +78,7 @@ class HomePageController extends Controller
             $averageResult = 0;
         }
   
-        return view('frontend.productDetailsPage', compact('product', 'five', 'four', 'three', 'two', 'one', 'averageResult'));
+        return view('frontend.productDetailsPage', compact('product', 'five', 'four', 'three', 'two', 'one', 'averageResult', 'authUser'));
     }
 
     // search product
