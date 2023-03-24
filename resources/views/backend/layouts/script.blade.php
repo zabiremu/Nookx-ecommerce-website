@@ -41,6 +41,22 @@
             .appendTo('#example2_wrapper .col-md-6:eq(0)');
     });
 </script>
+{{-- live search  --}}
+<Script>
+    $(document).ready(function(){
+        $('#search').on('keyup', function(){
+            var value = $(this).val();
+            $.ajax({
+                url:"{{ route('dashboard') }}",
+                type: "GET",
+                data: {'title':value},
+                success:function(data){
+                    $('#productList').html(data);
+                }
+            });
+        });
+    });
+</Script>
 
 <!--app JS-->
 <script src="{{ asset('backend/assets/js/app.js') }}"></script>
