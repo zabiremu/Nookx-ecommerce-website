@@ -66,6 +66,7 @@
             },
             success: function(data) {
                 if (data.length > 0) {
+                    console.log(data)
                   var lists=[];
                   data.map((element)=>{
                     var list = `<li class="form-control d-block" style="padding:12px 0 0 16px; margin: 4px 0;background:white;z-index:1"><a href="/product/details/${element.slug_unique}">${element.title}</a> </li>`;

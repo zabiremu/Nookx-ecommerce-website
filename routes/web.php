@@ -164,6 +164,7 @@ Route::controller(CommentController::class)->group(function () {
 Route::controller(ProductsListsController::class)->group(function(){
     Route::get('/category-wise-product/{slug}','catProduct')->name('category-wise-product');
     Route::get('/subCategory-wise-product/{slug}','subProduct')->name('sub-wise-product-show');
+    Route::post('/search-product-data','searchProduct')->name('search-product-data');
 });
 
 // fortend all controller end

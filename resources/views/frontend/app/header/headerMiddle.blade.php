@@ -10,7 +10,7 @@
             </div>
             <div class="header-right position-relative">
                 <div class="header-search">
-                    <form action="" method="POST">
+                    <form action="{{ route('search-product-data') }}" method="POST">
                         @csrf
                         <select class="select-active">
                             <option>Select Pincode</option>
@@ -20,8 +20,8 @@
                             <option>428233</option>
                             <option>128233</option>
                         </select>
-                        <input type="text" class="search" placeholder="Search for medicines, health products and more">
-                        <input type="submit" name="form-submit" class="submit-btn popup-toggle3">
+                        <input type="text" class="search" placeholder="Search for medicines, health products and more" name="product">
+                        <input type="submit" name="form-submit submit" class="submit-btn popup-toggle3">
                     </form>
                     <ul class="position-absolute col-lg-12 searchData" style="z-index: 1">
                         
