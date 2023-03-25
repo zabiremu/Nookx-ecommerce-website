@@ -40,7 +40,7 @@ class HomePageController extends Controller
         $category = Category::latest()
             ->limit(6)
             ->with('subCategory')
-            ->get(['id', 'cat_name', 'image_url']);
+            ->get(['id', 'cat_name','cat_slug', 'image_url']);
         return view('frontend.homePage', compact('products', 'banners', 'most_view', 'trendings', 'category', 'dealsOfTheDay'));
     }
 
@@ -77,8 +77,8 @@ class HomePageController extends Controller
         } else {
             $averageResult = 0;
         }
-  
-        return view('frontend.productDetailsPage', compact('product', 'five', 'four', 'three', 'two', 'one', 'averageResult', 'authUser'));
+        $similarProduct=Product::limit(8)->latest()->get();
+        return view('frontend.productDetailsPage', compact('product', 'five', 'four', 'three', 'two', 'one', 'averageResult', 'authUser','similarProduct'));
     }
 
     // search product

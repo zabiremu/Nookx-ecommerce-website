@@ -88,7 +88,7 @@
                                     <div class="category-grid wow animate__animated animate__fadeIn" data-wow-delay=".1s">
                                         <div class="category-img-col">
                                             <div class="category-img category-img-zoom">
-                                                <a href="view-product.html">
+                                                <a href="{{ route('category-wise-product',$item->cat_slug) }}">
                                                     <img src="{{ $item->image_url }}" alt="">
                                                 </a>
                                             </div>
@@ -578,7 +578,7 @@
                                     <div class="category-grid wow animate__animated animate__fadeIn" data-wow-delay=".1s">
                                         <div class="category-img-col">
                                             <div class="category-img category-img-zoom">
-                                                <a href="view-product.html">
+                                                <a href="{{ route('category-wise-product',$item->cat_slug) }}">
                                                     <img src="{{ $item->image_url }}" alt="">
                                                 </a>
                                             </div>

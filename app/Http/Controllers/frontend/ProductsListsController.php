@@ -34,7 +34,10 @@ class ProductsListsController extends Controller
             ->latest()
             ->simplePaginate(5);
         $count = $productLists->count();
-        return view('frontend.shopLeftList', compact('subCategory', 'productLists', 'count'));
+        $category = Category::with('subCategory')
+            ->latest()
+            ->get();
+        return view('frontend.shopLeftList', compact('subCategory', 'productLists', 'count', 'category'));
     }
 
     public function searchProduct(Request $request)
@@ -70,7 +73,9 @@ class ProductsListsController extends Controller
         } else {
             $averageResult = 0;
         }
-        // dd($product);
-        return view('frontend.productDetailsPage', compact('product', 'five', 'four', 'three', 'two', 'one', 'averageResult', 'authUser'));
+        $similarProduct = Product::limit(8)
+            ->latest()
+            ->get();
+        return view('frontend.productDetailsPage', compact('product', 'five', 'four', 'three', 'two', 'one', 'averageResult', 'authUser', 'similarProduct'));
     }
 }

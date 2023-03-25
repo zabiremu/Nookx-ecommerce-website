@@ -415,7 +415,8 @@
                                         @endforelse
                                         @if ($user != null)
                                             <div class="review-coment-group">
-                                                <form action="{{ route('comment.create', $product->id) }}" method="post">
+                                                <form action="{{ route('comment.create', $product->id) }}"
+                                                    method="post">
                                                     @csrf
                                                     <div class="row">
 
@@ -480,270 +481,142 @@
                                                 id="carousel-4-columns-arrows"></div>
                                             <div class="carousel-4-columns carousel-arrow-center mb-0"
                                                 id="carousel-4-columns">
-                                                <!-- Product box -->
-                                                <div class="product-card wow animate__animated animate__fadeIn"
-                                                    data-wow-delay=".1s">
-                                                    <div class="product-img-col">
-                                                        <div class="product-img product-img-zoom">
-                                                            <a href="view-product.html">
-                                                                <img src="{{ asset('frontend/assets/img/shop/product-11.jpg') }}"
-                                                                    alt="">
-                                                            </a>
-                                                        </div>
-                                                        <div class="product-badge">
-                                                            <span class="best">-10%</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-content">
-                                                        <div class="sold-group mb-15">
-                                                            <p>Sold By <span> Global Store</span></p>
-                                                        </div>
-                                                        <h2><a href="view-product.html">Antiseptic Spray</a></h2>
-                                                        <div class="product-card-bottom ">
-                                                            <div class="rating d-inline-block">
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                                <span class="ml-5"> (3.5)</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="product-card-bottom ">
-                                                            <div class="product-price">
-                                                                <span>$ 350.00</span>
-                                                                <span class="old-price">$ 450.00</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="add-feature">
-                                                            <a href="cart.html" class="btn btn-primary"><i
-                                                                    class="feather-shopping-bag me-1"></i>Add</a>
-                                                            <div class="product-details-inner">
-                                                                <a href="view-product.html" class="product-btn"><i
-                                                                        class="fi-rs-eye"></i></a>
-                                                                <a aria-label="Quick view" class="product-btn"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#quickViewModal"><i
-                                                                        class="fi-rs-search"></i></a>
-                                                                <a aria-label="Add To Wishlist" class="product-btn"
-                                                                    href="wishlist.html"><i class="fi-rs-heart"></i></a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- /Product box -->
 
-                                                <!-- Product box -->
-                                                <div class="product-card wow animate__animated animate__fadeIn"
-                                                    data-wow-delay=".1s">
-                                                    <div class="product-img-col">
-                                                        <div class="product-img product-img-zoom">
-                                                            <a href="view-product.html">
-                                                                <img src="{{ asset('frontend/assets/img/shop/product-12.jpg') }}"
-                                                                    alt="">
-                                                            </a>
+                                                @foreach ($similarProduct as $product)
+                                                    <!-- Product box -->
+                                                    <div class="product-card wow animate__animated animate__fadeIn"
+                                                        data-wow-delay=".1s">
+                                                        <div class="product-img-col">
+                                                            <div class="product-img product-img-zoom">
+                                                                <a
+                                                                    href="{{ route('product.details.create', $product->slug_unique) }}">
+                                                                    <img src="{{ $product->image_url }}"
+                                                                        alt="{{ $product->title }}">
+                                                                </a>
+                                                            </div>
+                                                            <div class="product-badge">
+                                                                @php
+                                                                    $price = $product->productPrice != null ? $product->productPrice->price : 0;
+                                                                    $discount = $product->productPrice != null ? $product->productPrice->discount : 0;
+                                                                    if ($discount != null) {
+                                                                        $ammount = ($discount / $price) * 100;
+                                                                    }
+                                                                @endphp
+                                                                <span class="best">
+                                                                    @if ($discount == null)
+                                                                        00%
+                                                                    @else
+                                                                        {{ ceil($ammount) . '%' }}
+                                                                    @endif
+                                                                </span>
+                                                            </div>
                                                         </div>
-                                                        <div class="product-badge">
-                                                            <span class="best">-20%</span>
+                                                        <div class="product-content">
+                                                            <div class="sold-group mb-15">
+                                                            </div>
+                                                            <h2><a
+                                                                    href="{{ route('product.details.create', $product->slug_unique) }}">{{ $product->title }}</a>
+                                                            </h2>
+                                                            <div class="product-card-bottom ">
+                                                                <div class="rating d-inline-block">
+                                                                    @php
+                                                                        $five = App\Models\Review::where('product_id', $product->id)
+                                                                            ->where('ratings', 5)
+                                                                            ->count();
+                                                                        
+                                                                        $four = App\Models\Review::where('product_id', $product->id)
+                                                                            ->where('ratings', 4)
+                                                                            ->count();
+                                                                        
+                                                                        $three = App\Models\Review::where('product_id', $product->id)
+                                                                            ->where('ratings', 3)
+                                                                            ->count();
+                                                                        $two = App\Models\Review::where('product_id', $product->id)
+                                                                            ->where('ratings', 2)
+                                                                            ->count();
+                                                                        $one = App\Models\Review::where('product_id', $product->id)
+                                                                            ->where('ratings', 1)
+                                                                            ->count();
+                                                                        $totalCount = App\Models\Review::where('product_id', $product->id)->count();
+                                                                        $totalRatings = $five * 5 + $four * 4 + $three * 3 + $two * 2 + $one * 1;
+                                                                        $averageResult = 0;
+                                                                        if ($totalRatings > 0) {
+                                                                            $averageResult = ceil($totalRatings / $totalCount);
+                                                                        } else {
+                                                                            $averageResult = 0;
+                                                                        }
+                                                                    @endphp
+                                                                    @if ($product->review != null)
+                                                                        @if ($averageResult == 1)
+                                                                            <i class="fas fa-star avgResult"></i>
+                                                                        @elseif ($averageResult == 1.5)
+                                                                            <i class="fas fa-star avgResult"></i>
+                                                                            <i class="fa-regular fa-star-half-stroke"></i>
+                                                                        @elseif ($averageResult == 2)
+                                                                            <i class="fas fa-star avgResult"></i>
+                                                                            <i class="fas fa-star avgResult"></i>
+                                                                        @elseif ($averageResult == 2.5)
+                                                                            <i class="fas fa-star avgResult"></i>
+                                                                            <i class="fas fa-star avgResult"></i>
+                                                                            <i class="fa-regular fa-star-half-stroke"></i>
+                                                                        @elseif ($averageResult == 3)
+                                                                            <i class="fas fa-star avgResult"></i>
+                                                                            <i class="fas fa-star avgResult"></i>
+                                                                            <i class="fas fa-star avgResult"></i>
+                                                                        @elseif ($averageResult == 3.5)
+                                                                            <i class="fas fa-star avgResult"></i>
+                                                                            <i class="fas fa-star avgResult"></i>
+                                                                            <i class="fas fa-star avgResult"></i>
+                                                                            <i class="fa-regular fa-star-half-stroke"></i>
+                                                                        @elseif ($averageResult == 4)
+                                                                            <i class="fas fa-star avgResult"></i>
+                                                                            <i class="fas fa-star avgResult"></i>
+                                                                            <i class="fas fa-star avgResult"></i>
+                                                                            <i class="fas fa-star avgResult"></i>
+                                                                        @elseif ($averageResult == 4.5)
+                                                                            <i class="fas fa-star avgResult"></i>
+                                                                            <i class="fas fa-star avgResult"></i>
+                                                                            <i class="fas fa-star avgResult"></i>
+                                                                            <i class="fas fa-star avgResult"></i>
+                                                                            <i class="fa-regular fa-star-half-stroke"></i>
+                                                                        @elseif ($averageResult == 5)
+                                                                            <i class="fas fa-star avgResult"></i>
+                                                                            <i class="fas fa-star avgResult"></i>
+                                                                            <i class="fas fa-star avgResult"></i>
+                                                                            <i class="fas fa-star avgResult"></i>
+                                                                            <i class="fas fa-star avgResult"></i>
+                                                                        @endif
+                                                                    @endif
+                                                                    <span class="ml-5"> ({{ $averageResult }})</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="product-card-bottom ">
+                                                                <div class="product-price">
+                                                                    <span>{{ $product->productPrice != null ? $product->productPrice->price : 0 }}$</span>
+                                                                    <span
+                                                                        class="old-price">{{ $product->productPrice != null ? $product->productPrice->discount : 0 }}$</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="add-feature">
+                                                                <a href="cart.html" class="btn btn-primary"><i
+                                                                        class="feather-shopping-bag me-1"></i>Add</a>
+                                                                <div class="product-details-inner">
+                                                                    <a href="view-product.html" class="product-btn"><i
+                                                                            class="fi-rs-eye"></i></a>
+                                                                    <a aria-label="Quick view" class="product-btn"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#quickViewModal"><i
+                                                                            class="fi-rs-search"></i></a>
+                                                                    <a aria-label="Add To Wishlist" class="product-btn"
+                                                                        href="wishlist.html"><i
+                                                                            class="fi-rs-heart"></i></a>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="product-content">
-                                                        <div class="sold-group mb-15">
-                                                            <p>Sold By <span> Global Store</span></p>
-                                                        </div>
-                                                        <h2><a href="view-product.html">Digital Stethoscope</a></h2>
-                                                        <div class="product-card-bottom ">
-                                                            <div class="rating d-inline-block">
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                                <span class="ml-5"> (3.5)</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="product-card-bottom ">
-                                                            <div class="product-price">
-                                                                <span>$ 550.00</span>
-                                                                <span class="old-price">$ 350.00</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="add-feature">
-                                                            <a href="cart.html" class="btn btn-primary"><i
-                                                                    class="feather-shopping-bag me-1"></i>Add</a>
-                                                            <div class="product-details-inner">
-                                                                <a href="view-product.html" class="product-btn"><i
-                                                                        class="fi-rs-eye"></i></a>
-                                                                <a aria-label="Quick view" class="product-btn"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#quickViewModal"><i
-                                                                        class="fi-rs-search"></i></a>
-                                                                <a aria-label="Add To Wishlist" class="product-btn"
-                                                                    href="wishlist.html"><i class="fi-rs-heart"></i></a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- /Product box -->
+                                                    <!-- /Product box -->
+                                                @endforeach
 
-                                                <!-- Product box -->
-                                                <div class="product-card wow animate__animated animate__fadeIn"
-                                                    data-wow-delay=".1s">
-                                                    <div class="product-img-col">
-                                                        <div class="product-img product-img-zoom">
-                                                            <a href="view-product.html">
-                                                                <img src="{{ asset('frontend/assets/img/shop/product-13.jpg') }}"
-                                                                    alt="">
-                                                            </a>
-                                                        </div>
-                                                        <div class="product-badge">
-                                                            <span class="best">-10%</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-content">
-                                                        <div class="sold-group mb-15">
-                                                            <p>Sold By <span> Global Store</span></p>
-                                                        </div>
-                                                        <h2><a href="view-product.html">Cosmetic Containers</a></h2>
-                                                        <div class="product-card-bottom ">
-                                                            <div class="rating d-inline-block">
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                                <span class="ml-5"> (3.5)</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="product-card-bottom ">
-                                                            <div class="product-price">
-                                                                <span>$ 350.00</span>
-                                                                <span class="old-price">$ 450.00</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="add-feature">
-                                                            <a href="cart.html" class="btn btn-primary"><i
-                                                                    class="feather-shopping-bag me-1"></i>Add</a>
-                                                            <div class="product-details-inner">
-                                                                <a href="view-product.html" class="product-btn"><i
-                                                                        class="fi-rs-eye"></i></a>
-                                                                <a aria-label="Quick view" class="product-btn"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#quickViewModal"><i
-                                                                        class="fi-rs-search"></i></a>
-                                                                <a aria-label="Add To Wishlist" class="product-btn"
-                                                                    href="wishlist.html"><i class="fi-rs-heart"></i></a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- /Product box -->
-
-                                                <!-- Product box -->
-                                                <div class="product-card wow animate__animated animate__fadeIn"
-                                                    data-wow-delay=".1s">
-                                                    <div class="product-img-col">
-                                                        <div class="product-img product-img-zoom">
-                                                            <a href="view-product.html">
-                                                                <img src="{{ asset('frontend/assets/img/shop/product-10.jpg') }}"
-                                                                    alt="">
-                                                            </a>
-                                                        </div>
-                                                        <div class="product-badge">
-                                                            <span class="best">-20%</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-content">
-                                                        <div class="sold-group mb-15">
-                                                            <p>Sold By <span> Global Store</span></p>
-                                                        </div>
-                                                        <h2><a href="view-product.html">Blue Hand Gloves</a></h2>
-                                                        <div class="product-card-bottom ">
-                                                            <div class="rating d-inline-block">
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                                <span class="ml-5"> (3.5)</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="product-card-bottom ">
-                                                            <div class="product-price">
-                                                                <span>$ 250.00</span>
-                                                                <span class="old-price">$ 150.00</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="add-feature">
-                                                            <a href="cart.html" class="btn btn-primary"><i
-                                                                    class="feather-shopping-bag me-1"></i>Add</a>
-                                                            <div class="product-details-inner">
-                                                                <a href="view-product.html" class="product-btn"><i
-                                                                        class="fi-rs-eye"></i></a>
-                                                                <a aria-label="Quick view" class="product-btn"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#quickViewModal"><i
-                                                                        class="fi-rs-search"></i></a>
-                                                                <a aria-label="Add To Wishlist" class="product-btn"
-                                                                    href="wishlist.html"><i class="fi-rs-heart"></i></a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- /Product box -->
-
-                                                <!-- Product box -->
-                                                <div class="product-card wow animate__animated animate__fadeIn"
-                                                    data-wow-delay=".1s">
-                                                    <div class="product-img-col">
-                                                        <div class="product-img product-img-zoom">
-                                                            <a href="view-product.html">
-                                                                <img src="{{ asset('frontend/assets/img/shop/product-13.jpg') }}"
-                                                                    alt="">
-                                                            </a>
-                                                        </div>
-                                                        <div class="product-badge">
-                                                            <span class="best">-15%</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-content">
-                                                        <div class="sold-group mb-15">
-                                                            <p>Sold By <span> Global Store</span></p>
-                                                        </div>
-                                                        <h2><a href="view-product.html">Cosmetic Containers</a></h2>
-                                                        <div class="product-card-bottom ">
-                                                            <div class="rating d-inline-block">
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star filled"></i>
-                                                                <span class="ml-5"> (3.5)</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="product-card-bottom ">
-                                                            <div class="product-price">
-                                                                <span>$ 350.00</span>
-                                                                <span class="old-price">$ 450.00</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="add-feature">
-                                                            <a href="cart.html" class="btn btn-primary"><i
-                                                                    class="feather-shopping-bag me-1"></i>Add</a>
-                                                            <div class="product-details-inner">
-                                                                <a href="view-product.html" class="product-btn"><i
-                                                                        class="fi-rs-eye"></i></a>
-                                                                <a aria-label="Quick view" class="product-btn"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#quickViewModal"><i
-                                                                        class="fi-rs-search"></i></a>
-                                                                <a aria-label="Add To Wishlist" class="product-btn"
-                                                                    href="wishlist.html"><i class="fi-rs-heart"></i></a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- /Product box -->
                                             </div>
                                         </div>
                                     </div>
