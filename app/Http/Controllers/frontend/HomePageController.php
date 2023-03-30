@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\frontend;
 
-use App\Http\Controllers\Controller;
-use App\Models\Category;
+use App\Models\User;
+use App\Models\Review;
 use App\Models\Comment;
 use App\Models\Product;
-use App\Models\Review;
-use App\Models\User;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class HomePageController extends Controller
@@ -51,7 +51,6 @@ class HomePageController extends Controller
         $product = Product::where('slug_unique', $slug)
             ->with('user', 'category', 'subCategory', 'productImage', 'productPrice', 'comments.replies', 'user', 'comments.user', 'comments.replies.user', 'review')
             ->first();
-        $id = Review::where('product_id', $product->id)->get();
         $five = Review::where('product_id', $product->id)
             ->where('ratings', 5)
             ->count();
