@@ -17,6 +17,11 @@
 
     <!-- Rating CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>.bigstar{font-size: 24px;}</style>
+    <style>
+    .bigstar{font-size: 24px;}
+    .banner-slider .slider-btn{
+        display: none !important;
+    }
+    </style>
 
 </head>
