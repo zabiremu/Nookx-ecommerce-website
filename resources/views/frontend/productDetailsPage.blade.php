@@ -9,7 +9,7 @@
     <main class="main">
         <div class="page-content">
             <div class="container">
-                <div class="row">
+                <div class="row product_data">
                     <div class="col-lg-12 m-auto">
                         <div class="product-detail accordion-detail">
                             <div class="row mb-50">
@@ -132,18 +132,15 @@
                                         </ul>
                                         <div class="product-extra-link2 ">
                                             <h5>Quantity</h5>
-                                            <div class="quntity-group  d-flex">
-                                                <div class="detail-extralink">
-                                                    <div class="detail-qty border radius">
-                                                        <a href="#" class="qty-down"><i
-                                                                class="fi-rs-minus-small"></i></a>
-                                                        <span class="qty-val">1</span>
-                                                        <a href="#" class="qty-up"><i
-                                                                class="fi-rs-plus-small"></i></a>
-                                                    </div>
+                                            <div class="quntity-group d-flex">
+                                                <input type="hidden" value="{{ $product->id }}" class="product_id">
+                                                <div class="input-group text-center" style="width: 130px; overflow:hidden; height:2.5rem; margin-right:5px;">
+                                                    <button class="input-group-text decrement-btn">-</button>
+                                                    <input type="text" name="quentity" class="form-control qut-input text-center" value="1">
+                                                    <button class="input-group-text increment-btn">+</button>
                                                 </div>
-                                                <a href="cart.html" class="button button-add-to-cart me-3"><i
-                                                        class="fi-rs-shopping-cart"></i> Add to cart</a>
+                                                <button type="button" class="button addToCartBtn button-add-to-cart me-3"><i
+                                                        class="fi-rs-shopping-cart"></i> Add to cart</button>
                                             </div>
                                         </div>
                                         <div class="pop-wish">
@@ -635,6 +632,30 @@
     @push('script')
         <script type="text/javascript">
             $(document).ready(function() {
+                $('.addToCartBtn').click(function(e){
+                    e.preventDefault();
+                    var product_id = $(this).closest('.product_data').find('.product_id').val();
+                    var product_qty = $(this).closest('.product_data').find('.qut-input').val();
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        method: "post",
+                        url: "/add/to/cart",
+                        data: {
+                            'product_id':product_id,
+                            'product_qty':product_qty,
+                        },
+                        success: function(response){
+                            alert(response.status);
+                           
+
+                        }
+                    });
+                });
+
                 $("#star1").click(function() {
                     $("#star1").css("color", "black").removeClass("bigstar");
                     $("#star1").css("color", "#FFC700");

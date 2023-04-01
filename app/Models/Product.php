@@ -43,8 +43,8 @@ class Product extends Model
     {
         return $this->hasMany(Review::class);
     }
-    public function productCupon()
+    public function cart()
     {
-        return $this->hasMany(ProductCupon::class);
+        return $this->hasMany(Cart::class);
     }
 }

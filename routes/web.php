@@ -12,7 +12,7 @@ use App\Http\Controllers\frontend\HomePageController;
 use App\Http\Controllers\backend\RecycleBinController;
 use App\Http\Controllers\backend\SubCategoryController;
 use App\Http\Controllers\backend\AdminProfileController;
-use App\Http\Controllers\backend\CuponController;
+use App\Http\Controllers\frontend\CartController;
 use App\Http\Controllers\frontend\ProductsListsController;
 
 Route::middleware('auth')->group(function () {
@@ -132,7 +132,6 @@ Route::controller(HomePageController::class)->group(function () {
     Route::get('/', 'create')->name('home.create');
     // product details page setup
     Route::get('/product/details/{slug?}', 'createProductDetailsPage')->name('product.details.create');
-
     // search product
     Route::post('/search-product', 'search')->name('search-product');
     // mega menu
@@ -191,6 +190,12 @@ Route::controller(ProductsListsController::class)->group(function () {
     Route::get('/category-wise-product/{slug}', 'catProduct')->name('category-wise-product');
     Route::get('/subCategory-wise-product/{slug}', 'subProduct')->name('sub-wise-product-show');
     Route::post('/search-product-data', 'searchProduct')->name('search-product-data');
+});
+
+//Cart
+Route::controller(CartController::class)->group(function(){
+    Route::post('/add/to/cart', [CartController::class, 'add_to_cart'])->name('add.to.cart');
+    Route::get('/cart/view', [CartController::class, 'cart_view'])->name('cart.view');
 });
 
 // fortend all controller end
