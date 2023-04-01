@@ -3,6 +3,9 @@
 @extends('frontend.app.app')
 
 @section('content')
+    <style>
+        .feather-arrow-left {}
+    </style>
     <main class="main">
         <section class="banner-section position-relative">
             <div class="container">
@@ -88,7 +91,7 @@
                                     <div class="category-grid wow animate__animated animate__fadeIn" data-wow-delay=".1s">
                                         <div class="category-img-col">
                                             <div class="category-img category-img-zoom">
-                                                <a href="{{ route('category-wise-product',$item->cat_slug) }}">
+                                                <a href="{{ route('category-wise-product', $item->cat_slug) }}">
                                                     <img src="{{ $item->image_url }}" alt="">
                                                 </a>
                                             </div>
@@ -240,8 +243,9 @@
                                                     class="btn btn-primary"><i
                                                         class="feather-shopping-bag me-1"></i>Add</a>
                                                 <div class="product-details-inner">
-                                                    <a href="" class="product-btn"><i class="fi-rs-eye"></i></a>
-                                                    <a aria-label="Quick view" class="product-btn" data-bs-toggle="modal"
+                                                    <a data class="product-btn"><i class="fi-rs-eye"></i></a>
+                                                    <a aria-label="Quick view" class="product-btn quickModal"
+                                                        data-bs-toggle="modal" data-id="{{ $product->id }}"
                                                         data-bs-target="#quickViewModal"><i class="fi-rs-search"></i></a>
                                                     <a aria-label="Add To Wishlist" class="product-btn"
                                                         href="wishlist.html"><i class="fi-rs-heart"></i></a>
@@ -578,7 +582,7 @@
                                     <div class="category-grid wow animate__animated animate__fadeIn" data-wow-delay=".1s">
                                         <div class="category-img-col">
                                             <div class="category-img category-img-zoom">
-                                                <a href="{{ route('category-wise-product',$item->cat_slug) }}">
+                                                <a href="{{ route('category-wise-product', $item->cat_slug) }}">
                                                     <img src="{{ $item->image_url }}" alt="">
                                                 </a>
                                             </div>
@@ -639,5 +643,77 @@
         <!-- /Book Consultation -->
 
     </main>
+
+    @push('script')
+        <script>
+            let modalTitle = $('#quickViewModal .title-detail')
+            let sliderParent = $('#quickViewModal .product-image-slider')
+            let sliderThumbnail = $('#quickViewModal .slider-nav-thumbnails')
+            console.log(modalTitle)
+            $('.quickModal').on('click', function(e) {
+                e.preventDefault();
+                let productId = $(this).attr('data-id')
+
+                // * AJAX REQ
+                $.ajax({
+                    url: "{{ route('modal.product.id') }}",
+                    method: "GET",
+                    data: {
+                        productId: productId,
+                    },
+                    success: function(response) {
+                        let product = JSON.parse(response)
+                        let productImages = product.product_image
+                        console.log(productImages)
+                        modalTitle.html(product.title)
+
+                        // * create slider element
+                        let sliders = [];
+                        let thumbs = [];
+                        productImages.map(img => {
+                            let figures = `
+                        <figure class="border-radius-10">
+                                        <img src="${img.image_url}"
+                                            alt="product image">
+                                        </figure>`
+                            let thumbnail = `<div><img src="${img.image_url}"
+                                        alt="product image"></div>`
+                            sliders.push(figures)
+                            thumbs.push(thumbnail)
+                        })
+
+
+                        sliderParent.html('')
+                        sliderParent.html(sliders)
+                        sliderParent.slick('unslick')
+                        sliderParent.slick({
+                            zoomType: "inner",
+                            cursor: "crosshair",
+                            zoomWindowFadeIn: 500,
+                            zoomWindowFadeOut: 750
+                        })
+
+                        sliderThumbnail.html('')
+                        sliderThumbnail.html(thumbs)
+                        sliderThumbnail.slick('unslick')
+                        sliderThumbnail.slick({
+                            slidesToShow: 4,
+                            autoplay: true,
+                            arrow: false,
+                            dots: false,
+                            nextArrow: false,
+                            prevArrow: false,
+                        })
+
+
+
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    },
+                })
+            })
+        </script>
+    @endpush
 @endsection
 {{-- home page end --}}

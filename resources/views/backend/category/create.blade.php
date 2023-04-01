@@ -25,19 +25,23 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="card">
-                    <p style="padding: 0.5rem; background-color:#0d6efd;color:white;" >Category</p>
+                    <p style="padding: 0.5rem; background-color:#0d6efd;color:white;">Category</p>
                     <form class="card-body" action="{{ route('store.category') }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="row mb-3">
                             <div class="col-sm-3">
-                                <h6 class="mb-0">Category</h6>
+                                <h6 class="mb-0">Category Name</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
                                 <input type="text" class="form-control" id="catName" name="Category_Name" />
+                                @error('Category_Name')
+                                    <div style="color: red;">{{ $message }}</div>
+                                @enderror
                             </div>
+
                         </div>
-                        <div class="row mb-3 d-none">
+                        <div class="row mb-3">
                             <div class="col-sm-3">
                                 <h6 class="mb-0">Category Slug</h6>
                             </div>
@@ -53,7 +57,11 @@
                             </div>
                             <div class="col-sm-9 text-secondary">
                                 <input type="file" class="form-control" id="image" name="image" />
+                                @error('image')
+                                    <div style="color: red;">{{ $message }}</div>
+                                @enderror
                             </div>
+
                         </div>
 
                         <div class="row mb-3">
@@ -75,54 +83,60 @@
                 </div>
             </div>
             {{-- form end --}}
-        {{-- Subcategoy starting --}}
-        <div class="col-lg-6">
-            <div class="card">
-                <p style="padding: 0.5rem; background-color:#0d6efd;color:white;" >Sub-Category</p>
-                <form class="card-body" action="{{ route('store.subCategory') }}" method="POST">
-                    @csrf
+            {{-- Subcategoy starting --}}
+            <div class="col-lg-6">
+                <div class="card">
+                    <p style="padding: 0.5rem; background-color:#0d6efd;color:white;">Sub-Category</p>
+                    <form class="card-body" action="{{ route('store.subCategory') }}" method="POST">
+                        @csrf
 
-                    <div class="row mb-3">
-                        <div class="col-sm-3">
-                            <h6 class="mb-0">Select Category</h6>
+                        <div class="row mb-3">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Select Category</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <select name="category_id" class="form-control">
+                                    <option label="Choose One"></option>
+                                    @forelse ($category as $item)
+                                        <option value="{{ $item->id }}">{{ $item->cat_name }}</option>
+                                    @empty
+                                        <option selected>No Category</option>
+                                    @endforelse
+                                </select>
+                                @error('category_id')
+                                    <div style="color: red;">{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
-                        <div class="col-sm-9 text-secondary">
-                            <select name="category_id" class="form-control">
-                                <option label="Choose One"></option>
-                                @forelse ($category as $item)
-                                    <option value="{{ $item->id }}">{{ $item->cat_name }}</option>
-                                @empty
-                                    <option selected>No Category</option>
-                                @endforelse
-                            </select>
+                        <div class="row mb-3">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Add Sub Category</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <input type="text" class="form-control" id="subName" name="SubCategory_Name" />
+                                @error('SubCategory_Name')
+                                    <div style="color: red;">{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-sm-3">
-                            <h6 class="mb-0">Add Sub Category</h6>
+                        <div class="row mb-3">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Sub Category Slug</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <input type="text" class="form-control" id="sub_slug" name="SubCategory_Slug" />
+                            </div>
                         </div>
-                        <div class="col-sm-9 text-secondary">
-                            <input type="text" class="form-control" id="subName" name="SubCategory_Name" />
-                        </div>
-                    </div>
-                    <div class="row mb-3 d-none ">
-                        <div class="col-sm-3">
-                            <h6 class="mb-0">Sub Category Slug</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">
-                            <input type="text" class="form-control" id="slug" name="SubCategory_Slug" />
-                        </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-sm-3"></div>
-                        <div class="col-sm-9 text-secondary">
-                            <button class="btn btn-primary px-4">Save Changes</button>
+                        <div class="row">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-9 text-secondary">
+                                <button class="btn btn-primary px-4">Save Changes</button>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
-        </div>
         </div>
     </div>
     @push('script')
@@ -143,6 +157,14 @@
                 var value = $(this).val();
                 var convertValue = value.split(' ').join('-').toLowerCase();
                 $('#slug').val(convertValue);
+            })
+        </script>
+         <script>
+            var catName = $('#subName');
+            catName.on('keyup', function() {
+                var value = $(this).val();
+                var convertValue = value.split(' ').join('-').toLowerCase();
+                $('#sub_slug').val(convertValue);
             })
         </script>
     @endpush

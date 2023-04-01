@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\SubCategory;
+use App\Models\CategoryCupon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -20,5 +21,9 @@ class Category extends Model
     public function product()
     {
         return $this->hasMany(Product::class);
+    }
+    public function categoryCupon()
+    {
+        return $this->hasMany(CategoryCupon::class);
     }
 }

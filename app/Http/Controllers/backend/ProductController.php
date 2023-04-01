@@ -347,4 +347,6 @@ class ProductController extends Controller
     {
         return Excel::download(new ProductExport, 'products.xlsx');
     }
+
+   
 }

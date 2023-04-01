@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\ProductCupon;
+use App\Models\ProductPrice;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\ProductPrice;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
@@ -41,5 +42,9 @@ class Product extends Model
     public function review()
     {
         return $this->hasMany(Review::class);
+    }
+    public function productCupon()
+    {
+        return $this->hasMany(ProductCupon::class);
     }
 }

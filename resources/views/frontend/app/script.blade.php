@@ -2,7 +2,7 @@
 
 <!-- jQuery -->
 <script src="{{ asset('frontend/assets/js/jquery-3.6.0.min.js') }}"></script>
-
+@stack('script')
 <!-- Bootstrap Core JS -->
 <script src="{{ asset('frontend/assets/js/bootstrap.bundle.min.js') }}"></script>
 
@@ -83,4 +83,7 @@
         })
     })
 </script>
-@stack('script')
+
+
+
+

@@ -95,6 +95,12 @@ class HomePageController extends Controller
         }
        
     }
+
+    public function modalProductId(Request $request)
+    {
+        $product = Product::with('productImage')->find($request->productId);
+        return response(json_encode($product),200);
+    }
     // display shop grid page
     public function createShopGrid()
     {

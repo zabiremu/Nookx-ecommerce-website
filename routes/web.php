@@ -12,6 +12,7 @@ use App\Http\Controllers\frontend\HomePageController;
 use App\Http\Controllers\backend\RecycleBinController;
 use App\Http\Controllers\backend\SubCategoryController;
 use App\Http\Controllers\backend\AdminProfileController;
+use App\Http\Controllers\backend\CuponController;
 use App\Http\Controllers\frontend\ProductsListsController;
 
 Route::middleware('auth')->group(function () {
@@ -28,27 +29,27 @@ Route::group(['middleware' => ['auth', 'role:admin|manager|editor|seller']], fun
     });
 
     // category controller
-    Route::controller(CategoryController::class)->group(function(){
-        Route::get('/create/category','create')->name('create.category');
-        Route::post('/store/category','store')->name('store.category');
-        Route::get('/all/category','all')->name('all.category');
-        Route::get('/edit/category/{id}','edit')->name('edit.category');
-        Route::post('/update/category/{id}','update')->name('update.category');
-        Route::post('/delete/category/{id}','delete')->name('delete.category');
+    Route::controller(CategoryController::class)->group(function () {
+        Route::get('/create/category', 'create')->name('create.category');
+        Route::post('/store/category', 'store')->name('store.category');
+        Route::get('/all/category', 'all')->name('all.category');
+        Route::get('/edit/category/{id}', 'edit')->name('edit.category');
+        Route::post('/update/category/{id}', 'update')->name('update.category');
+        Route::post('/delete/category/{id}', 'delete')->name('delete.category');
     });
 
-     // sub category controller
-     Route::controller(SubCategoryController::class)->group(function(){
-        Route::get('/create/sub-category','create')->name('create.subCategory');
-        Route::post('/store/sub-category','store')->name('store.subCategory');
-        Route::get('/all/subCategory','all')->name('all.subCategory');
-        Route::get('/edit/subCategory/{id}','edit')->name('edit.subCategory');
-        Route::post('/update/subCategory/{id}','update')->name('update.subCategory');
-        Route::post('/delete/subCategory/{id}','delete')->name('delete.subCategory');
+    // sub category controller
+    Route::controller(SubCategoryController::class)->group(function () {
+        Route::get('/create/sub-category', 'create')->name('create.subCategory');
+        Route::post('/store/sub-category', 'store')->name('store.subCategory');
+        Route::get('/all/subCategory', 'all')->name('all.subCategory');
+        Route::get('/edit/subCategory/{id}', 'edit')->name('edit.subCategory');
+        Route::post('/update/subCategory/{id}', 'update')->name('update.subCategory');
+        Route::post('/delete/subCategory/{id}', 'delete')->name('delete.subCategory');
     });
 
     //product route
-    Route::controller(ProductController::class)->group(function(){
+    Route::controller(ProductController::class)->group(function () {
         Route::get('/create/product', 'create')->name('create.product');
         Route::post('/store/product', 'store')->name('store.product');
         Route::get('/all/products', 'all')->name('all.Products');
@@ -59,27 +60,49 @@ Route::group(['middleware' => ['auth', 'role:admin|manager|editor|seller']], fun
 
         // jQuery ajax product table
 
-        Route::get('/category/{id}','category')->name('category');
+        Route::get('/category/{id}', 'category')->name('category');
 
         // gallery image
 
-        Route::post('/gallery-image/{id}','galleryImage')->name('gallery.image');
-        Route::post('/delete-gallery-image/{id}','deleteGalleryImage')->name('delete.image');
-
+        Route::post('/gallery-image/{id}', 'galleryImage')->name('gallery.image');
+        Route::post('/delete-gallery-image/{id}', 'deleteGalleryImage')->name('delete.image');
 
         // print pdf
-        Route::get('/show-product-pdf','showPdf')->name('show.pdf');
+        Route::get('/show-product-pdf', 'showPdf')->name('show.pdf');
 
         Route::get('prdouct/export/', 'export')->name('export.execl');
     });
 
-    Route::controller(RecycleBinController::class)->group(function(){
+    Route::controller(RecycleBinController::class)->group(function () {
         Route::get('/all/restore/product/', 'all')->name('all.restore');
         Route::get('/restore/product/{id}', 'restoreProduct')->name('restore.product');
         Route::post('/permanent/delete/product/{id}', 'deleteProduct')->name('permanent.delete.product');
-
     });
 
+    Route::controller(CuponController::class)->group(function () {
+        Route::get('/product/cupon', 'productCupon')->name('porduct.cupon');
+        Route::get('/create/product/cupon', 'createCupon')->name('create.cupon');
+        Route::post('/store/product/cupon', 'storeCupon')->name('store.cupon');
+        Route::get('/edit/product/cupon/{id}', 'editCupon')->name('edit.cupon');
+        Route::post('/update/product/cupon/{id}', 'updateCupon')->name('update.cupon');
+        Route::post('/delete/product/cupon/{id}', 'deleteCupon')->name('delete.cupon');
+
+        // category cupon 
+        Route::get('/cat/cupon', 'categoryCupon')->name('cat.cupon');
+        Route::get('/create/cat/cupon', 'createCatCupon')->name('create.cat.cupon');
+        Route::post('/store/cat/cupon', 'storeCatCupon')->name('store.cat.cupon');
+        Route::get('/edit/cat/cupon/{id}', 'editCatCupon')->name('edit.cat.cupon');
+        Route::post('/update/cat/cupon/{id}', 'updateCatCupon')->name('update.cat.cupon');
+        Route::post('/delete/cat/cupon/{id}', 'deleteCatCupon')->name('delete.cat.cupon');
+
+        // All Cupon
+        Route::get('/all/product/cupon', 'allCupon')->name('all.product.cupon');
+        Route::get('/create/all/cupon', 'createAllCupon')->name('create.all.cupon');
+        Route::post('/store/all/cupon', 'storeAllCupon')->name('store.all.cupon');
+        Route::get('/edit/all/cupon/{id}', 'editAllCupon')->name('edit.all.cupon');
+        Route::post('/update/all/cupon/{id}', 'updateAllCupon')->name('store.update.cupon');
+        Route::post('/delete/all/cupon/{id}', 'deleteAllCupon')->name('delete.all.cupon');
+    });
 });
 
 Route::controller(AdminProfileController::class)
@@ -111,7 +134,7 @@ Route::controller(HomePageController::class)->group(function () {
     Route::get('/product/details/{slug?}', 'createProductDetailsPage')->name('product.details.create');
 
     // search product
-    Route::post('/search-product','search')->name('search-product');
+    Route::post('/search-product', 'search')->name('search-product');
     // mega menu
     // shop grid
     Route::get('/shop/grid', 'createShopGrid')->name('shop.grid.create');
@@ -151,20 +174,23 @@ Route::controller(HomePageController::class)->group(function () {
     Route::get('/error/400/page', 'createError400Page')->name('error.400.create');
     //error 500 page
     Route::get('/error/500/page', 'createError500Page')->name('error.500.create');
+
+    // ajax
+    Route::get('/modal/product','modalProductId')->name('modal.product.id');
 });
 // HomePage Controller End
 
 //comment al controller
 Route::controller(CommentController::class)->group(function () {
     Route::post('/create/comment/{id}', 'createComment')->name('comment.create');
-   Route::post('/create/comment/reply/{id}', 'createReplyComment')->name('comment.reply.create');
+    Route::post('/create/comment/reply/{id}', 'createReplyComment')->name('comment.reply.create');
 });
 
 // Products lists
-Route::controller(ProductsListsController::class)->group(function(){
-    Route::get('/category-wise-product/{slug}','catProduct')->name('category-wise-product');
-    Route::get('/subCategory-wise-product/{slug}','subProduct')->name('sub-wise-product-show');
-    Route::post('/search-product-data','searchProduct')->name('search-product-data');
+Route::controller(ProductsListsController::class)->group(function () {
+    Route::get('/category-wise-product/{slug}', 'catProduct')->name('category-wise-product');
+    Route::get('/subCategory-wise-product/{slug}', 'subProduct')->name('sub-wise-product-show');
+    Route::post('/search-product-data', 'searchProduct')->name('search-product-data');
 });
 
 // fortend all controller end
