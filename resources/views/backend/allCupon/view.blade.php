@@ -29,6 +29,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Cuopn Name</th>
+                                        <th>Cuopn Type</th>
                                         <th>Discount</th>
                                         <th>Start Date</th>
                                         <th>End Date</th>
@@ -40,7 +41,8 @@
                                         <tr>
                                             <td>{{ ++$key }}</td>
                                             <td>{{ $item->name }}</td>
-                                            <td>{{ $item->discount }}%</td>
+                                            <td>{{ $item->type }}</td>
+                                            <td>{{ $item->discount }}</td>
                                             <td>{{ $item->start_date }}</td>
                                             <td>{{ $item->end_date }}</td>
                                             <td>
@@ -63,6 +65,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Cuopn Name</th>
+                                        <th>Cuopn Type</th>
                                         <th>Discount</th>
                                         <th>Start Date</th>
                                         <th>End Date</th>

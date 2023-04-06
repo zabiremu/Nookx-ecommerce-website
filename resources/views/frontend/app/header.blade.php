@@ -25,7 +25,7 @@
 
 
 </header>
-
+    
 
     {{-- mobile menu start --}}
     @include('frontend.app.header.mobileMenu')

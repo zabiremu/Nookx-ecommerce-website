@@ -1,9 +1,16 @@
+@php
+    $category = App\Models\Category::latest()
+        ->limit(6)
+        ->with('subCategory')
+        ->get(['id', 'cat_name', 'cat_slug', 'image_url']);
+@endphp
+
 {{-- mobile ment start --}}
 <div class="main-menu-wrapper">
     <div class="mobile-header-inner">
         <div class="mobile-header-top">
             <div class="mobile-header-logo">
-                <a href="{{url('/')}}"><img src="{{ asset('frontend/assets/img/logo.png') }}" alt="logo" /></a>
+                <a href="{{ url('/') }}"><img src="{{ asset('frontend/assets/img/logo.png') }}" alt="logo" /></a>
             </div>
             <div class="mobile-menu-close close-col menu-close-position">
                 <button class="close-style">
@@ -13,12 +20,6 @@
             </div>
         </div>
         <div class="mobile-header-content">
-            <div class="mobile-search mobile-search-three mobile-header-border">
-                <form action="product-category-list.html">
-                    <input type="text" placeholder="Search for items…" />
-                    <button type="submit"><i class="fi-rs-search"></i></button>
-                </form>
-            </div>
             <div class="mobile-menu-col mobile-header-border">
 
                 <!-- Mobile Menu -->
@@ -27,100 +28,51 @@
                         <li class="mobile-menu-item">
                             <a href="index.html">Home</a>
                         </li>
-                        <li class="mobile-menu-item">
-                            <a href="#">All Medicines</a>
-                            <ul class="dropdown">
-                                <li><a href="view-product.html">COVID Medicines</a></li>
-                                <li><a href="view-product.html">Ayrvedic Medicines</a></li>
-                                <li><a href="view-product.html">Health Equipments</a></li>
-                                <li><a href="view-product.html">Personal Care</a></li>
-                                <li><a href="view-product.html">Fitness Suppliments</a></li>
-                                <li><a href="view-product.html">Childcare</a></li>
-                            </ul>
-                        </li>
-                        <li class="mobile-menu-item">
-                            <a href="#">COVID Medicines</a>
-                            <ul class="dropdown">
-                                <li><a href="view-product.html">Stimulants</a></li>
-                                <li><a href="view-product.html">Opoids</a></li>
-                                <li><a href="view-product.html">Antibiotics</a></li>
-                            </ul>
-                        </li>
-                        <li class="mobile-menu-item">
-                            <a href="#">Ayrvedic Medicines</a>
-                            <ul class="dropdown">
-                                <li><a href="view-product.html">Calcitonin</a></li>
-                                <li><a href="view-product.html">Echinocandins</a></li>
-                                <li><a href="view-product.html">Handicraft</a></li>
-                                <li><a href="view-product.html">Suppositories</a></li>
-                            </ul>
-                        </li>
-                        <li class="mobile-menu-item">
-                            <a href="#">Health Equipments</a>
-                            <ul class="dropdown">
-                                <li><a href="view-product.html">Medical Supplies</a></li>
-                                <li><a href="view-product.html">Pulse Oximeters</a></li>
-                                <li><a href="view-product.html">Examination Gloves</a></li>
-                                <li><a href="view-product.html">Baby Care</a></li>
-                                <li><a href="view-product.html">Respiratory</a></li>
-                                <li><a href="view-product.html">Medical Equipment</a></li>
-                            </ul>
-                        </li>
-                        <li class="mobile-menu-item">
-                            <a href="#">Personal Care</a>
-                            <ul class="dropdown">
-                                <li><a href="view-product.html"> Digital Glucose Meter</a></li>
-                                <li><a href="view-product.html">Digital Thermometer</a></li>
-                                <li><a href="view-product.html">Cotton Mask</a></li>
-                                <li><a href="view-product.html">Kids Thermometer</a></li>
-                                <li><a href="view-product.html">Face Mask</a></li>
-                                <li><a href="view-product.html">Digital Meter</a></li>
-                            </ul>
-                        </li>
-                        <li class="mobile-menu-item">
-                            <a href="#">Mega Menu</a>
-                            <ul class="dropdown">
-                                <li class="mobile-menu-item">
-                                    <a href="#">Shop Layout</a>
-                                    <ul class="dropdown">
-                                        <li><a href="shop-grid.html">Shop Grid</a></li>
-                                        <li><a href="shop-list.html">Shop List</a></li>
-                                        <li><a href="shop-grid-left.html">Shop Left Sidebar</a></li>
-                                        <li><a href="shop-grid-right.html">Shop Right Sidebar</a></li>
-                                    </ul>
-                                </li>
-                                <li class="mobile-menu-item">
-                                    <a href="#">Product Layout</a>
-                                    <ul class="dropdown">
-                                        <li><a href="view-product.html">View Product</a></li>
-                                        <li><a href="product-left-sidebar.html">Product Left Sidebar</a></li>
-                                        <li><a href="product-right-sidebar.html">Product Right Sidebar</a></li>
-                                    </ul>
-                                </li>
-                                <li class="mobile-menu-item">
-                                    <a href="#">Product Type</a>
-                                    <ul class="dropdown">
-                                        <li><a href="store-listing.html">Store Listing</a></li>
-                                        <li><a href="store-single.html">Store Single</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
+                        @foreach ($category as $category)
+                            <li class="mobile-menu-item">
+                                <a
+                                    href="{{ route('category-wise-product', $category->cat_slug) }}">{{ $category->cat_name }}</a>
+                                @if (count($category->subCategory) > 0)
+                                    @foreach ($category->subCategory as $subcategory)
+                                        <ul class="dropdown">
+                                            <li><a
+                                                    href="{{ route('sub-wise-product-show', $subcategory->sub_slug) }}">{{ $subcategory->sub_name }}</a>
+                                            </li>
+                                        </ul>
+                                    @endforeach
+                                @endif
+                            </li>
+                        @endforeach
+                        @auth
+                            <li>
+                                <a href="#">Profile <i class="fi-rs-angle-down"></i></a>
+                                <ul class="has-submenu">
+                                    @if (Auth::user()->roles[0]->name == 'buyer')
+                                    <li><a href="{{ route('profile.create') }}">My Profile</a></li>
+                                    <li><a href="{{ route('odrer.create') }}">Orders</a></li>
+                                    <li><a href="{{ route('cart.create') }}">Cart</a></li>
+                                    <li><a href="{{ route('wisih.create') }}">Wishlist</a></li>
+                                    <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                                    @else
+                                    @endif
+                                    <li>
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <button style="color: red;" class="dropdown-item"> Logout</button>
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endauth
                         <li>
-                            <a href="#">Pages <i class="fi-rs-angle-down"></i></a>
-                            <ul class="has-submenu">
-                                <li><a href="account.html">My Account</a></li>
-                                <li><a href="profile.html">Profile</a></li>
-                                <li><a href="orders.html">Orders</a></li>
-                                <li><a href="address-book.html">Address Book </a></li>
-                                <li><a href="wishlist.html">Wishlist</a></li>
-                                <li><a href="vendor.html">Vendor</a></li>
-                                <li><a href="cart.html">Cart</a></li>
-                                <li><a href="checkout.html">Checkout</a></li>
-                                <li><a href="error-404.html">Error404</a></li>
-                                <li><a href="error-500.html">Error500</a></li>
-                            </ul>
-                        </li>
+                            @if (Auth::check())
+                            <a class="popup-toggle"><img style="height: 30px; width:30px;" class="rounded-circle" src="{{ Auth::user()->image == null ? 'https://api.dicebear.com/5.x/initials/svg?seed=Felix' : Auth::user()->image }}
+                                " alt="Profile Image"></a></li>
+                            @else
+                                <a class="popup-toggle"><i class="feather-user"></i>Login / Register</a></li>
+                            @endif
+                        <li>
                     </ul>
                 </nav>
                 <!-- /Mobile Menu -->

@@ -1,5 +1,8 @@
 @extends('frontend.app.app')
 @section('content')
+@php
+     $total = App\Models\Cart::where('user_id', Auth::user()->id)->sum('price');
+@endphp
 <main class="main">
     <div class="page-content">
         <div class="container">
@@ -14,7 +17,6 @@
                                 <tr class="table-head">
                                     <th></th>
                                     <th>Product Name</th>
-                                    <th>Price</th>
                                     <th>Quantity</th>
                                     <th>Total</th>
                                 </tr>
@@ -22,29 +24,32 @@
                             <tbody>
                                 @forelse ($cartItmes as $item)
                                 <tr class="table-head">
-                                        <td><a href="javascript:;" class="table-btn-close"><i class="feather-x-circle"></i></a></td>
+                                        <td>
+                                            <form action="{{ route('delete.cart',$item->id) }}" method="post">
+                                                @csrf
+                                                <button class="btn btn-sm" style="background: red!important"><i class="feather-x-circle"></i></button>
+                                            </form>
+                                        </td>
                                     <td class="cart-store">
-                                        <a href="view-product.html"><img src="assets/img/shop/wishlist-01.jpg" class="img-fluid" alt=""></a>
+                                        <a href="view-product.html"><img src="{{ $item->product->image_url }}" class="img-fluid" alt=""></a>
                                         <div class="sold-group">
                                             <a href="javascript:;">{{ $item->product->title }}</a>
-                                            <p>Vendor: <span> Global Store</span></p>
                                         </div>
                                     </td>
-                                    <td>$ 32.00</td>
                                     <td >
                                         <div class="product-extra-link2 ">
                                             <div class="quntity-group  d-flex">
                                                 <div class="detail-extralink">
                                                     <div class="detail-qty border radius">
                                                         <a href="#" class="qty-down"><i class="fi-rs-minus-small"></i></a>
-                                                        <span class="qty-val">1</span>
+                                                        <span class="qty-val">{{ $item->product_qty }}</span>
                                                         <a href="#" class="qty-up"><i class="fi-rs-plus-small"></i></a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </td>
-                                    <td>$320.00 </td>
+                                    <td>${{ $item->price }} </td>
                                 </tr>    
                                 @empty
                                     <tr>
@@ -72,14 +77,11 @@
                                 <div class="shop-continuee">
                                     <a href="shop-grid.html">Continue Shopping</a>
                                 </div>
-                                <div class="update-carts">
-                                    <a href="javascript:;" class="btn btn-primary">Update Cart</a>
-                                </div>
                             </div>
                             <div class="card">
                                 <div class="card-body">
                                     <div class="shop-cart-info">
-                                        <p>Subtotal <span>$320.00 </span></p>
+                                        <p>Subtotal <span>${{ $total }} </span></p>
                                         <ul class="shipping-list">
                                             <li>Shipping</li>
                                             <li>Free shipping</li>

@@ -40,7 +40,7 @@ class HomePageController extends Controller
         $category = Category::latest()
             ->limit(6)
             ->with('subCategory')
-            ->get(['id', 'cat_name','cat_slug', 'image_url']);
+            ->get(['id', 'cat_name', 'cat_slug', 'image_url']);
         return view('frontend.homePage', compact('products', 'banners', 'most_view', 'trendings', 'category', 'dealsOfTheDay'));
     }
 
@@ -76,29 +76,75 @@ class HomePageController extends Controller
         } else {
             $averageResult = 0;
         }
-        $similarProduct=Product::limit(8)->latest()->get();
-        return view('frontend.productDetailsPage', compact('product', 'five', 'four', 'three', 'two', 'one', 'averageResult', 'authUser','similarProduct'));
+        $similarProduct = Product::limit(8)
+            ->latest()
+            ->get();
+           
+        return view('frontend.productDetailsPage', compact('product', 'five', 'four', 'three', 'two', 'one', 'averageResult', 'authUser', 'similarProduct'));
     }
 
     // search product
     public function search(Request $request)
     {
-        $searchResult= $request->searchResult;
+        $searchResult = $request->searchResult;
 
-        $product= Product::where('title','Like','%'. $searchResult .'%')->limit(5)->get();
+        $product = Product::where('title', 'Like', '%' . $searchResult . '%')
+            ->limit(5)
+            ->get();
 
-        if($product){
+        if ($product) {
             return response()->json($product);
-        }else{
+        } else {
             return response()->json('No Product Found');
         }
-       
     }
 
     public function modalProductId(Request $request)
     {
-        $product = Product::with('productImage')->find($request->productId);
-        return response(json_encode($product),200);
+        $product = Product::with('category', 'subCategory', 'productImage', 'productPrice', 'review')->find($request->productId);
+        /*
+        * product ratings 
+        */
+        $five = Review::where('product_id', $product->id)
+            ->where('ratings', 5)
+            ->count();
+
+        $four = Review::where('product_id', $product->id)
+            ->where('ratings', 4)
+            ->count();
+
+        $three = Review::where('product_id', $product->id)
+            ->where('ratings', 3)
+            ->count();
+        $two = Review::where('product_id', $product->id)
+            ->where('ratings', 2)
+            ->count();
+        $one = Review::where('product_id', $product->id)
+            ->where('ratings', 1)
+            ->count();
+        $totalCount = Review::where('product_id', $product->id)->count();
+        $totalRatings = $five * 5 + $four * 4 + $three * 3 + $two * 2 + $one * 1;
+        $averageResult = 0;
+        if ($totalRatings > 0) {
+            $averageResult = ceil($totalRatings / $totalCount);
+        } else {
+            $averageResult = 0;
+        }
+        /*
+        *discount percent
+        */
+        $price = $product->productPrice != null ? $product->productPrice->price : 0;
+        $discount = $product->productPrice != null ? $product->productPrice->discount : 0;
+        if ($discount != null) {
+            $ammount = ($discount / $price) * 100;
+        }   
+        $result= 0;
+        if($discount == null)
+            $result= '00%';
+        else{
+             $result= ceil($ammount) . '%';
+        }
+        return response(json_encode([$product,$five,$four,$three,$two,$one,$averageResult,$result]));
     }
     // display shop grid page
     public function createShopGrid()

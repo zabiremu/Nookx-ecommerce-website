@@ -3,8 +3,16 @@
         ->limit(6)
         ->with('subCategory')
         ->get(['id', 'cat_name', 'cat_slug', 'image_url']);
+    
+    use App\Models\Cart;
+    $authUser = Auth::user();
+    if ($authUser != null) {
+        $cartItmes = Cart::with('product')
+            ->where('user_id', $authUser->id)
+            ->get();
+        $total = App\Models\Cart::where('user_id', Auth::user()->id)->sum('price');
+    }
 @endphp
-
 {{-- header bottom start --}}
 <div class="header-bottom sticky-bar">
     <div class="container">
@@ -44,7 +52,6 @@
                                     <a href="#">Profile <i class="fi-rs-angle-down"></i></a>
                                     <ul class="has-submenu">
                                         @if (Auth::user()->roles[0]->name == 'buyer')
-                                            <li><a href="#">Become a seller </a></li>
                                             <li><a href="{{ route('profile.create') }}">My Profile</a></li>
                                             <li><a href="{{ route('odrer.create') }}">Orders</a></li>
                                             <li><a href="{{ route('cart.create') }}">Cart</a></li>
@@ -123,65 +130,45 @@
                         </div>
                     </div>
                     <div class="header-inner-icon">
-                        <a class="small-cart-icon " href="javascript:;">
-                            <i class="feather-shopping-bag"></i>
-                            <span class="pro-count blue">1</span>
-                        </a>
-                        <div class="cart-dropdown-wrap cart-dropdown-two">
-                            <ul>
-                                <li>
-                                    <div class="shopping-cart-img">
-                                        <a href="view-product.html"><img
-                                                src="{{ asset('frontend/assets/img/shop/cart-img-01.jpg') }}"
-                                                alt=""></a>
+                        @auth
+                            <a class="small-cart-icon " href="javascript:;">
+                                <i class="feather-shopping-bag"></i>
+                                <span class="pro-count blue count">{{ count($cartItmes) }}</span>
+                            </a>
+
+                            <div class="cart-dropdown-wrap cart-dropdown-two">
+                                <ul>
+                                    @forelse ($cartItmes as $item)
+                                        <li>
+                                            <div class="shopping-cart-img">
+                                                <a href="view-product.html"><img src="{{ $item->product->image_url }}"
+                                                        alt=""></a>
+                                            </div>
+                                            <div class="shopping-cart-title">
+                                                <h4><a href="view-product.html">{{ $item->name }}</a></h4>
+                                                <h4>(x{{ $item->product_qty }})</h4>
+                                            </div>
+                                            <div class="shopping-cart-value">
+                                                <h2>${{ $item->price }}</h2>
+                                            </div>
+                                        </li>
+                                    @empty
+                                        <small>No Cart item here...</small>
+                                    @endforelse
+                                </ul>
+                                <div class="shopping-cart-footer">
+                                    <div class="shopping-cart-total">
+                                        <h4>Total <span>$</span><span>{{ $total }}</span></h4>
                                     </div>
-                                    <div class="shopping-cart-title">
-                                        <h4><a href="view-product.html">Antiseptic Spray</a></h4>
-                                        <h4>(x 10)</h4>
+                                    <div class="shopping-cart-btn">
+                                        @auth
+                                            <a href="{{ route('view.cart', $authUser->id) }}" class="outline">View cart</a>
+                                            <a href="checkout.html">Checkout</a>
+                                        @endauth
                                     </div>
-                                    <div class="shopping-cart-value">
-                                        <h2>$32.00</h2>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="shopping-cart-img">
-                                        <a href="view-product.html"><img
-                                                src="{{ asset('frontend/assets/img/shop/cart-img-02.jpg') }}"
-                                                alt=""></a>
-                                    </div>
-                                    <div class="shopping-cart-title">
-                                        <h4><a href="view-product.html">Liver Detox Pills </a></h4>
-                                        <h4>(x 10)</h4>
-                                    </div>
-                                    <div class="shopping-cart-value">
-                                        <h2>$32.00</h2>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="shopping-cart-img">
-                                        <a href="view-product.html"><img
-                                                src="{{ asset('frontend/assets/img/shop/cart-img-03.jpg') }}"
-                                                alt=""></a>
-                                    </div>
-                                    <div class="shopping-cart-title">
-                                        <h4><a href="view-product.html">Heat Meter </a></h4>
-                                        <h4>(x 10)</h4>
-                                    </div>
-                                    <div class="shopping-cart-value">
-                                        <h2>$32.00</h2>
-                                    </div>
-                                </li>
-                            </ul>
-                            <div class="shopping-cart-footer">
-                                <div class="shopping-cart-total">
-                                    <h4>Total <span>$383.00</span></h4>
-                                </div>
-                                <div class="shopping-cart-btn">
-                                    <a href="cart.html">View cart</a>
-                                    <a href="checkout.html">Checkout</a>
                                 </div>
                             </div>
-                        </div>
+                        @endauth
                     </div>
                 </div>
             </div>

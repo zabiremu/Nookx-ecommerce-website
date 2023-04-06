@@ -71,10 +71,6 @@
                 <div class="menu-title">Cupon</div>
             </a>
             <ul>
-                <li> <a href="{{ route('porduct.cupon') }}"><i class="bx bx-right-arrow-alt"></i>Product Cupon</a>
-                </li>
-                <li> <a href="{{ route('cat.cupon') }}"><i class="bx bx-right-arrow-alt"></i>Category Cupon</a>
-                </li>
                 <li> <a href="{{ route('all.product.cupon') }}"><i class="bx bx-right-arrow-alt"></i>Cupon</a>
                 </li>
 

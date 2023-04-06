@@ -53,17 +53,17 @@
                                     </div>
                                     <!-- End Gallery -->
                                 </div>
-                                @php
-                                    $price = $product->productPrice != null ? $product->productPrice->price : 0;
-                                    $discount = $product->productPrice != null ? $product->productPrice->discount : 0;
-                                    if ($discount != null) {
-                                        $ammount = ($discount / $price) * 100;
-                                    }
-                                @endphp
                                 <div class="col-md-7 col-sm-12 col-xs-12">
                                     <div class="detail-info">
                                         <div class="bg-price">
-                                            <span class="save-price mb-10">
+                                            @php
+                                                $price = $product->productPrice != null ? $product->productPrice->price : 0;
+                                                $discount = $product->productPrice != null ? $product->productPrice->discount : 0;
+                                                if ($discount != null) {
+                                                    $ammount = ($discount / $price) * 100;
+                                                }
+                                            @endphp
+                                            <span class="save-price mb-10 discount">
                                                 @if ($discount == null)
                                                     00%
                                                 @else
@@ -116,10 +116,11 @@
                                             @endif
                                             <span class="ml-5"> ({{ $averageResult }})</span>
                                         </div>
+
                                         <div class="clearfix product-price-cover">
                                             <div class="product-price primary-color float-left">
-                                                <span class="current-price">$ 32.00</span>
-                                                <span class="old-price">$ 46.00</span>
+                                                <span class="current-price">${{ $product->productPrice != null ? $product->productPrice->price : 0 }}</span>
+                                                <span class="old-price">$ {{ $product->productPrice != null ? $product->productPrice->discount : 0 }}</span>
                                             </div>
                                         </div>
                                         <ul class="pro-code">
@@ -134,12 +135,15 @@
                                             <h5>Quantity</h5>
                                             <div class="quntity-group d-flex">
                                                 <input type="hidden" value="{{ $product->id }}" class="product_id">
-                                                <div class="input-group text-center" style="width: 130px; overflow:hidden; height:2.5rem; margin-right:5px;">
+                                                <div class="input-group text-center"
+                                                    style="width: 130px; overflow:hidden; height:2.5rem; margin-right:5px;">
                                                     <button class="input-group-text decrement-btn">-</button>
-                                                    <input type="text" name="quentity" class="form-control qut-input text-center" value="1">
+                                                    <input type="text" name="quentity"
+                                                        class="form-control qut-input text-center" value="1">
                                                     <button class="input-group-text increment-btn">+</button>
                                                 </div>
-                                                <button type="button" class="button addToCartBtn button-add-to-cart me-3"><i
+                                                <button type="button"
+                                                    class="button addToCartBtn button-add-to-cart me-3"><i
                                                         class="fi-rs-shopping-cart"></i> Add to cart</button>
                                             </div>
                                         </div>
@@ -632,7 +636,7 @@
     @push('script')
         <script type="text/javascript">
             $(document).ready(function() {
-                $('.addToCartBtn').click(function(e){
+                $('.addToCartBtn').click(function(e) {
                     e.preventDefault();
                     var product_id = $(this).closest('.product_data').find('.product_id').val();
                     var product_qty = $(this).closest('.product_data').find('.qut-input').val();
@@ -645,12 +649,12 @@
                         method: "post",
                         url: "/add/to/cart",
                         data: {
-                            'product_id':product_id,
-                            'product_qty':product_qty,
+                            'product_id': product_id,
+                            'product_qty': product_qty,
                         },
-                        success: function(response){
+                        success: function(response) {
                             alert(response.status);
-                           
+
 
                         }
                     });

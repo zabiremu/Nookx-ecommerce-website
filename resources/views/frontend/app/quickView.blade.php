@@ -17,53 +17,13 @@
                             <!-- MAIN SLIDES -->
                             <div class="position-relative">
                                 <div class="product-image-slider">
-                                    {{-- <figure class="border-radius-10">
-                                        <img src="{{ asset('frontend/assets/img/shop/product-big-1.jpg') }} "
-                                            alt="product image">
-                                    </figure>
-                                    <figure class="border-radius-10">
-                                        <img src="{{ asset('frontend/assets/img/shop/product-big-1.jpg') }} "
-                                            alt="product image">
-                                    </figure>
-                                    <figure class="border-radius-10">
-                                        <img src="{{ asset('frontend/assets/img/shop/product-big-1.jpg') }} "
-                                            alt="product image">
-                                    </figure>
-                                    <figure class="border-radius-10">
-                                        <img src="{{ asset('frontend/assets/img/shop/product-big-1.jpg') }} "
-                                            alt="product image">
-                                    </figure>
-                                    <figure class="border-radius-10">
-                                        <img src="{{ asset('frontend/assets/img/shop/product-big-1.jpg') }} "
-                                            alt="product image">
-                                    </figure>
-                                    <figure class="border-radius-10">
-                                        <img src="{{ asset('frontend/ssets/img/shop/product-big-1.jpg"') }}  alt="product
-                                            image">
-                                    </figure>
-                                    <figure class="border-radius-10">
-                                        <img src="{{ asset('frontend/assets/img/shop/product-big-1.jpg') }} "
-                                            alt="product image">
-                                    </figure> --}}
+
                                 </div>
                                 <span class="zoom-icon"><i class="feather-search"></i></span>
                             </div>
                             <!-- THUMBNAILS -->
                             <div class="slider-nav-thumbnails">
-                                {{-- <div><img src="{{ asset('frontend/assets/img/shop/product-small-02.jpg') }}"
-                                        alt="product image"></div>
-                                <div><img src="{{ asset('frontend/assets/img/shop/product-small-03.jpg') }}"
-                                        alt="product image"></div>
-                                <div><img src="{{ asset('frontend/assets/img/shop/product-small-02.jpg') }}"
-                                        alt="product image"></div>
-                                <div><img src="{{ asset('frontend/assets/img/shop/product-small-03.jpg') }}"
-                                        alt="product image"></div>
-                                <div><img src="{{ asset('frontend/assets/img/shop/product-small-02.jpg') }}"
-                                        alt="product image"></div>
-                                <div><img src="{{ asset('frontend/assets/img/shop/product-small-03.jpg') }}"
-                                        alt="product image"></div>
-                                <div><img src="{{ asset('frontend/assets/img/shop/product-small-02.jpg') }}"
-                                        alt="product image"></div> --}}
+
                             </div>
                         </div>
                         <!-- End Gallery -->
@@ -71,27 +31,29 @@
                     <div class="col-md-7 col-sm-12 col-xs-12">
                         <div class="detail-info">
                             <div class="bg-price">
-                                <span class="save-price mb-10">100%</span>
+                                <span class="save-price mb-10 discount">
+
+                                </span>
                             </div>
-                            <h5 class="title-detail">Blood Pressure Monitor</h5>
+                            <h5 class="title-detail"></h5>
                             <div class="rating d-inline-block">
+                                {{-- <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star filled"></i>
-                                <span class="ml-5"> (3.5)</span>
+                                <i class="fas fa-star filled"></i> --}}
+                                <span class="ml-5"></span>
                             </div>
                             <div class="clearfix product-price-cover">
                                 <div class="product-price primary-color float-left">
-                                    <span class="current-price">$ 32.00</span>
-                                    <span class="old-price">$ 46.00</span>
+                                    <span class="current-price"></span>
+                                    <span class="old-price">$</span>
                                 </div>
                             </div>
                             <ul class="pro-code">
-                                <li>SKU ID : <span class="text-black">BPM-001</span></li>
-                                <li>Category : <span class="text-black">Health, Thermometer</span></li>
-                                <li>Availability : <span class="text-brand">In stock</span></li>
+                                <li>SKU ID : <span class="text-black sku"></span></li>
+                                <li>Category : <span class="text-black category"></span></li>
+                                <li>Availability : <span class="text-brand stock">In stock</span></li>
                             </ul>
                             <div class="product-extra-link2 ">
                                 <h5>Quantity</h5>

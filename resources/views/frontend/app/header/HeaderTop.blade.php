@@ -6,10 +6,7 @@
                 <div class="header-details">
                     <ul>
                         <li>
-                            <h6>We provides <span>Covid-19</span> medical accessories</h6>
-                        </li>
-                        <li>
-                            <h6>Need Help?</h6>
+                            <h6>Nookx -<span>Your One-Stop Online Shop</span></h6>
                         </li>
                     </ul>
                 </div>

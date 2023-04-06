@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\backend\CuponController;
+use App\Http\Controllers\frontend\CartController;
 use App\Http\Controllers\backend\ProductController;
 use App\Http\Controllers\backend\CategoryController;
 use App\Http\Controllers\frontend\CommentController;
@@ -12,7 +14,6 @@ use App\Http\Controllers\frontend\HomePageController;
 use App\Http\Controllers\backend\RecycleBinController;
 use App\Http\Controllers\backend\SubCategoryController;
 use App\Http\Controllers\backend\AdminProfileController;
-use App\Http\Controllers\frontend\CartController;
 use App\Http\Controllers\frontend\ProductsListsController;
 
 Route::middleware('auth')->group(function () {
@@ -80,21 +81,7 @@ Route::group(['middleware' => ['auth', 'role:admin|manager|editor|seller']], fun
     });
 
     Route::controller(CuponController::class)->group(function () {
-        Route::get('/product/cupon', 'productCupon')->name('porduct.cupon');
-        Route::get('/create/product/cupon', 'createCupon')->name('create.cupon');
-        Route::post('/store/product/cupon', 'storeCupon')->name('store.cupon');
-        Route::get('/edit/product/cupon/{id}', 'editCupon')->name('edit.cupon');
-        Route::post('/update/product/cupon/{id}', 'updateCupon')->name('update.cupon');
-        Route::post('/delete/product/cupon/{id}', 'deleteCupon')->name('delete.cupon');
-
-        // category cupon 
-        Route::get('/cat/cupon', 'categoryCupon')->name('cat.cupon');
-        Route::get('/create/cat/cupon', 'createCatCupon')->name('create.cat.cupon');
-        Route::post('/store/cat/cupon', 'storeCatCupon')->name('store.cat.cupon');
-        Route::get('/edit/cat/cupon/{id}', 'editCatCupon')->name('edit.cat.cupon');
-        Route::post('/update/cat/cupon/{id}', 'updateCatCupon')->name('update.cat.cupon');
-        Route::post('/delete/cat/cupon/{id}', 'deleteCatCupon')->name('delete.cat.cupon');
-
+      
         // All Cupon
         Route::get('/all/product/cupon', 'allCupon')->name('all.product.cupon');
         Route::get('/create/all/cupon', 'createAllCupon')->name('create.all.cupon');
@@ -196,6 +183,9 @@ Route::controller(ProductsListsController::class)->group(function () {
 Route::controller(CartController::class)->group(function(){
     Route::post('/add/to/cart', [CartController::class, 'add_to_cart'])->name('add.to.cart');
     Route::get('/cart/view', [CartController::class, 'cart_view'])->name('cart.view');
+    Route::get('/add-to-cart','addToCart')->name('addToCart');
+    Route::get('/view/cart/{id}','viewCart')->name('view.cart');
+    Route::post('/delete/cart/{id}','deleteCart')->name('delete.cart');
 });
 
 // fortend all controller end

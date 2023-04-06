@@ -4362,7 +4362,8 @@ table .product-thumbnail img {
 }
 
 .popular-category {
-  padding: 60px 0 280px;
+  /*padding: 60px 0 180px*/
+  padding: 60px 0 80px;
 }
 @media (max-width: 768px) {
   .popular-category {

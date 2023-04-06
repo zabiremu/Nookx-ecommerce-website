@@ -35,6 +35,19 @@
 
                         <div class="row mb-3">
                             <div class="col-sm-3">
+                                <h6 class="mb-0">Type</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <select name="type" id="" class="form-control" required>
+                                    <option selected disabled>Selected type</option>
+                                    <option value="Discount">Discount</option>
+                                    <option value="Fixed">Fixed</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-sm-3">
                                 <h6 class="mb-0">Cupon Discount</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
