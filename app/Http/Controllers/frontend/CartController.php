@@ -113,6 +113,56 @@ class CartController extends Controller
         return view('frontend.cart.viewCart', compact('cartItmes'));
     }
 
+    public function addToCartProduct(Request $request, $id)
+    {
+        if (Auth::check()) {
+            $product = Product::with('productPrice')
+                ->where('id', $id)
+                ->first();
+
+            $productPrice = $product->productPrice->price;
+
+            $cartData = Cart::with('product')
+                ->where('user_id', Auth::user()->id)
+                ->where('product_id', $id)
+                ->first();
+
+            if ($request->qty > 1) {
+                $cart = new Cart();
+                $cart->product_id = $id;
+                $cart->user_id = Auth::user()->id;
+                $cart->product_qty = $request->qty;
+                $cart->product_price = $product->productPrice->id;
+                $cart->price = $request->qty * $productPrice;
+                $cart->save();
+                $notification = [
+                    'message' => 'Product Successfully Cart',
+                    'alert-type' => 'success',
+                ];
+                return back()->with($notification);
+            } else {
+                $cart = new Cart();
+                $cart->user_id = Auth::user()->id;
+                $cart->product_id = $id;
+                $cart->product_qty = $request->qty;
+                $cart->product_price = $product->productPrice->id;
+                $cart->price = $product->productPrice->price;
+                $cart->save();
+                $notification = [
+                    'message' => 'Product Successfully Cart',
+                    'alert-type' => 'success',
+                ];
+                return back()->with($notification);
+            }
+        } else {
+            $notification = [
+                'message' => 'Please login first',
+                'alert-type' => 'error',
+            ];
+            return back()->with($notification);
+        }
+    }
+
     public function deleteCart($id)
     {
         $cart = Cart::find($id);
@@ -122,5 +172,75 @@ class CartController extends Controller
             'alert-type' => 'success',
         ];
         return back()->with($notification);
+    }
+
+    public function updataCart(Request $request, $id)
+    {
+        $cart = Cart::where('user_id', Auth::user()->id)
+            ->where('id', $id)
+            ->first();
+
+        $product = Product::with('productPrice')
+            ->where('id', $cart->product_id)
+            ->first();
+            
+        $cart->product_qty = $request->product_qty;
+        $cart->price = $request->product_qty * $product->productPrice->price;
+        $cart->save();
+        $notification = [
+            'message' => 'Product Cart Successfully updated',
+            'alert-type' => 'success',
+        ];
+        return back()->with($notification);
+    }
+
+    public function cartProduct(Request $request)
+    {
+        if (Auth::check()) {
+            $product = Product::with('productPrice')
+                ->where('id', $request->product_id)
+                ->first();
+
+            $productPrice = $product->productPrice->price;
+
+            $cartData = Cart::with('product')
+                ->where('user_id', Auth::user()->id)
+                ->where('product_id', $request->product_id)
+                ->first();
+
+            if ($request->product_qty > 1) {
+                $cart = new Cart();
+                $cart->product_id = $request->product_id;
+                $cart->user_id = Auth::user()->id;
+                $cart->product_qty = $request->product_qty;
+                $cart->product_price = $product->productPrice->id;
+                $cart->price = $request->product_qty * $productPrice;
+                $cart->save();
+                $notification = [
+                    'message' => 'Product Successfully Cart',
+                    'alert-type' => 'success',
+                ];
+                return back()->with($notification);
+            } else {
+                $cart = new Cart();
+                $cart->user_id = Auth::user()->id;
+                $cart->product_id = $request->product_id;
+                $cart->product_qty = $request->product_qty;
+                $cart->product_price = $product->productPrice->id;
+                $cart->price = $product->productPrice->price;
+                $cart->save();
+                $notification = [
+                    'message' => 'Product Successfully Cart',
+                    'alert-type' => 'success',
+                ];
+                return back()->with($notification);
+            }
+        } else {
+            $notification = [
+                'message' => 'Please login first',
+                'alert-type' => 'error',
+            ];
+            return back()->with($notification);
+        }
     }
 }

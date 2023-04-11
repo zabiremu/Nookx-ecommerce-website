@@ -119,8 +119,10 @@
 
                                         <div class="clearfix product-price-cover">
                                             <div class="product-price primary-color float-left">
-                                                <span class="current-price">${{ $product->productPrice != null ? $product->productPrice->price : 0 }}</span>
-                                                <span class="old-price">$ {{ $product->productPrice != null ? $product->productPrice->discount : 0 }}</span>
+                                                <span
+                                                    class="current-price">${{ $product->productPrice != null ? $product->productPrice->price : 0 }}</span>
+                                                <span class="old-price">$
+                                                    {{ $product->productPrice != null ? $product->productPrice->discount : 0 }}</span>
                                             </div>
                                         </div>
                                         <ul class="pro-code">
@@ -133,7 +135,7 @@
                                         </ul>
                                         <div class="product-extra-link2 ">
                                             <h5>Quantity</h5>
-                                            <div class="quntity-group d-flex">
+                                            {{-- <div class="quntity-group d-flex">
                                                 <input type="hidden" value="{{ $product->id }}" class="product_id">
                                                 <div class="input-group text-center"
                                                     style="width: 130px; overflow:hidden; height:2.5rem; margin-right:5px;">
@@ -145,7 +147,21 @@
                                                 <button type="button"
                                                     class="button addToCartBtn button-add-to-cart me-3"><i
                                                         class="fi-rs-shopping-cart"></i> Add to cart</button>
-                                            </div>
+                                            </div> --}}
+                                            <form action="{{ route('addToCartProduct',$product->id) }}" method="post">
+                                                @csrf
+                                                <div class="quntity-group  d-flex">
+                                                    <div class="detail-extralink">
+                                                        <div class="detail-qty border radius">
+                                                            <input type="number" class="qty w-100" name="qty" value="1">
+                                                            <input type="hidden" class="qty w-100" name="productID" value="1" value="{{ $product->id }}">
+                                                        </div>
+                                                    </div>
+                                                    <button class="button button-add-to-cart me-3"><i
+                                                            class="fi-rs-shopping-cart"></i> Add to cart</button>
+                                                </div>
+                                            </form>
+
                                         </div>
                                         <div class="pop-wish">
                                             <a aria-label="Add To Wishlist" class=" link-wishlist" href="wishlist.html"><i

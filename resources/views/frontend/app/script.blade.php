@@ -2,7 +2,7 @@
 
 <!-- jQuery -->
 <script src="{{ asset('frontend/assets/js/jquery-3.6.0.min.js') }}"></script>
-@stack('script')
+{{-- @stack('script') --}}
 <!-- Bootstrap Core JS -->
 <script src="{{ asset('frontend/assets/js/bootstrap.bundle.min.js') }}"></script>
 
@@ -82,7 +82,7 @@
             }
         })
     })
-
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script>
     @if (Session::has('message'))
@@ -103,6 +103,8 @@
         }
     @endif
 </script>
+
+@stack('script')
 
 
 

@@ -185,7 +185,10 @@ Route::controller(CartController::class)->group(function(){
     Route::get('/cart/view', [CartController::class, 'cart_view'])->name('cart.view');
     Route::get('/add-to-cart','addToCart')->name('addToCart');
     Route::get('/view/cart/{id}','viewCart')->name('view.cart');
-    Route::post('/delete/cart/{id}','deleteCart')->name('delete.cart');
+    Route::get('/delete/cart/{id}','deleteCart')->name('delete.cart');
+    Route::post('/add-to-cart-product/{id}','addToCartProduct')->name('addToCartProduct');
+    Route::post('/update-cart-product/{id}','updataCart')->name('update.cart');
+    Route::post('/add/to/cart/product','cartProduct')->name('cartProduct');
 });
 
 // fortend all controller end

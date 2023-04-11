@@ -58,15 +58,25 @@
                             <div class="product-extra-link2 ">
                                 <h5>Quantity</h5>
                                 <div class="quntity-group  d-flex">
-                                    <div class="detail-extralink">
-                                        <div class="detail-qty border radius">
-                                            <a href="#" class="qty-down"><i class="fi-rs-minus-small"></i></a>
-                                            <span class="qty-val">1</span>
-                                            <a href="#" class="qty-up"><i class="fi-rs-plus-small"></i></a>
+                                    <form action="{{ route('cartProduct') }}" method="post">
+                                        @csrf
+                                        <div class="detail-extralink d-flex">
+                                            <div class="detail-qty border radius w-50">
+                                                {{-- <a href="#" class="qty-down"><i class="fi-rs-minus-small"></i></a> --}}
+                                                {{-- <span class="qty-val">1</span> --}}
+                                                <input type="number" name="product_qty" value="1"
+                                                    class="product_qty d-inline-block">
+                                                <input type="hidden" name="product_id" value=""
+                                                    class="product_id d-inline-block">    
+                                                {{-- <a href="#" class="qty-up"><i class="fi-rs-plus-small"></i></a> --}}
+                                            </div>
+
+
+                                            @csrf
+                                            <button type="submit" class="button button-add-to-cart w-50 me-3 d-inline-block"><i
+                                                    class="fi-rs-shopping-cart"></i> Add to cart</button>
                                         </div>
-                                    </div>
-                                    <button type="submit" class="button button-add-to-cart me-3"><i
-                                            class="fi-rs-shopping-cart"></i> Add to cart</button>
+                                    </form>
                                 </div>
                             </div>
                             <div class="pop-wish">

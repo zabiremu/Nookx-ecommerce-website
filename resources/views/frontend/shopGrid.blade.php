@@ -310,6 +310,7 @@
                         oldPrice.html(product[0].product_price.discount + '$')
                         discount.html(product[7])
                         sku.html(product[0].sku)
+                        $('.product_id').val(product[0].id)
                         category.html(product[0].category.cat_name)
 
                         let availability = ''
