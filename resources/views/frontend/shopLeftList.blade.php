@@ -1,10 +1,8 @@
 @extends('frontend.app.app')
 
 @section('content')
-
     <style>
-        .feather-arrow-left {}
-
+        .Notification_wish,
         .Notification {
             position: fixed;
             right: 20px;
@@ -17,7 +15,7 @@
             display: none;
         }
 
-
+        .success_wish,
         .success {
             position: fixed;
             right: 20px;
@@ -34,11 +32,17 @@
             color: #fff !important;
         }
     </style>
+    <div class="Notification_wish">
+        <p class="noti-title">Product alerady selected</p>
+    </div>
     <div class="Notification">
         <p class="noti-title">Please Login First Please!</p>
     </div>
     <div class="success">
         <p class="noti-title">Succeessfully Add to Cart!</p>
+    </div>
+    <div class="success_wish">
+        <p class="noti-title">Succeessfully Add to WishList!</p>
     </div>
 
     <!-- Main -->
@@ -89,34 +93,11 @@
                                 <div class="col-xl-7 col-lg-6">
                                     <div class="filter-list">
                                         <ul>
-                                            <li class="border-0"><a href="shop-grid.html" class="active"><i
-                                                        class="fi-rs-apps"></i></a></li>
-                                            <li><a href="shop-list.html"><i class="fi-rs-list"></i></a></li>
                                             <li>Showing 1-{{ $count }} of 62 results</li>
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="col-xl-5 col-lg-6">
-                                    <div class="select-filter-group">
-                                        <div class="sort-by-filter">
-                                            <label>Sort By :</label>
-                                            <select class="form-select">
-                                                <option>Latest</option>
-                                                <option>Lastweek</option>
-                                                <option>Lastmonth</option>
-                                            </select>
-                                        </div>
-                                        <div class="sort-by-filter show-filter">
-                                            <label>Show :</label>
-                                            <select class="form-select ">
-                                                <option>10</option>
-                                                <option>20</option>
-                                                <option>30</option>
-                                                <option>40</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
+                               
                             </div>
                         </div>
                         <div class="row product-grid">
@@ -241,13 +222,13 @@
                                                 <a class="btn btn-primary addToCart" data-id="{{ $item->id }}"><i
                                                         class="feather-shopping-bag me-1"></i>Add</a>
                                                 <div class="product-details-inner">
-                                                    <a href="view-product.html" class="product-btn"><i
+                                                    <a href="{{ route('product.details.create', $item->slug_unique) }}" class="product-btn"><i
                                                             class="fi-rs-eye"></i></a>
                                                     <a aria-label="Quick view" class="product-btn quickModal"
                                                         data-bs-toggle="modal" data-id="{{ $item->id }}"
                                                         data-bs-target="#quickViewModal"><i class="fi-rs-search"></i></a>
-                                                    <a aria-label="Add To Wishlist" class="product-btn"
-                                                        href="wishlist.html"><i class="fi-rs-heart"></i></a>
+                                                    <a aria-label="Add To Wishlist" class="product-btn addToWishLists" data-id="{{ $item->id }}"
+                                                       ><i class="fi-rs-heart"></i></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -375,10 +356,10 @@
 
         <script>
             const addToCart = $('.addToCart')
-            const count = $('.count')
+            var count = $('.count')
             var totalPrice = $('.totalPrice')
             addToCart.on('click', function() {
-                const id = $(this).attr('data-id');
+                var id = $(this).attr('data-id');
                 $.ajax({
                     url: '{{ route('addToCart') }}',
                     method: 'GET',
@@ -422,6 +403,67 @@
                         }
                         $('.totalPrice').html('')
                         totalPrice.html(data.totalPrice);
+                    },
+                    error: function(error) {
+                        console.log(error)
+                    },
+                })
+            })
+        </script>
+
+        <script>
+            const addToWishLists = $('.addToWishLists')
+            var count = $('.count')
+            var totalPrice = $('.wish_total')
+            addToWishLists.on('click', function() {
+                var id = $(this).attr('data-id');
+                $.ajax({
+                    url: '{{ route('addToWishts') }}',
+                    method: 'GET',
+                    data: {
+                        productId: id
+                    },
+                    success: function(data) {
+                        if (data.error_auth) {
+                            $('.Notification').css('display', 'block');
+                            setTimeout(() => {
+                                $('.Notification').css('display', 'none');
+                            }, 4000);
+                        } else if (data.error_wish) {
+                            $('.Notification_wish').css('display', 'block');
+                            setTimeout(() => {
+                                $('.Notification_wish').css('display', 'none');
+                            }, 4000);
+                        } else {
+                            $('.success_wish').css('display', 'block');
+                            setTimeout(() => {
+                                $('.success_wish').css('display', 'none');
+                            }, 4000);
+                            var showCartProducts = [];
+                            console.log(data)
+                            data.allWishListsData.map(element => {
+                                var product = ` <li>
+                                        <div class="shopping-cart-img">
+                                            <a><img
+                                                    src="${element.product.image_url}"
+                                                    alt=""></a>
+                                        </div>
+                                        <div class="shopping-cart-title">
+                                            <h4><a>${element.product.title}</a></h4>
+                                        </div>
+                                        <div class="shopping-cart-value">
+                                            <h2>${element.price}</h2>
+                                        </div>
+                                    </li>`;
+                                showCartProducts.push(product);
+                            })
+                            $('#wishlistsProducts').html('')
+                            $('#wishlistsProducts').html(showCartProducts)
+                            $('.blue').html('')
+                            $('.blue').html(data.count);
+                        }
+                        $('.wish_total').html('')
+                        totalPrice.html(data.total);
                     },
                     error: function(error) {
                         console.log(error)

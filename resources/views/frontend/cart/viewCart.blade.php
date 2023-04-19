@@ -31,14 +31,18 @@
                                             <form action="{{ route('update.cart', $item->id) }}" method="post">
                                                 @csrf
                                                 <td>
-                                                    <a href="{{ route('delete.cart', $item->id) }}" class="btn btn-danger btn-sm" style="background: red!important"><i
+                                                    <a href="{{ route('delete.cart', $item->id) }}"
+                                                        class="btn btn-danger btn-sm" style="background: red!important"><i
                                                             class="feather-x-circle"></i></a>
                                                 </td>
                                                 <td class="cart-store">
-                                                    <a href="{{ route('product.details.create', $item->product->slug_unique) }}"><img src="{{ $item->product->image_url }}"
-                                                            class="img-fluid" alt=""></a>
+                                                    <a
+                                                        href="{{ route('product.details.create', $item->product->slug_unique) }}"><img
+                                                            src="{{ $item->product->image_url }}" class="img-fluid"
+                                                            alt=""></a>
                                                     <div class="sold-group">
-                                                        <a href="{{ route('product.details.create', $item->product->slug_unique) }}">{{ $item->product->title }}</a>
+                                                        <a
+                                                            href="{{ route('product.details.create', $item->product->slug_unique) }}">{{ $item->product->title }}</a>
                                                     </div>
                                                 </td>
                                                 <td>
@@ -54,8 +58,7 @@
                                                             <div class="detail-extralink">
                                                                 <div class="detail-qty border radius">
                                                                     <input type="number" class="form-control"
-                                                                        value="{{ $item->product_qty }}"
-                                                                        name="product_qty">
+                                                                        value="{{ $item->product_qty }}" name="product_qty">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -81,11 +84,12 @@
                     <div class="shop-cart">
                         <div class="row">
                             <div class="col-lg-8 col-md-6">
-                                <form action="{{route('cupon.offer')}}" method="post">
+                                <form action="{{ route('cupon.offer') }}" method="post">
                                     @csrf
                                     <div class="shop-cart-action mb-3">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Coupon code" name="offer">
+                                            <input type="text" class="form-control" placeholder="Coupon code"
+                                                name="offer">
                                         </div>
                                         <button class="btn continue-btn">Apply coupon</button>
                                     </div>
@@ -99,15 +103,46 @@
 
                                 </div>
                                 <div class="card">
+                                    @if (isset($discountPrice))
+                                        @php
+                                            $discount = $total / $discountPrice;
+                                            $new_price = $total - $discount;
+                                        @endphp
+                                    @elseif (isset($FixedDiscountPrice))
+                                        @php
+                                            $FixeDdiscount = $total - $FixedDiscountPrice;
+                                        @endphp
+                                    @endif
+
                                     <div class="card-body">
                                         <div class="shop-cart-info">
-                                            <p>Subtotal <span>${{ $orginalPrice == null ?  $total : round($orginalPrice)  }} </span></p>
+                                            <p>Subtotal <span>
+                                                    @if (isset($discountPrice))
+                                                        {{ $new_price }}
+                                                    @elseif (isset($FixedDiscountPrice))
+                                                        {{ $FixeDdiscount }}
+                                                    @else
+                                                        {{ $total }}
+                                                    @endif
+                                                </span></p>
                                             <ul class="shipping-list">
                                                 <li>Shipping</li>
                                                 <li>Free shipping</li>
                                                 <li>Shipping to Bangladesh. </li>
                                             </ul>
-                                            <p>Total <span class="total-brand">${{ $orginalPrice == null ?  $total : round($orginalPrice)  }} </span></p>
+                                            <p>Total <span class="total-brand">
+                                                    @if (isset($discountPrice))
+                                                    <input type="hidden" value="{{ $new_price }}" name="discount_price">
+                                                        {{ $new_price }}
+                                                    @elseif (isset($FixedDiscountPrice))
+                                                        {{ $FixeDdiscount }}
+                                                        <input type="hidden" value="{{ $FixeDdiscount }}" name="discount_price">
+                                                    @else
+                                                        {{ $total }}
+                                                        <input type="hidden" value="{{ $total }}" name="discount_price">
+                                                    @endif
+                                                </span>
+                                            </p>
                                             <a href="checkout.html" class="btn checkout-btn w-100">Proceed to checkout</a>
                                         </div>
                                     </div>

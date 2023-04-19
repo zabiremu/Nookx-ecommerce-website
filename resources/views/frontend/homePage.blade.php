@@ -285,12 +285,12 @@
                                                 <a class="btn btn-primary addToCart" data-id={{ $product->id }}>
                                                     <i class="feather-shopping-bag me-1"></i>Add</a>
                                                 <div class="product-details-inner">
-                                                    <a data class="product-btn"><i class="fi-rs-eye"></i></a>
+                                                    <a href="{{ route('product.details.create', $product->slug_unique) }}"><i class="fi-rs-eye"></i></a>
                                                     <a aria-label="Quick view" class="product-btn quickModal"
                                                         data-bs-toggle="modal" data-id="{{ $product->id }}"
                                                         data-bs-target="#quickViewModal"><i class="fi-rs-search"></i></a>
-                                                    <a aria-label="Add To Wishlist" class="product-btn"
-                                                        href="wishlist.html"><i class="fi-rs-heart"></i></a>
+                                                    <a aria-label="Add To Wishlist" class="product-btn addToWishLists" data-id="{{ $product->id }}"
+                                                        ><i class="fi-rs-heart"></i></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -442,8 +442,7 @@
                                                     <a aria-label="Quick view" class="product-btn quickModal"
                                                         data-bs-toggle="modal" data-id="{{ $trending->id }}"
                                                         data-bs-target="#quickViewModal"><i class="fi-rs-search"></i></a>
-                                                    <a aria-label="Add To Wishlist" class="product-btn"
-                                                        href="wishlist.html"><i class="fi-rs-heart"></i></a>
+                                                    <a aria-label="Add To Wishlist" class="product-btn addToWishLists" data-id="{{ $trending->id }}"><i class="fi-rs-heart"></i></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -586,7 +585,7 @@
                                                 <a class="btn btn-primary addToCart" data-id="{{ $product->id }}"><i
                                                         class="feather-shopping-bag me-1"></i>Add</a>
                                                 <div class="product-details-inner">
-                                                    <a href="view-product.html" class="product-btn"><i
+                                                    <a href="{{ route('product.details.create', $product->slug_unique) }}" class="product-btn"><i
                                                             class="fi-rs-eye"></i></a>
                                                     <a aria-label="Quick view" class="product-btn quickModal"
                                                         data-bs-toggle="modal" data-id="{{ $product->id }}"

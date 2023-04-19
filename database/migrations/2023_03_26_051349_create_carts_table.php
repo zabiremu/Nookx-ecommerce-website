@@ -20,7 +20,8 @@ return new class extends Migration
             $table->foreignId('product_price')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->integer('product_qty')->default(0);
             $table->integer('price');
-            $table->integer('total_price')->nullable();
+            $table->integer('discount_price')->nullable();
+            $table->integer('cupon_used')->default(0);
             $table->timestamps();
         });
     }
