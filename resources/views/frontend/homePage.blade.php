@@ -6,6 +6,7 @@
     <style>
         .feather-arrow-left {}
 
+        .Notification_wish,
         .Notification {
             position: fixed;
             right: 20px;
@@ -18,7 +19,7 @@
             display: none;
         }
 
-
+        .success_wish,
         .success {
             position: fixed;
             right: 20px;
@@ -35,11 +36,17 @@
             color: #fff !important;
         }
     </style>
+    <div class="Notification_wish">
+        <p class="noti-title">Product alerady selected</p>
+    </div>
     <div class="Notification">
         <p class="noti-title">Please Login First Please!</p>
     </div>
     <div class="success">
         <p class="noti-title">Succeessfully Add to Cart!</p>
+    </div>
+    <div class="success_wish">
+        <p class="noti-title">Succeessfully Add to WishList!</p>
     </div>
     <main class="main">
         <section class="banner-section position-relative">
@@ -55,7 +62,7 @@
                                                 {{ $banner->title }}
                                             </h1>
                                             <p>{{ $banner->description }} </p>
-                                            <a href="shop-grid.html" class="shop-now">Shop Now <i
+                                            <a href="{{ route('product.details.create', $banner->slug_unique) }}" class="shop-now">Shop Now <i
                                                     class="feather-arrow-right ml-5"></i></a>
                                         </div>
                                     </div>
@@ -584,8 +591,8 @@
                                                     <a aria-label="Quick view" class="product-btn quickModal"
                                                         data-bs-toggle="modal" data-id="{{ $product->id }}"
                                                         data-bs-target="#quickViewModal"><i class="fi-rs-search"></i></a>
-                                                    <a aria-label="Add To Wishlist" class="product-btn"
-                                                        href="wishlist.html"><i class="fi-rs-heart"></i></a>
+                                                    <a aria-label="Add To Wishlist" class="product-btn addToWishLists"
+                                                        data-id="{{ $product->id }}"><i class="fi-rs-heart"></i></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -637,47 +644,6 @@
             </div>
         </section>
         <!-- /Popular Categories -->
-
-        {{-- <!-- Book Consultation -->
-        <section class="book-consultation">
-            <div class="container">
-                <div class="book-consult-img">
-                    <img src="{{ asset('frontend/assets/img/consult.png') }}" alt="">
-                </div>
-                <div class="row">
-                    <div class="col-xl-4 col-md-6 d-flex">
-                        <div class="consult-box d-flex align-items-center">
-                            <div class="consult-img mr-15">
-                                <img src="{{ asset('frontend/assets/img/icons/book-01.svg') }}" alt="">
-                            </div>
-                            <p>Book any Doctor you want</p>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-md-6 d-flex">
-                        <div class="consult-box d-flex align-items-center">
-                            <div class="consult-img mr-15">
-                                <img src="{{ asset('frontend/assets/img/icons/book-02.svg') }}" alt="">
-                            </div>
-                            <p>Book Virtual Appointment</p>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-md-6 d-flex">
-                        <div class="consult-box d-flex align-items-center">
-                            <div class="consult-img mr-15">
-                                <img src="{{ asset('frontend/assets/img/icons/book-03.svg') }}" alt="">
-                            </div>
-                            <p>Book virtual Appointments with AYUSH doctors</p>
-                        </div>
-                    </div>
-                    <div class="col-xl-12">
-                        <div class="book-btn-show text-center">
-                            <a href="javascript:;" class="btn btn-primary">Book Consultation Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- /Book Consultation --> --}}
 
     </main>
 
@@ -778,10 +744,10 @@
         </script>
         <script>
             const addToCart = $('.addToCart')
-            const count = $('.count')
+            var count = $('.count')
             var totalPrice = $('.totalPrice')
             addToCart.on('click', function() {
-                const id = $(this).attr('data-id');
+                var id = $(this).attr('data-id');
                 $.ajax({
                     url: '{{ route('addToCart') }}',
                     method: 'GET',
@@ -804,12 +770,12 @@
                             data.allData.map(element => {
                                 var product = `<li>
                                         <div class="shopping-cart-img">
-                                            <a href="view-product.html"><img
+                                            <a><img
                                                     src="${element.product.image_url}"
                                                     alt=""></a>
                                         </div>
                                         <div class="shopping-cart-title">
-                                            <h4><a href="view-product.html">${element.product.title}</a></h4>
+                                            <h4><a>${element.product.title}</a></h4>
                                             <h4>(${element.product_qty})</h4>
                                         </div>
                                         <div class="shopping-cart-value">
@@ -825,6 +791,68 @@
                         }
                         $('.totalPrice').html('')
                         totalPrice.html(data.totalPrice);
+                    },
+                    error: function(error) {
+                        console.log(error)
+                    },
+                })
+            })
+        </script>
+
+        <script>
+            const addToWishLists = $('.addToWishLists')
+            var count = $('.count')
+            var totalPrice = $('.wish_total')
+            addToWishLists.on('click', function() {
+                var id = $(this).attr('data-id');
+                $.ajax({
+                    url: '{{ route('addToWishts') }}',
+                    method: 'GET',
+                    data: {
+                        productId: id
+                    },
+                    success: function(data) {
+                        if (data.error_auth) {
+                            $('.Notification').css('display', 'block');
+                            setTimeout(() => {
+                                $('.Notification').css('display', 'none');
+                            }, 4000);
+                        }else if(data.error_wish) {
+                            $('.Notification_wish').css('display', 'block');
+                            setTimeout(() => {
+                                $('.Notification_wish').css('display', 'none');
+                            }, 4000);
+                        }
+                        else {
+                            $('.success_wish').css('display', 'block');
+                            setTimeout(() => {
+                                $('.success_wish').css('display', 'none');
+                            }, 4000);
+                            var showCartProducts = [];
+                            console.log(data)
+                            data.allWishListsData.map(element => {
+                                var product = ` <li>
+                                                <div class="shopping-cart-img">
+                                                    <a><img
+                                                            src="${element.product.image_url}"
+                                                            alt=""></a>
+                                                </div>
+                                                <div class="shopping-cart-title">
+                                                    <h4><a>${element.product.title}</a></h4>
+                                                </div>
+                                                <div class="shopping-cart-value">
+                                                    <h2>${element.price}</h2>
+                                                </div>
+                                            </li>`;
+                                showCartProducts.push(product);
+                            })
+                            $('#wishlistsProducts').html('')
+                            $('#wishlistsProducts').html(showCartProducts)
+                            $('.blue').html('')
+                            $('.blue').html(data.count);
+                        }
+                        $('.wish_total').html('')
+                        totalPrice.html(data.total);
                     },
                     error: function(error) {
                         console.log(error)

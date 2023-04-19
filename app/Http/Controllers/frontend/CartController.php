@@ -2,56 +2,63 @@
 
 namespace App\Http\Controllers\frontend;
 
-use App\Models\Product;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Cart;
-use App\Models\ProductPrice;
 use App\Models\User;
+use App\Models\Cupon;
+use App\Models\Product;
+use App\Models\ProductPrice;
+use Illuminate\Http\Request;
+use App\Models\ProductWishlist;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class CartController extends Controller
 {
-    public function add_to_cart(Request $request)
+    public function addToWishts(Request $request)
     {
-        $product_id = $request->product_id;
-        $product_qty = $request->product_qty;
+        $productData = Product::with('productPrice')
+            ->where('id', $request->productId)
+            ->first();
+
+        $wish = ProductWishlist::where('product_id', $request->productId)->first();
+
         if (Auth::check()) {
-            $check_product = Product::where('id', $product_id)->first();
-            if ($check_product) {
-                if (
-                    Cart::where('user_id', Auth::user()->id)
-                        ->where('product_id', $product_id)
-                        ->exists()
-                ) {
-                    return response()->json(['status' => $check_product->title . ' is already cart ']);
-                } else {
-                    $newAddProduct = new Cart();
-                    $newAddProduct->user_id = Auth::user()->id;
-                    $newAddProduct->product_id = $product_id;
-                    $newAddProduct->product_qty = $product_qty;
-                    $newAddProduct->save();
-                    return response()->json(['status' => $check_product->title . ' Added to cart']);
-                }
+            if ($wish == null) {
+                $wishList = new ProductWishlist();
+                $wishList->user_id = Auth::user()->id;
+                $wishList->product_id = $request->productId;
+                $wishList->product_price = $productData->productPrice->id;
+                $wishList->price = $productData->productPrice->price;
+                $wishList->product_qty = 1;
+                $wishList->save();
+                $allWishListsData = ProductWishlist::with('product')
+                    ->where('user_id', Auth::user()->id)
+                    ->get();
+                $count = ProductWishlist::with('product')
+                    ->where('user_id', Auth::user()->id)
+                    ->count();
+                $total = ProductWishlist::where('user_id', Auth::user()->id)->sum('price');    
+                return response()->json(['allWishListsData' => $allWishListsData, 'count' => $count,'total'=>$total]);
+            } else {
+                return response()->json(['error_wish' => 'product alerady seleceted']);
             }
-        } else {
-            return response()->json(['status' => 'Please login to continue.']);
+        }else{
+            return response()->json(['error_auth' => 'Please login first']);
         }
     }
 
-    public function cart_view()
+    public function viewToWishts($id)
     {
-        $user_id = Auth::user()->id;
-        $cartItmes = Cart::with('product')
-            ->where('user_id', $user_id)
+        $cartItmes = ProductWishlist::with('product')
+            ->where('user_id', $id)
+            ->latest()
             ->get();
-        return view('frontend.cart.viewCart', compact('cartItmes'));
+        return view('frontend.wishlists.wish_lists', compact('cartItmes'));
     }
 
     public function addToCart(Request $request)
     {
-        // $id = Auth::user();
-        // $user = User::where('id',$id->id)->first();
         $product = Product::with('productPrice')
             ->where('id', $request->productId)
             ->first();
@@ -110,7 +117,9 @@ class CartController extends Controller
             ->where('user_id', $id)
             ->latest()
             ->get();
-        return view('frontend.cart.viewCart', compact('cartItmes'));
+
+        $orginalPrice="";    
+        return view('frontend.cart.viewCart', compact('cartItmes','orginalPrice'));
     }
 
     public function addToCartProduct(Request $request, $id)
@@ -183,7 +192,7 @@ class CartController extends Controller
         $product = Product::with('productPrice')
             ->where('id', $cart->product_id)
             ->first();
-            
+
         $cart->product_qty = $request->product_qty;
         $cart->price = $request->product_qty * $product->productPrice->price;
         $cart->save();
@@ -238,6 +247,53 @@ class CartController extends Controller
         } else {
             $notification = [
                 'message' => 'Please login first',
+                'alert-type' => 'error',
+            ];
+            return back()->with($notification);
+        }
+    }
+    public function offer(Request $request)
+    {
+        $cuponName= Cupon::where('name',$request->offer)->first();
+        if($cuponName == true)
+        {
+            if($cuponName->type == 'Discount')
+            {
+                $total = Cart::where('user_id', Auth::user()->id)->sum('price');
+                $discountPrice= $total / $cuponName->discount;
+                $orginalPrice= $total-$discountPrice;
+                $notification = [
+                    'message' => 'Successfully updated price',
+                    'alert-type' => 'success',
+                ];
+                $cartItmes = Cart::with('product')
+                ->where('user_id', Auth::user()->id)
+                ->latest()
+                ->get();
+                return view('frontend.cart.viewCart',compact('cartItmes','orginalPrice'))->with($notification);
+
+            }elseif($cuponName->type == 'Fixed'){
+                $total = Cart::where('user_id', Auth::user()->id)->sum('price');
+                $orginalPrice= $total - $cuponName->discount;
+                $notification = [
+                    'message' => 'Successfully updated price',
+                    'alert-type' => 'success',
+                ];
+                $cartItmes = Cart::with('product')
+                ->where('user_id', Auth::user()->id)
+                ->latest()
+                ->get();
+                return view('frontend.cart.viewCart',compact('cartItmes','orginalPrice'))->with($notification);
+            }else{
+                $notification = [
+                    'message' => 'Invalid Cupon',
+                    'alert-type' => 'error',
+                ];
+                return back()->with($notification);
+            }
+        }else{
+            $notification = [
+                'message' => 'Cupon name error',
                 'alert-type' => 'error',
             ];
             return back()->with($notification);

@@ -11,24 +11,41 @@ class FrontendController extends Controller
     //store user data method
     public function updateProfile(Request $request, $id)
     {
-        $user = User::find($id);
-        $ext = $request->image->extension();
-        $imgName = $user->email;
+
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,JPEG,PNG,JPG|max:3000',
             'name' => 'required|max:255',
             'dateofbirth' => 'required',
-            'phone' => 'required|numeric|min:11',
-            'address' => 'required|min:50'
+            'phone' => 'required|numeric',
+            'address' => 'required'
         ]);
+
+        $user = User::find($id);
+        $imgName = $user->email;
         $user->name = $request->name;
         $user->address = $request->address;
-        $user->image = $this->imgNameGenator($imgName, $ext);
+        $user->date_of_birth = $request->dateofbirth;
+        $user->phone = $request->phone;
+        if($request->image)
+        {
+            $img = $this->saveImage($request);
+            $user->image_url = $img['image_url'];
+            $user->image = $img['name'];
+        }
+      
         $user->save();
 
         return back();
     }
-
+   
+     // save image
+     public function saveImage($request)
+     {
+         $ext = $request->image->extension();
+         $name = 'Profile-' . uniqid() . '.' . $ext;
+         $save = $request->image->storeAs('user-profile', $name, 'public');
+         $saveUrl = config('app.url') . 'storage/' . $save;
+         return ['name' => $name, 'image_url' => $saveUrl];
+     }
 
     //image url generator
     private function imgNameGenator($email, $ext)
@@ -40,4 +57,5 @@ class FrontendController extends Controller
         }
         return $imageUrl;
     }
+
 }

@@ -53,9 +53,8 @@
                                     <ul class="has-submenu">
                                         @if (Auth::user()->roles[0]->name == 'buyer')
                                             <li><a href="{{ route('profile.create') }}">My Profile</a></li>
-                                            <li><a href="{{ route('odrer.create') }}">Orders</a></li>
-                                            <li><a href="{{ route('cart.create') }}">Cart</a></li>
-                                            <li><a href="{{ route('wisih.create') }}">Wishlist</a></li>
+                                            <li><a href="{{ route('view.cart',$authUser->id) }}">Cart</a></li>
+                                            <li><a href="{{ route('viewToWishts',$authUser->id) }}">Wishlist</a></li>
                                         @else
                                             <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
                                         @endif

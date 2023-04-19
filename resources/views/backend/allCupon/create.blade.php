@@ -51,7 +51,7 @@
                                 <h6 class="mb-0">Cupon Discount</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                <input type="text" class="form-control" id="slug" name="Cupon_Discount"
+                                <input type="number" class="form-control" id="slug" name="Cupon_Discount"
                                     placeholder="Cupon Discount 20% or 200$" required=""/>
                             </div>
                         </div>

@@ -10,6 +10,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class HomePageController extends Controller
 {
@@ -24,7 +25,7 @@ class HomePageController extends Controller
         $banners = Product::where('banner', 1)
             ->limit(4)
             ->latest()
-            ->get(['id', 'title', 'image_url', 'description']);
+            ->get(['id', 'title', 'image_url', 'description','slug_unique']);
         $most_view = Product::where('trending', 1)
             ->with('category', 'productPrice')
             ->limit(3)
@@ -206,6 +207,46 @@ class HomePageController extends Controller
         $id = Auth::user()->id;
         $user = User::with('roles')->find($id);
         return view('frontend.profile', compact('user'));
+    }
+
+    public function userChangePassword()
+    {
+        $id = Auth::user()->id;
+        $user = User::with('roles')->find($id);
+        return view('frontend.changePasswordUser',compact('user'));
+    }
+
+    public function userUpdatePassword(Request $request, $id)
+    {
+        $userData = User::find($id);
+        $oldPass = $userData->password;
+
+        $request->validate([
+            'current_password' => 'required|max:255',
+            'new_password' => 'required|max:255',
+            'confrim_password' => 'required|max:255|same:new_password',
+        ]);
+
+        if(Hash::check($request->current_password, $oldPass))
+        {
+            $userData->password = Hash::make($request->new_password);
+            $userData->save();
+            $notification = [
+                'message' => 'User Password Successfully Changed',
+                'alert-type' => 'success',
+            ];
+            return redirect()
+                ->back()
+                ->with($notification);
+        }else{
+            $notification = [
+                'message' => 'Current Password didnot match',
+                'alert-type' => 'error',
+            ];
+            return redirect()
+                ->back()
+                ->with($notification);
+        }
     }
 
     // order page

@@ -8,7 +8,7 @@
         <nav class="navbar navbar-expand">
             <div class="mobile-toggle-menu"><i class='bx bx-menu'></i>
             </div>
-            <div class="search-bar flex-grow-1">
+            {{-- <div class="search-bar flex-grow-1">
                 <div class="position-relative col-sm-12 search-bar-box">
                   
                         <input type="search" name="search" id="search" class="form-control search-control" placeholder="Type to search..."> <span
@@ -16,16 +16,11 @@
                             class='bx bx-search'></i></span>
                     <div id="productList" class="position-absolute col-sm-12 searchData">
                         <ul  class="position-absolute col-sm-12 searchData" style="z-index: 1">
-                            {{-- <li class="form-control col-sm-12 d-block" style="padding:12px 0 0 16px; margin: 4px 0;background:white;z-index:1"><a href=""> Medicine </a> </li>
-                            <li class="form-control d-block" style="padding:12px 0 0 16px; margin: 4px 0;background:white;z-index:1"><a href=""> Alarm</a></li>
-                            <li class="form-control d-block" style="padding:12px 0 0 16px; margin: 4px 0;background:white;z-index:1"><a href=""> Medicine</a></li>
-                            <li class="form-control d-block" style="padding:12px 0 0 16px; margin: 4px 0;background:white;z-index:1"><a href=""> Medicine</a></li>
-                            <li class="form-control d-block" style="padding:12px 0 0 16px; margin: 4px 0;background:white;z-index:1"><a href=""> Medicine</a></li> --}}
                         </ul>
                     </div>
 
                 </div>
-            </div>
+            </div> --}}
             <span>
                 <a class="btn btn-sm btn-outline-primary" target="_blank" href="{{ route('home.create') }}">View Website</a>
             </span>

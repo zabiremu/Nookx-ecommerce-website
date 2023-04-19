@@ -163,6 +163,9 @@ Route::controller(HomePageController::class)->group(function () {
 
     // ajax
     Route::get('/modal/product','modalProductId')->name('modal.product.id');
+
+    Route::get('user/change/password','userChangePassword')->name('user.change.password');
+    Route::put('user/update/password/{id}','userUpdatePassword')->name('user.password.update');
 });
 // HomePage Controller End
 
@@ -181,14 +184,20 @@ Route::controller(ProductsListsController::class)->group(function () {
 
 //Cart
 Route::controller(CartController::class)->group(function(){
-    Route::post('/add/to/cart', [CartController::class, 'add_to_cart'])->name('add.to.cart');
-    Route::get('/cart/view', [CartController::class, 'cart_view'])->name('cart.view');
     Route::get('/add-to-cart','addToCart')->name('addToCart');
     Route::get('/view/cart/{id}','viewCart')->name('view.cart');
     Route::get('/delete/cart/{id}','deleteCart')->name('delete.cart');
     Route::post('/add-to-cart-product/{id}','addToCartProduct')->name('addToCartProduct');
     Route::post('/update-cart-product/{id}','updataCart')->name('update.cart');
     Route::post('/add/to/cart/product','cartProduct')->name('cartProduct');
+
+    // wish lists
+    Route::get('add-wish-lists','addToWishts')->name('addToWishts');
+    Route::get('view-wish-lists/{id}','viewToWishts')->name('viewToWishts');
+
+    // cupon
+    Route::post('cupon/offer','offer')->name('cupon.offer');
+
 });
 
 // fortend all controller end

@@ -1,13 +1,22 @@
 {{-- header middle start --}}
 @php
-use App\Models\Cart;
-$authUser = Auth::user();
-if ($authUser !== null) {
-    $cartItmes = Cart::with('product')
-        ->where('user_id', $authUser->id)
-        ->get();
-    $total = App\Models\Cart::where('user_id', Auth::user()->id)->sum('price');
-}
+    use App\Models\Cart;
+    use App\Models\ProductWishlist;
+    $authUser = Auth::user();
+    if ($authUser !== null) {
+        $cartItmes = Cart::with('product')
+            ->where('user_id', $authUser->id)
+            ->get();
+        $total = App\Models\Cart::where('user_id', Auth::user()->id)->sum('price');
+    }
+    
+    $authUser = Auth::user();
+    if ($authUser !== null) {
+        $wishItem = ProductWishlist::with('product')
+            ->where('user_id', $authUser->id)
+            ->get();
+        $totalWisthPrice = App\Models\ProductWishlist::where('user_id', Auth::user()->id)->sum('price');
+    }
 @endphp
 
 
@@ -25,16 +34,7 @@ if ($authUser !== null) {
                 <div class="header-search">
                     <form action="{{ route('search-product-data') }}" method="POST">
                         @csrf
-                        <select class="select-active">
-                            <option>Select Pincode</option>
-                            <option>628233</option>
-                            <option>528233</option>
-                            <option>228233</option>
-                            <option>428233</option>
-                            <option>128233</option>
-                        </select>
-                        <input type="text" class="search"
-                            placeholder="Search for items…" name="product">
+                        <input type="text" class="search" placeholder="Search for items…" name="product">
                         <input type="submit" name="form-submit submit" class="submit-btn popup-toggle3">
                     </form>
                     <ul class="position-absolute col-lg-12 searchData" style="z-index: 1">
@@ -43,27 +43,22 @@ if ($authUser !== null) {
                 </div>
                 <div class="header-details">
                     <div class="header-inner">
-                        <label class="file-uploaded ml-15 me-2">
-                            Upload Prescription<input type="file">
-                        </label>
                         @auth
                             <div class="header-inner-icon ">
                                 <a class="small-cart-icon" href="javascript:;">
                                     <i class="feather-heart"></i>
-                                    <span class="pro-count blue">{{ count($cartItmes) }}</span>
+                                    <span class="pro-count blue">{{ count($wishItem) }}</span>
                                 </a>
                                 <div class="cart-dropdown-wrap">
-                                    <ul>
-                                        @forelse ($cartItmes as $item)
+                                    <ul id="wishlistsProducts">
+                                        @forelse ($wishItem as $item)
                                             <li>
                                                 <div class="shopping-cart-img">
-                                                    <a href="view-product.html"><img
-                                                            src="{{ asset('frontend/assets/img/shop/cart-img-01.jpg') }}"
+                                                    <a><img src="{{ $item->product->image_url }}"
                                                             alt=""></a>
                                                 </div>
                                                 <div class="shopping-cart-title">
-                                                    <h4><a href="view-product.html">Antiseptic Spray</a></h4>
-                                                    <h4>({{ $item->product_qty }})</h4>
+                                                    <h4><a>{{ $item->product->title }}</a></h4>
                                                 </div>
                                                 <div class="shopping-cart-value">
                                                     <h2>${{ $item->price }}</h2>
@@ -75,15 +70,10 @@ if ($authUser !== null) {
                                     </ul>
                                     <div class="shopping-cart-footer">
                                         <div class="shopping-cart-total">
-                                            <h4>Total <span>$3000.00</span></h4>
+                                            <h4>Total <span class="wish_total">${{ $totalWisthPrice }}</span></h4>
                                         </div>
                                         <div class="shopping-cart-btn">
-                                            <a href="{{ route('cart.view') }}" class="outline">View cart</a>
-                                            <form action="{{ route('cart.view') }}" method="get">
-                                                @csrf
-                                                <button
-                                                    class="{{ count($cartItmes) == 0 ? 'disabled' : '' }} btn btn-primary btn-sm">Checkout</button>
-                                            </form>
+                                            <a href="{{ route('viewToWishts', $authUser->id) }}" class="outline">View cart</a>
                                         </div>
                                     </div>
                                 </div>
@@ -102,11 +92,11 @@ if ($authUser !== null) {
                                         @forelse ($cartItmes as $item)
                                             <li>
                                                 <div class="shopping-cart-img">
-                                                    <a href="view-product.html"><img src="{{ $item->product->image_url }}"
+                                                    <a><img src="{{ $item->product->image_url }}"
                                                             alt=""></a>
                                                 </div>
                                                 <div class="shopping-cart-title">
-                                                    <h4><a href="view-product.html">{{ $item->name }}</a></h4>
+                                                    <h4><a>{{ $item->name }}</a></h4>
                                                     <h4>(x{{ $item->product_qty }})</h4>
                                                 </div>
                                                 <div class="shopping-cart-value">
@@ -124,8 +114,8 @@ if ($authUser !== null) {
                                         </div>
                                         <div class="shopping-cart-btn">
                                             @auth
-                                            <a href="{{ route('view.cart',$authUser->id) }}" class="outline">View cart</a>
-                                            <a href="checkout.html">Checkout</a>
+                                                <a href="{{ route('view.cart', $authUser->id) }}" class="outline">View cart</a>
+                                                <a href="checkout.html">Checkout</a>
                                             @endauth
                                         </div>
                                     </div>

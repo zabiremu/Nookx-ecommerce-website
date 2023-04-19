@@ -35,10 +35,10 @@
                                                             class="feather-x-circle"></i></a>
                                                 </td>
                                                 <td class="cart-store">
-                                                    <a href="view-product.html"><img src="{{ $item->product->image_url }}"
+                                                    <a href="{{ route('product.details.create', $item->product->slug_unique) }}"><img src="{{ $item->product->image_url }}"
                                                             class="img-fluid" alt=""></a>
                                                     <div class="sold-group">
-                                                        <a href="javascript:;">{{ $item->product->title }}</a>
+                                                        <a href="{{ route('product.details.create', $item->product->slug_unique) }}">{{ $item->product->title }}</a>
                                                     </div>
                                                 </td>
                                                 <td>
@@ -53,14 +53,9 @@
                                                         <div class="quntity-group  d-flex">
                                                             <div class="detail-extralink">
                                                                 <div class="detail-qty border radius">
-                                                                    {{-- <a href="#" class="qty-down"><i
-                                                                            class="fi-rs-minus-small"></i></a> --}}
-                                                                    {{-- <span class="qty-val">{{ $item->product_qty }}</span> --}}
                                                                     <input type="number" class="form-control"
                                                                         value="{{ $item->product_qty }}"
                                                                         name="product_qty">
-                                                                    {{-- <a href="#" class="qty-up"><i
-                                                                            class="fi-rs-plus-small"></i></a> --}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -86,32 +81,33 @@
                     <div class="shop-cart">
                         <div class="row">
                             <div class="col-lg-8 col-md-6">
-                                <form action="javascript:;">
+                                <form action="{{route('cupon.offer')}}" method="post">
+                                    @csrf
                                     <div class="shop-cart-action mb-3">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Coupon code">
+                                            <input type="text" class="form-control" placeholder="Coupon code" name="offer">
                                         </div>
-                                        <button type="button" class="btn continue-btn">Apply coupon</button>
+                                        <button class="btn continue-btn">Apply coupon</button>
                                     </div>
                                 </form>
                             </div>
                             <div class="col-lg-4 col-md-6">
                                 <div class="continue-shop d-flex align-items-center justify-content-end">
                                     <div class="shop-continuee">
-                                        <a href="shop-grid.html">Continue Shopping</a>
+                                        <a href="{{ url('/') }}">Continue Shopping</a>
                                     </div>
 
                                 </div>
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="shop-cart-info">
-                                            <p>Subtotal <span>${{ $total }} </span></p>
+                                            <p>Subtotal <span>${{ $orginalPrice == null ?  $total : round($orginalPrice)  }} </span></p>
                                             <ul class="shipping-list">
                                                 <li>Shipping</li>
                                                 <li>Free shipping</li>
                                                 <li>Shipping to Bangladesh. </li>
                                             </ul>
-                                            <p>Total <span class="total-brand">$320.00 </span></p>
+                                            <p>Total <span class="total-brand">${{ $orginalPrice == null ?  $total : round($orginalPrice)  }} </span></p>
                                             <a href="checkout.html" class="btn checkout-btn w-100">Proceed to checkout</a>
                                         </div>
                                     </div>
