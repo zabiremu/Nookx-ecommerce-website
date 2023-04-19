@@ -198,6 +198,8 @@ Route::controller(CartController::class)->group(function(){
     // cupon
     Route::post('cupon/offer','offer')->name('cupon.offer');
 
+    // checkout
+    Route::post('/checkout','checkout')->name('checkout');
 });
 
 // fortend all controller end

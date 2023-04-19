@@ -115,7 +115,8 @@
                                     @endif
 
                                     <div class="card-body">
-                                        <div class="shop-cart-info">
+                                        <form class="shop-cart-info" action="{{ route('checkout') }}" method="POST">
+                                            @csrf
                                             <p>Subtotal <span>
                                                     @if (isset($discountPrice))
                                                         {{ $new_price }}
@@ -143,8 +144,8 @@
                                                     @endif
                                                 </span>
                                             </p>
-                                            <a href="checkout.html" class="btn checkout-btn w-100">Proceed to checkout</a>
-                                        </div>
+                                            <button class="btn checkout-btn w-100">Proceed to checkout</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

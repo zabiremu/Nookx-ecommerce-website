@@ -312,4 +312,20 @@ class CartController extends Controller
             return back()->with($notification);
         }
     }
+
+    public function checkout(Request $request)
+    {
+        $request->validate([
+            'discount_price'=>'required',
+        ]);
+       $discountPrice= new DiscountPrice();
+       $discountPrice->user_id= Auth::user()->id;
+       $discountPrice->discount_price= $request->discount_price;
+       $discountPrice->save();
+
+       $price= DiscountPrice::find($discountPrice->id);
+
+       $cartItems= Cart::with('product','productPrice')->where('user_id',Auth::user()->id)->get();
+       return view('frontend.payment-gateway.index',compact('price','cartItems'));
+    }
 }
